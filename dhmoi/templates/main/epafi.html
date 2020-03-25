@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Επαφές</title>
+</head>
+<body>
+{% block content%}
+<div>
+	<a href="{% url 'epafi_new' %}" class="btn btn-primary btn-lg a-btn-slide-text">
+        <span class="fa fa-plus"></span>&nbsp<strong>Προσθήκη</strong>          
+    </a>
+    <a href="{% url 'export_contacts' %}" class="btn btn-success btn-lg a-btn-slide-text">
+        <span class="fa fa-download"></span>&nbsp<strong>Export</strong>         
+    </a>
+	<fieldset class="border p-1">
+   <legend  class="w-auto" style="color: #333399;">&nbspΦίλτρο</legend>
+<form method="get">
+    <div class="well">
+     
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.dhmos.label_tag }}
+          {% render_field filter.form.dhmos class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.firstname.label_tag }}
+          {% render_field filter.form.firstname class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.lastname.label_tag }}
+          {% render_field filter.form.lastname class="form-control" %}
+        </div>
+        </div>
+        <button type="submit" class="btn btn-primary"><span class="fa fa-search"></span>&nbspΑναζήτηση</button>
+  	</div>
+</form>
+</fieldset>
+</div>
+<div>
+&nbsp
+<table border="0"  class="table table-sm">
+  <thead>
+        <tr>
+            <th colspan="8" class="tbhead">Επαφές</th>
+        </tr>
+    </thead>
+	<tr style="color:#333399;">
+		<th>Πελάτης</th>
+		<th>Επώνυμο</th>
+		<th>Όνομα</th>
+		<th>Τμήμα</th>
+		<th>Τηλέφωνο</th>
+		<th>Κινητό</th>
+		<th>Email</th>
+		<th>Διόρθωση</th>
+	</tr>
+	{% for employee in filter.qs %}
+	<tr>
+		<td>{{employee.dhmos}}</td>
+		<td>{{employee.lastname}}</td>
+		<td>{{employee.firstname}}</td>
+		<td>{{employee.get_tmhma_display|default_if_none:""}}</td>
+		<td>{{employee.phone}}</td>
+		<td>{{employee.cellphone|default_if_none:""}}</td>
+		<td><font color="blue">{{employee.email|default_if_none:""}}</font></td>
+		<td><a href="{% url 'epafi_update' pk=employee.pk %}" class="btn btn-primary a-btn-slide-text"> 
+    <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
+    <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_epafi' pk=employee.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
+    </a>           
+    </a></td>
+	</tr>
+	{% endfor %}
+</table>
+</div>
+{% endblock %}
+
+</body>
+</html>

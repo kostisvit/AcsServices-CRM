@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<fieldset class="border p-1">
+   <legend  class="w-auto" style="color: #333399;">&nbspΠροσθήκη εγγραφής</legend>
+<form method="POST">{% csrf_token %}
+  <div class="form-row">
+    <div class="form-group col-md-4">
+    {{ aithmataform.dhmos|as_crispy_field }}
+    </div>
+     <div class="form-group col-md-4">
+    {{ aithmataform.importdate|as_crispy_field }}
+    </div>
+     <div class="form-group col-md-4">
+    {{ aithmataform.employee|as_crispy_field }}
+    </div>
+    <div class="form-group col-md-4">
+    {{ aithmataform.assign|as_crispy_field }}
+</div>
+	<div class="form-group col-md-4">
+	{{ aithmataform.closedate|as_crispy_field }}
+	</div>
+</div>
+<div class="form-row"style="clear:both;"> 
+  <div class="form-group col-md-6 mb-0">
+  {{ aithmataform.info|as_crispy_field }}
+  </div>
+  </div>
+<div class="form-row" style="clear:both; float: right; margin-right: 20px;">
+        
+<a href="{% url 'aithma' %}"><button type="button" class="save btn btn-primary">Επιστροφή</button></a>&nbsp&nbsp
+        <button type="submit" class="save btn btn-success">Αποθήκευση</button>
+      
+    </div>
+</form>
+</fieldset>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <title>Μαζιώτης Σταύρος & ΣΙΑ Ε.Ε</title>
+     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <a href="/" ><h3>Μαζιώτης Σταύρος & ΣΙΑ Ε.Ε</h3></a>
+        </div>
+        <ul class="list-unstyled components">
+            {% if user.is_authenticated %}
+  <p class="loguser"><b>Συνδεδεμένος χρήστης:</b>&nbsp{{ user.first_name }} {{ user.last_name }}</a> - {% now 'd/m/Y' %}</p>
+  {% endif %}
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-home"></span>&nbsp&nbspΑρχείο</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="{% url 'pelatis' %}">Πελάτες</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'epafi' %}">Επαφές</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'ergasia' %}">Εργασίες</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'adeia' %}">Άδειες</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'aithma' %}">Αιτήματα</a>
+                    </li>
+                    <li>
+                    <a href="#">Εκπαιδεύσεις</a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="#printSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-book"></span>&nbsp&nbspΕυρετήριο</a>
+                <ul class="collapse list-unstyled" id="printSubmenu">
+                    <li>
+                        <a href="#">Εργασίες</a>
+                    </li>
+                    <li>
+                        <a href="#">Άδειες</a>
+                    </li>
+                    <li>
+                        <a href="#">Πωλήσεις</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-desktop"></span>&nbsp&nbspACS</a>
+                <ul class="collapse list-unstyled" id="configSubmenu">
+                    <li>
+                        <a href="{% url 'polisi' %}">Πωλήσεις</a>
+                    </li>
+                    <li>
+                        <a href="#">Ταμειακές</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'service' %}">Service</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'hardware' %}">Hardware</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-warning">
+                        <i class="fas fa-align-left"></i>
+                        <span>Μενού εφαρμογής</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                              <li class="nav-item">
+                                <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">Διαχείριση</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Έξοδος</a>
+                            </li>
+                               
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            {% block content %}
+
+    {% endblock  %}
+    </div>
+
+</div>   
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+ 
+
+     <script type="text/javascript">
+        $(document).ready(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+});
+     </script>
+
+
+</body>
+
+</html>

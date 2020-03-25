@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+
+
+
+
+<fieldset class="border p-1">
+   <legend  class="w-auto" style="color: #333399;">&nbspΠροσθήκη εργασίας</legend>
+<form method="POST">{% csrf_token %}
+  <div class="form-row">
+    <div class="form-group col-md-4">
+    {{ergasiaform.dhmos|as_crispy_field}}
+    <button onClick="window.location.reload();" class="save btn btn-warning"><i class="fas fa-sync" style="color: white;"></i>
+    </button>&nbsp&nbsp<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus" style="color: white;"></i></button>
+    </div>
+     <div class="form-group col-md-4">
+    {{ergasiaform.importdate|as_crispy_field}}
+    </div>
+     <div class="form-group col-md-4">
+    {{ergasiaform.app|as_crispy_field}}
+    </div>
+    <div class="form-group col-md-4">
+    {{ergasiaform.jobtype|as_crispy_field}}
+</div>
+	<div class="form-group col-md-4">
+	{{ergasiaform.name|as_crispy_field}}
+	</div>
+  <div class="form-group col-md-4">
+    {{ergasiaform.time|as_crispy_field}}
+    </div>
+</div>
+<div class="form-row">
+    
+    <div class="form-group col-md-4">
+    {{ergasiaform.employee|as_crispy_field}}
+</div>
+	<div class="form-group col-md-4">
+	{{ergasiaform.ticketid|as_crispy_field}}
+	</div>
+</div>
+<div class="form-row" style="clear: both;">
+       <div class="form-group col-md-8 mb-0">
+       		{{ ergasiaform.info|as_crispy_field }}
+       		</div>
+       		<div class="form-group col-md-8 mb-0">
+       		{{ ergasiaform.text|as_crispy_field }}
+       		</div>
+       </div> 
+         <div class="form-row" style="clear:both; float: right; margin-right: 20px;">
+        <a href="{% url 'ergasia' %}"><button type="button" class="save btn btn-primary">Επιστροφή</button></a>&nbsp&nbsp
+        <button type="submit" class="save btn btn-success">Αποθήκευση</button>
+      
+    </div>
+</form>
+</fieldset>
+    {% endblock %}

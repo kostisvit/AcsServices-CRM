@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+<div class="container" style=" margin-top: 10%; width:25%;">
+	<center>
+		<img src="{% static 'Login-logo.png'%}">
+	</center>
+<form method="post" class="form-group">
+	{% csrf_token %}
+	{{ form|crispy }}
+	<h7>Δεν έχεις λογαριασμό; Πάτα <a href="{% url 'register' %}"> εδώ!</a></h7><br><br>
+	<button type="submit" class="btn btn-success" value="{{next}}">Είσοδος</button>
+</form>
+
+</div>
+<div class="footer" style="position: fixed;left: 0;bottom: 0; text-align: center;  width: 100%;"><p>Developed by Kostantinos Vitiniotis </p>
+Copyright@{% now "Y" %} Acs Services</div>
+{% endblock %}

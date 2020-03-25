@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+<body>
+	{% block content %}
+	<div>
+   <a href="{% url 'polisi_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη αιτήματος">
+        <span class="fa fa-plus"></span>&nbsp<strong>Προσθήκη</strong>
+    </a>
+    <a href="#" class="btn btn-success btn-lg a-btn-slide-text">
+        <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
+    </a>
+
+<fieldset class="border p-1">
+   <legend  class="w-auto" style="color: #333399;">&nbspΦίλτρο</legend>
+<form method="get">
+      {% csrf_token %}
+    <div class="well">
+
+      <div class="row">
+           <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.dhmos.label_tag }}
+          {% render_field filter.form.dhmos class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.etos.label_tag }}
+          {% render_field filter.form.etos class="form-control" %}
+        </div>
+             <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.status.label_tag }}
+          {% render_field filter.form.status class="form-control" %}
+        </div>
+       </div>
+             <button type="submit" class="btn btn-primary">
+        <span class="fa fa-search"></span>&nbspΑναζήτηση
+      </button>
+        </div>
+</form>
+</fieldset>
+    </div>
+&nbsp
+<table class="table table-sm" id="table1">
+<thead>
+        <tr>
+            <th colspan="10" class="tbhead" style="color: #333399;">Αιτήματα</th>
+        </tr>
+    </thead>
+  <tr>
+		<th>Πελάτης</th>
+		<th>Είδος</th>
+		<th>Ποσότητα</th>
+		<th>Συνολ. τιμή</th>
+		<th>Καταγραφή</th>
+		<th>Έτος</th>
+    <th>Status</th>
+		<th>Διόρθωση</th>
+	</tr>
+  {% for polisi in filter.qs %}
+	<tr>
+		<td>{{polisi.dhmos}}</td>
+		<td>{{polisi.eidos}}</td>
+		<td>{{polisi.posothta}}</td>
+		<td>{{polisi.sinoltimi}}</td>
+		<td>{{polisi.katagrafi|date:"d/m/Y"}}</font></td>
+		<td>{{polisi.etos}}</td>
+    <td><b><font color="red">{{polisi.status}}</font></b></td>
+
+
+		<td ><a href="{% url 'polisi_update' %}" class="btn btn-primary a-btn-slide-text">
+    <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
+        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="#{% url 'delete_polisi' pk=polisi.pk %}">
+            <span><span><i class="fa fa-trash" aria-hidden="true"></i></span>
+    </a>
+    </a></td>
+	</tr>
+	{% endfor %}
+
+
+</table>
+	{% endblock %}
+
+</body>

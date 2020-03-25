@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+<div>
+   <a href="{% url 'service_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη πελάτη">
+        <span class="fa fa-plus"></span>&nbsp<strong>Προσθήκη</strong>
+    </a>
+    <a href="#" class="btn btn-success btn-lg a-btn-slide-text">
+        <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
+    </a>
+
+<fieldset class="border p-1">
+   <legend  class="w-auto" style="color: #333399;">&nbspΦίλτρο</legend>
+<form method="get">
+      {% csrf_token %}
+    <div class="well">
+
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.customername.label_tag }}
+          {% render_field filter.form.customername class="form-control" %}
+        </div>
+           <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.phone.label_tag }}
+          {% render_field filter.form.phone class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.cellphone.label_tag }}
+          {% render_field filter.form.cellphone class="form-control" %}
+        </div>
+          <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.employee.label_tag }}
+          {% render_field filter.form.employee class="form-control" %}
+        </div>
+          <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.year.label_tag }}
+          {% render_field filter.form.year class="form-control" %}
+        </div>
+       </div>
+             <button type="submit" class="btn btn-primary">
+        <span class="fa fa-search"></span>&nbspΑναζήτηση
+      </button>
+        </div>
+</form>
+</fieldset>
+</div>
+&nbsp
+<table class="table table-sm" id="table1">
+<thead>
+        <tr>
+            <th colspan="10" class="tbhead" style="color: #333399;">Service</th>
+        </tr>
+    </thead>
+  <tr style="color: #333399;">
+  	    <th>Πελάτης</th>
+		<th>Τηλέφωνο</th>
+		<th>Κινητό</th>
+		<th>Ημ.Εισαγ.</th>
+		<th>Ημ.Εξαγ.</th>
+		<th>Έτος</th>
+		<th>Βλάβη</th>
+		<th>Κόστος</th>
+        <th>ACS</th>
+		<th>Διόρθωση</th>
+  </tr>
+  {% for service in filter.qs %}
+	<tr>
+		<td>{{service.customername}}</td>
+		<td>{{service.phone}}</td>
+		<td>{{service.cellphone}}</td>
+		<td>{{service.importdate|date:"d/m/Y"}}</td>
+		<td><font color="red">{{service.exportdate|date:"d/m/Y"}}</font></td>
+		<td>{{service.year}}</td>
+		<td class="text_align">{{service.info}}</td>
+		<td>{{service.cost}}</td>
+        <td>{{service.employee.get_full_name}}</td>
+        <td ><a href="{% url 'service_update' pk=service.pk %}" class="btn btn-primary a-btn-slide-text">
+    <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
+        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_service' pk=service.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i>/span>
+    </a>
+    </a></td>
+	</tr>
+	{% endfor %}
+
+</table>
+
+{% endblock %}

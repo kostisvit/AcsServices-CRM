@@ -1,0 +1,74 @@
+{% load static %}
+
+ <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+{% block content %}
+<center >
+        <img src="{% static 'Login-logo.png'%}" style="margin-top: 50px;">
+    </center>
+    <div class="container" style=" margin-top: 50px;">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Εγγραφή Χρήστη
+                            {% if messages %}
+                            {% for message in messages %}
+    <center><strong><p style="color: blue;"  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} Πατήστε <a href="{% url 'login' %}" style="color: green;">εδώ </a>για να συνδεθείτε</p></strong></center>
+                            {% endfor %}
+                            {% endif %}
+                    </div>
+                     
+                    <div class="panel-body">
+                        {% if error_message %}
+                            <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                        {% endif %}
+                        
+                        <div class="form-group clearfix">
+                            <label for="{{ form.username.id_for_label }}" class="col-md-4 control-label text-right">Όνομα χρήστη:<span class="text-red">*</span>:</label>
+                            <div class="col-md-6">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.email.id_for_label }}" class="col-md-4 control-label text-right">Email:<span class="text-red">*</span>:</label>
+                            <div class="col-md-6">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.password.id_for_label }}" class="col-md-4 control-label text-right">Κωδικός:<span class="text-red">*</span>:</label>
+                            <div class="col-md-6">
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.password_repeat.id_for_label }}" class="col-md-4 control-label text-right">Επιβεβ. κωδικού:</label>
+                            <div class="col-md-6">
+                                {{ form.password_repeat }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.first_name.id_for_label }}" class="col-md-4 control-label text-right">Όνομα:</label>
+                            <div class="col-md-6">
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.last_name.id_for_label }}" class="col-md-4 control-label text-right">Επίθετο:</label>
+                            <div class="col-md-6">
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-md-offset-4">
+                            <input type="submit" value="Εγγραφή" class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}
