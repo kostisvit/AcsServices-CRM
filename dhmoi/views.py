@@ -80,4 +80,8 @@ def hardware(request):
     return render(request, 'main/hardware.html', context)
 
 
+@login_required
+def training(request):
+    return render(request, 'main/training.html', context)
+
 
