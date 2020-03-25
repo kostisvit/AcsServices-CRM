@@ -82,6 +82,6 @@ def hardware(request):
 
 @login_required
 def training(request):
-    return render(request, 'main/training.html', context)
+    return render(request, 'main/training.html')
 
 
