@@ -76,6 +76,15 @@ polisi_choice = (
     ('CLOSED', 'CLOSED')
 )
 
+foreas_choice = (
+    ('OTS','OTS'),
+    ('Interlei','Interlei')
+)
+
+training_choice = (
+    ('Εκπαίδευση','Εκπαίδευση'),
+)
+
 
 def current_year():
     return datetime.date.today().year
@@ -220,6 +229,22 @@ class Polisi(models.Model):
     class Meta:
         verbose_name = 'Πωλήσεις'
         verbose_name_plural = 'Πωλήσεις'
+
+
+class Training(models.Model):
+    foreas = models.CharField(max_length=100, choices=foreas_choice, verbose_name='Φορέας', default='OTS')
+    importdate = models.DateField(default=datetime.date.today, verbose_name='Καταχώρηση')
+    training_type = models.CharField(max_length=100, choices=training_choice, verbose_name='Εκαπίδευση', blank=False, default='Εκπαίδευση')
+    app = models.CharField(max_length=100, choices=app_choice,verbose_name='Εφαρμογή', blank=True)
+    time = models.CharField(max_length=20, verbose_name='Διάρκεια', default=0)
+    employee = models.ForeignKey('auth.User', max_length=100, verbose_name='Υπάλληλος', on_delete=models.CASCADE)
+    info = models.TextField(max_length=500, verbose_name='Περιγραφή ', null=True, blank=True)
+
+    class Meta: 
+        verbose_name = 'Εκπαιδεύσεις'
+        verbose_name_plural = 'Εκπαιδεύσεις'
+
+
 
 
 def user_directory_path(instance, filename):

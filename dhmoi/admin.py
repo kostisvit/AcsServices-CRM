@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import Dhmos, Employee, Service, Ergasies, Aithmata, Adeia, Hardware, Polisi, Profile
+from .models import Dhmos, Employee, Service, Ergasies, Aithmata, Adeia, Hardware, Polisi, Profile, Training
 from django.contrib.auth.models import User, Group
 from django.contrib.admin.models import LogEntry
 from import_export import fields,resources
@@ -91,6 +91,10 @@ class PolisiAdmin(ImportExportModelAdmin):
 	list_display = ('dhmos','eidos','posothta','sinoltimi','katagrafi','etos')
 
 
+class TrainingAdmin(ImportExportModelAdmin):
+	list_display = ('foreas', 'importdate', 'training_type', 'app', 'time', 'employee')
+
+
 admin.site.register(Dhmos, DhmosAdmin)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Ergasies, ErgasiesAdmin)
@@ -100,6 +104,7 @@ admin.site.register(Adeia, AdeiesAdmin)
 admin.site.register(Hardware)
 admin.site.register(Polisi, PolisiAdmin)
 admin.site.register(Profile)
+admin.site.register(Training, TrainingAdmin)
 
 
 
