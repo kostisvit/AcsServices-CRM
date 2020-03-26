@@ -92,7 +92,8 @@ class PolisiAdmin(ImportExportModelAdmin):
 
 
 class TrainingAdmin(ImportExportModelAdmin):
-	list_display = ('foreas', 'importdate', 'training_type', 'app', 'time', 'employee')
+	list_display = ('foreas', 'importdate', 'training_type', 'app', 'time', 'employee', 'created_at', 'updated_at')
+	
 
 
 admin.site.register(Dhmos, DhmosAdmin)

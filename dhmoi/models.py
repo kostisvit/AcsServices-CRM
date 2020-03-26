@@ -239,6 +239,8 @@ class Training(models.Model):
     time = models.CharField(max_length=20, verbose_name='Διάρκεια', default=0)
     employee = models.ForeignKey('auth.User', max_length=100, verbose_name='Υπάλληλος', on_delete=models.CASCADE)
     info = models.TextField(max_length=500, verbose_name='Περιγραφή ', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta: 
         verbose_name = 'Εκπαιδεύσεις'
