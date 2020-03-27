@@ -67,7 +67,7 @@
     <td><b><font color="red">{{polisi.status}}</font></b></td>
 
 
-		<td ><a href="{% url 'polisi_update' %}" class="btn btn-primary a-btn-slide-text">
+		<td ><a href="{% url 'polisi_update' pk=polisi.pk %}" class="btn btn-primary a-btn-slide-text">
     <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
         <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="#{% url 'delete_polisi' pk=polisi.pk %}">
             <span><span><i class="fa fa-trash" aria-hidden="true"></i></span>
