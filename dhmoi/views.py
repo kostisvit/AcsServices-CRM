@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from .filters import PelatisFilter, EpafiFilter, ErgasiaFilter, AithmaFilter, PolisiFilter, ServiceFilter
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Hardware
+from .filters import PelatisFilter, EpafiFilter, ErgasiaFilter, AithmaFilter, PolisiFilter, ServiceFilter, TrainingFilter
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Hardware, Training
 from django.contrib.auth.decorators import login_required
 from .add_records import dhmospost_new, epafi_new, ergasia_new, adeia_new, aithma_new, polisi_new, service_new
 from .delete_records import delete_pelatis, delete_epafi, delete_ergasia, delete_adeia, delete_aithma, delete_polisi, \
@@ -50,6 +50,14 @@ def adeia(request):
 
 
 @login_required
+def training(request):
+    today = datetime.date.today()
+    alltrainings = Training.objects.filter(importdate__year=today.year, employee=request.user).order_by('-importdate')
+    training_filter = TrainingFilter(request.GET, queryset=alltrainings)
+    return render(request,'main/training.html', {'filter': training_filter})
+
+
+@login_required
 def aithma(request):
     today = datetime.date.today()
     allaithmata = Aithmata.objects.filter(importdate__year=today.year).order_by('-importdate')
@@ -80,8 +88,5 @@ def hardware(request):
     return render(request, 'main/hardware.html', context)
 
 
-@login_required
-def training(request):
-    return render(request, 'main/training.html')
 
 

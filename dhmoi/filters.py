@@ -1,4 +1,4 @@
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
 import django_filters
 from django.contrib.auth.models import User
 from django_filters.widgets import RangeWidget
@@ -100,3 +100,16 @@ class ServiceFilter(django_filters.FilterSet):
     class Meta:
         model = Service
         fields = ['customername', 'phone', 'cellphone', 'employee', 'year']
+
+
+foreas_choice = (
+    ('OTS','OTS'),
+    ('Interlei','Interlei')
+)
+
+class TrainingFilter(django_filters.FilterSet):
+    foreas = django_filters.ChoiceFilter(choices=foreas_choice, label='Φορέας')
+    
+    class Meta:
+        model = Training
+        fields = ['foreas','employee']

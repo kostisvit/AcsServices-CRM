@@ -86,6 +86,7 @@ training_choice = (
 )
 
 
+
 def current_year():
     return datetime.date.today().year
 
@@ -163,6 +164,8 @@ class Ergasies(models.Model):
     time = models.CharField(max_length=20, verbose_name='Διάρκεια', default=0)
     name = models.CharField(max_length=100, verbose_name='Υπάλληλος Επικοιν.', null=True, help_text='Επώνυμο-Όνομα',blank=True)
     ticketid = models.CharField(max_length=50, verbose_name='Αίτημα OTS', blank=True)
+    
+    
 
     class Meta:
         verbose_name = 'Εργασίες'
