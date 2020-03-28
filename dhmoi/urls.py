@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^export-ergasies/xls/$', views.export_ergasies, name='export_ergasies'),
     url(r'^export-aithmata/xls/$', views.export_aithmata, name='export_aithmata'),
     url(r'^export-adeia/xls/$', views.export_adeia, name='export_adeia'),
-
+     url(r'^export-training/xls/$', views.export_training, name='export_training'),
 
 
 

@@ -1,4 +1,4 @@
-from .models import Ergasies, Employee, Dhmos, Aithmata, Adeia
+from .models import Ergasies, Employee, Dhmos, Aithmata, Adeia, Training
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.models import User
 import xlwt
@@ -177,3 +177,45 @@ def export_adeia(request):
             ws.write(row_num, col_num, row[col_num], font_style)
             wb.save(response)
     return response
+
+
+# export εκπαιδεύσεις
+def export_training(request):
+    training_queryset = Training.objects.all()
+
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=training.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Training')
+    columns = [
+        'Φορέας',
+        'Χώρος',
+        'Ημ. Καταχ.',
+        'Εργασία',
+        'Εφαρμογή',
+        'Διάρκεια',
+        'Υπάλληλος',
+    ]
+    row_num = 1
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    font_style = xlwt.XFStyle()
+    for training in training_queryset:
+        row_num += 1
+        row = [
+            training.foreas,
+            training.place,
+            training.importdate.strftime('%d/%m/%Y'),
+            training.training_type,
+            training.app,
+            training.time,
+            training.employee.last_name + " " + training.employee.first_name,
+        ]
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+    wb.save(response)
+
+    return response
+
