@@ -42,12 +42,9 @@ class EmployeeForm(forms.ModelForm):
 
 
 class ErgasiaForm(forms.ModelForm):
-    dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by(
-        'name'), label='Πελάτης', required=True)
-    name = NameChoiceField(queryset=Employee.objects.order_by(
-        'lastname'), label='Υπάλληλος Επικοιν.', required=False)
-    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),
-                                    label='Υπάλληλος ACS')
+    dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
+    name = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
+    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),label='Υπάλληλος ACS')
 
     class Meta:
         model = Ergasies
@@ -67,8 +64,7 @@ class ErgasiaForm(forms.ModelForm):
 
 
 class AdeiaForm(forms.ModelForm):
-    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),
-                                    label='Υπάλληλος ACS')
+    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),label='Υπάλληλος ACS')
 
     class Meta:
         model = Adeia
