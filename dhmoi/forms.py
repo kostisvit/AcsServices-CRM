@@ -40,6 +40,8 @@ class EmployeeForm(forms.ModelForm):
         super(EmployeeForm, self).__init__(*args, **kwargs)
         self.fields['dhmos'].queryset = Dhmos.objects.filter(is_visible=True)
 
+   
+
 
 class ErgasiaForm(forms.ModelForm):
     dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)

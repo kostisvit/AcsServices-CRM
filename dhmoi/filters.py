@@ -60,6 +60,10 @@ class ErgasiaFilter(django_filters.FilterSet):
         super(ErgasiaFilter, self).__init__(*args, **kwargs)
         if self.data == {}:
             self.queryset = self.queryset.none()
+     
+
+ 
+        
 
 
 class AithmaFilter(django_filters.FilterSet):

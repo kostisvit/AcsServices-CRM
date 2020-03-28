@@ -87,6 +87,16 @@ def hardware(request):
     context = {'allhardware': allhardware}
     return render(request, 'main/hardware.html', context)
 
+@login_required
+def ergasia_search(request):
+    return render(request, 'search/ergasia_search.html')
 
 
+@login_required
+def adeia_search(request):
+    return render(request, 'search/adeia_search.html')
 
+
+@login_required
+def polisi_search(request):
+    return render(request,'search/polisi_search.html')
