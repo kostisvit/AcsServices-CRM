@@ -8,7 +8,7 @@
 <body>
 {% block content%}
 <div>
-   <a href="#" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη πελάτη">
+   <a href="{% url 'training_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη πελάτη">
         <span class="fa fa-plus"></span>&nbsp<strong>Προσθήκη</strong>          
     </a>
     <a href="#" class="btn btn-success btn-lg a-btn-slide-text">
@@ -47,25 +47,27 @@
         </tr>
     </thead>
   <tr style="color: #333399;">
-  	    <th>Φορέας</th>
+  	<th>Φορέας</th>
 		<th>Καταχ.</th>
 		<th>Εργασία</th>
+    <th>Χώρος</th>
 		<th>Εφαρμογή</th>
 		<th>Διάρκεια</th>
 		<th>Υπάλληλος</th>
-        <th>Διόρθωση</th>
+    <th>Διόρθωση</th>
   </tr>
   {% for training in filter.qs %}
   <tr>
     <td>{{training.foreas}}</td>
     <td>{{training.importdate|date:"d/m/Y"}}</td>
     <td>{{training.training_type}}</td>
+    <td>{{training.place}}</td>
     <td>{{training.get_app_display}}</td>
     <td>{{training.time}}</td>
     <td>{{training.employee.get_full_name}}</td>
-    <td><a href="#" class="btn btn-primary a-btn-slide-text">
+    <td><a href="{% url 'training_update' pk=training.pk %}" class="btn btn-primary a-btn-slide-text">
     <span><i class="fa fa-eye" aria-hidden="true"></i></span></a>  
-        <a href="#" class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');"><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
+        <a href="{% url 'delete_training' pk=training.pk %}" class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');"><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
            
     </a></td>
   </tr>

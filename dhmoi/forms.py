@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
 from django.forms import ModelChoiceField
 from django.contrib.auth.models import User
 
@@ -63,6 +63,7 @@ class ErgasiaForm(forms.ModelForm):
         super(ErgasiaForm, self).__init__(*args, **kwargs)
         self.fields['dhmos'].queryset = Dhmos.objects.filter(is_visible=True)
         self.fields['name'].queryset = Employee.objects.filter(is_visible=True)
+        
 
 
 class AdeiaForm(forms.ModelForm):
@@ -130,6 +131,19 @@ class ServiceForm(forms.ModelForm):
             'importdate': DateInput(),
             'exportdate': DateInput(),
         }
+
+
+
+class TrainingForm(forms.ModelForm):
+    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),label='Υπάλληλος ACS')
+
+    class Meta:
+        model = Training
+        fields = '__all__'
+        widgets = {
+            'importdate': DateInput(),
+        }
+
 
 
 class RegisterForm(forms.Form):

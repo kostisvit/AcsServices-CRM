@@ -85,6 +85,12 @@ training_choice = (
     ('Εκπαίδευση','Εκπαίδευση'),
 )
 
+training_place = (
+    ('Remote','Remote'),
+    ('Γραφεία OTS','Γραφεία OTS'),
+    ('Γραφείο ACS','Γραφείο ACS')
+)
+
 
 
 def current_year():
@@ -236,10 +242,11 @@ class Polisi(models.Model):
 
 class Training(models.Model):
     foreas = models.CharField(max_length=100, choices=foreas_choice, verbose_name='Φορέας', default='OTS')
+    place = models.CharField(max_length=100, choices=training_place, verbose_name='Χώρος', default='-')
     importdate = models.DateField(default=datetime.date.today, verbose_name='Καταχώρηση')
     training_type = models.CharField(max_length=100, choices=training_choice, verbose_name='Εκαπίδευση', blank=False, default='Εκπαίδευση')
     app = models.CharField(max_length=100, choices=app_choice,verbose_name='Εφαρμογή', blank=True)
-    time = models.FloatField()
+    time = models.FloatField(verbose_name='Διάρκεια')
     employee = models.ForeignKey('auth.User', max_length=100, verbose_name='Υπάλληλος', on_delete=models.CASCADE)
     info = models.TextField(max_length=500, verbose_name='Περιγραφή ', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -268,10 +275,12 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     days_sum = models.IntegerField(verbose_name="Σύνολο άδειας έτους", null=False, blank=False, default='0')
     days_left = models.IntegerField(verbose_name="Υπόλοιπο προηγούμενου έτους", null=False, blank=False, default='0')
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Προφίλ χρήστη'
         verbose_name_plural = 'Προφίλ χρήστη'
+
 
     def __str__(self):
         return str(self.user)

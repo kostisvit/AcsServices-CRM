@@ -92,7 +92,7 @@ class PolisiAdmin(ImportExportModelAdmin):
 
 
 class TrainingAdmin(ImportExportModelAdmin):
-	list_display = ('foreas', 'importdate', 'training_type', 'app', 'time', 'employee', 'created_at', 'updated_at')
+	list_display = ('foreas', 'importdate', 'place', 'training_type', 'app', 'time', 'employee', 'created_at', 'updated_at')
 	
 
 

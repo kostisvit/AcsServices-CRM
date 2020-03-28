@@ -68,6 +68,7 @@ class AithmaFilter(django_filters.FilterSet):
     class Meta:
         model = Aithmata
         fields = ['dhmos', 'employee', 'assign']
+        
 
     def __init__(self, *args, **kwargs):
         super(AithmaFilter, self).__init__(*args, **kwargs)

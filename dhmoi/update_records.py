@@ -1,7 +1,7 @@
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from .forms import DhmosForm, EmployeeForm, ErgasiaForm, AdeiaForm, AithmataForm, PolisiForm, ServiceForm
+from .forms import DhmosForm, EmployeeForm, ErgasiaForm, AdeiaForm, AithmataForm, PolisiForm, ServiceForm, TrainingForm
 
 
 @login_required
@@ -109,3 +109,18 @@ def service_update(request, pk):
     else:
         form = ServiceForm(instance=post)
     return render(request, 'update_records/service_update.html', {'serviceform': form})
+
+
+@login_required
+def training_update(request, pk):
+    post = get_object_or_404(Training, pk=pk)
+    if request.method == "POST":
+        form = TrainingForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('training')
+    else:
+        form = TrainingForm(instance=post)
+    return render(request, 'update_records/training_update.html', {'trainingform': form})
