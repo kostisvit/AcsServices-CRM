@@ -1,4 +1,4 @@
-from .models import Ergasies, Employee, Dhmos, Aithmata, Adeia, Training
+from .models import Ergasies, Employee, Dhmos, Aithmata, Adeia, Training, Hardware
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.models import User
 import xlwt
@@ -219,3 +219,46 @@ def export_training(request):
 
     return response
 
+
+# export hardware
+def export_hardware(request):
+    hardware_queryset = Hardware.objects.all()
+
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=hardware.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Hardware')
+    columns = [
+        'Υπάλληλος',
+        'Η/Υ',
+        'Επεξεργαστής',
+        'Μνήμη',
+        'Οθόνη',
+        'Λειτουργικό',
+        'Office',
+        'Printer',
+    ]
+    row_num = 1
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    font_style = xlwt.XFStyle()
+    for hardware in hardware_queryset:
+        row_num += 1
+        row = [
+            hardware.employee.last_name + " " + hardware.employee.first_name,
+            hardware.pcbrand,
+            hardware.cpu,
+            hardware.ram,
+            hardware.hdd,
+            hardware.monitor,
+            hardware.windows,
+            hardware.office,
+            hardware.printer
+        ]
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+    wb.save(response)
+
+    return response

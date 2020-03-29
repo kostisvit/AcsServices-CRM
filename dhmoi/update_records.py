@@ -1,7 +1,7 @@
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training, Hardware
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from .forms import DhmosForm, EmployeeForm, ErgasiaForm, AdeiaForm, AithmataForm, PolisiForm, ServiceForm, TrainingForm
+from .forms import DhmosForm, EmployeeForm, ErgasiaForm, AdeiaForm, AithmataForm, PolisiForm, ServiceForm, TrainingForm, HardwareForm
 
 
 @login_required
@@ -125,3 +125,18 @@ def training_update(request, pk):
     else:
         form = TrainingForm(instance=post)
     return render(request, 'update_records/training_update.html', {'trainingform': form})
+
+
+@login_required
+def hardware_update(request, pk):
+    post = get_object_or_404(Hardware, pk=pk)
+    if request.method == "POST":
+        form = HardwareForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('hardware')
+    else:
+        form = HardwareForm(instance=post)
+    return render(request, 'update_records/hardware_update.html', {'hardwareform': form})

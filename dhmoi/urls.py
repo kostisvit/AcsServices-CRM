@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'acs-services/main/service', views.service, name='service'),
     url(r'acs-services/update-records/service/(?P<pk>\d+)/',views.service_update, name='service_update'),
     url(r'acs-services/main/hardware', views.hardware, name='hardware'),
+    url(r'acs-services/update-records/hardware/(?P<pk>\d+)/',views.hardware_update, name='hardware_update'),
     url(r'acs-services/main/training', views.training, name='training'),
     url(r'acs-services/search/eragsies-search', views.ergasia_search, name='ergasia_search'),
     url(r'acs-services/search/adeia-search', views.adeia_search, name='adeia_search'),
@@ -48,7 +49,8 @@ urlpatterns = [
     url(r'^export-ergasies/xls/$', views.export_ergasies, name='export_ergasies'),
     url(r'^export-aithmata/xls/$', views.export_aithmata, name='export_aithmata'),
     url(r'^export-adeia/xls/$', views.export_adeia, name='export_adeia'),
-     url(r'^export-training/xls/$', views.export_training, name='export_training'),
+    url(r'^export-training/xls/$', views.export_training, name='export_training'),
+    url(r'^export-hardware/xls/$', views.export_hardware, name='export_hardware'),
 
 
 
