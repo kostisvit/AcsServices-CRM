@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 from .filters import PelatisFilter, EpafiFilter, ErgasiaFilter, AithmaFilter, PolisiFilter, ServiceFilter, TrainingFilter, HardwareFilter
 from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Hardware, Training
 from django.contrib.auth.decorators import login_required
-from .add_records import dhmospost_new, epafi_new, ergasia_new, adeia_new, aithma_new, polisi_new, service_new, training_new
+from .add_records import dhmospost_new, epafi_new, ergasia_new, adeia_new, aithma_new, polisi_new, service_new, training_new, hardware_new
 from .delete_records import delete_pelatis, delete_epafi, delete_ergasia, delete_adeia, delete_aithma, delete_polisi, \
-    delete_service, delete_training
+    delete_service, delete_training, delete_hardware
 from .export import export_pelates, export_contacts, export_ergasies, export_aithmata, export_adeia, export_training
 from .update_records import pelatis_update, epafi_update, ergasia_update, adeia_update, aithma_update, polisi_update, \
     service_update, training_update

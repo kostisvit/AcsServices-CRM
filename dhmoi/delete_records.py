@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, get_object_or_404
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training, Hardware
 
 
 def delete_pelatis(request, pk):
@@ -48,3 +48,8 @@ def delete_training(request, pk):
     object = Training.objects.get(pk=pk)
     object.delete()
     return redirect('training')
+
+def delete_hardware(request, pk):
+    object = Hardware.objects.get(pk=pk)
+    object.delete()
+    return redirect('hardware')

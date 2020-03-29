@@ -275,7 +275,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     days_sum = models.IntegerField(verbose_name="Σύνολο άδειας έτους", null=False, blank=False, default='0')
     days_left = models.IntegerField(verbose_name="Υπόλοιπο προηγούμενου έτους", null=False, blank=False, default='0')
-    is_active = models.BooleanField(default=True)
+    
 
     class Meta:
         verbose_name = 'Προφίλ χρήστη'

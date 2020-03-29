@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import DhmosForm, EmployeeForm, AdeiaForm, ErgasiaForm, AithmataForm, PolisiForm, ServiceForm, TrainingForm
+from .forms import DhmosForm, EmployeeForm, AdeiaForm, ErgasiaForm, AithmataForm, PolisiForm, ServiceForm, TrainingForm, HardwareForm
 from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
 from django.contrib.auth.models import User
 
@@ -116,6 +116,20 @@ def training_new(request):
     else:
         form = TrainingForm()
     return render(request, 'add_records/training_new.html', {'trainingform': form})
+
+
+@login_required
+def hardware_new(request):
+    if request.method == "POST":
+        form = HardwareForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('hardware')
+    else:
+        form = HardwareForm()
+    return render(request, 'add_records/hardware_new.html', {'hardwareform': form})
 
 
 

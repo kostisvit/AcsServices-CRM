@@ -118,6 +118,13 @@ class TrainingFilter(django_filters.FilterSet):
     class Meta:
         model = Training
         fields = ['foreas','employee']
+    
+    def __init__(self, *args, **kwargs):
+        super(TrainingFilter, self).__init__(*args, **kwargs)
+        if self.data == {}:
+            self.queryset = self.queryset.none()
+    
+    
 
 
 
@@ -126,3 +133,8 @@ class HardwareFilter(django_filters.FilterSet):
     class Meta:
         model = Hardware
         fields = ['employee',]
+
+    def __init__(self, *args, **kwargs):
+        super(HardwareFilter, self).__init__(*args, **kwargs)
+        if self.data == {}:
+            self.queryset = self.queryset.none()

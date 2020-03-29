@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training, Hardware
 from django.forms import ModelChoiceField
 from django.contrib.auth.models import User
 
@@ -141,6 +141,13 @@ class TrainingForm(forms.ModelForm):
         widgets = {
             'importdate': DateInput(),
         }
+
+
+class HardwareForm(forms.ModelForm):
+    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),label='Υπάλληλος ACS')
+    class Meta:
+        model = Hardware
+        fields = '__all__'
 
 
 

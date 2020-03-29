@@ -5,8 +5,8 @@
 <body>
 	{% block content %}
 	<div>
-   <a href="#" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη αιτήματος">
-        <span class="fa fa-plus"></span>&nbsp<strong>Προσθήκη</strong>          
+   <a href="{% url 'hardware_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη αιτήματος">
+        <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>          
     </a>
     <a href="#" class="btn btn-success btn-lg a-btn-slide-text">
         <span class="fa fa-download"></span>&nbsp<strong>Export</strong>         
@@ -62,7 +62,7 @@
         <td>{{hardware.printer}}</td>
     <td ><a href="#" class="btn btn-primary a-btn-slide-text">
     <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
-        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="#">
+        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_hardware' pk=hardware.pk %}">
         <span><i class="fa fa-trash" aria-hidden="true"></i></span>
     </a>
     </a></td>
