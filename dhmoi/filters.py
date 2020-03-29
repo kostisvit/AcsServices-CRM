@@ -1,4 +1,4 @@
-from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training
+from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training, Hardware
 import django_filters
 from django.contrib.auth.models import User
 from django_filters.widgets import RangeWidget
@@ -118,3 +118,11 @@ class TrainingFilter(django_filters.FilterSet):
     class Meta:
         model = Training
         fields = ['foreas','employee']
+
+
+
+class HardwareFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Hardware
+        fields = ['employee',]

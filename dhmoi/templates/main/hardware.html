@@ -11,7 +11,24 @@
     <a href="#" class="btn btn-success btn-lg a-btn-slide-text">
         <span class="fa fa-download"></span>&nbsp<strong>Export</strong>         
     </a>
-
+<fieldset class="border p-1">
+   <legend  class="w-auto" style="color: #333399;">&nbspΦίλτρο</legend>
+<form method="get">
+      {% csrf_token %}
+    <div class="well">
+      <div class="row">
+        <div class="form-group col-sm-4 col-md-2">
+          {{ filter.form.employee.label_tag }}
+          {% render_field filter.form.employee class="form-control" %}
+        </div>
+           
+       </div>
+         <button type="submit" class="btn btn-primary">
+        <span class="fa fa-search"></span>&nbspΑναζήτηση
+      </button>
+    </div>
+</form>
+</fieldset>
 </div>
 &nbsp
 <table class="table table-sm" id="table1">
@@ -32,7 +49,7 @@
         <th>Printer</th>
         <th>Διόρθωση</th>
   </tr>
-  {% for hardware in allhardware %}
+  {% for hardware in filter.qs %}
   <tr>
     	<td><b>{{hardware.employee.get_full_name}}</b></td>
 		<td>{{hardware.pcbrand}}</td>

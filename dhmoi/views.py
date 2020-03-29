@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from .filters import PelatisFilter, EpafiFilter, ErgasiaFilter, AithmaFilter, PolisiFilter, ServiceFilter, TrainingFilter
+from .filters import PelatisFilter, EpafiFilter, ErgasiaFilter, AithmaFilter, PolisiFilter, ServiceFilter, TrainingFilter, HardwareFilter
 from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Hardware, Training
 from django.contrib.auth.decorators import login_required
 from .add_records import dhmospost_new, epafi_new, ergasia_new, adeia_new, aithma_new, polisi_new, service_new, training_new
@@ -84,8 +84,8 @@ def service(request):
 @login_required
 def hardware(request):
     allhardware = Hardware.objects.all()
-    context = {'allhardware': allhardware}
-    return render(request, 'main/hardware.html', context)
+    hardware_filter = HardwareFilter(request.GET, queryset=allhardware)
+    return render(request, 'main/hardware.html', {'filter': hardware_filter})
 
 @login_required
 def ergasia_search(request):
