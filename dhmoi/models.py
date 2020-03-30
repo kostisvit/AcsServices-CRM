@@ -60,7 +60,15 @@ app_choice = (
     ('Δημοτικός φόρος', 'Δημοτικός φόρος'),
     ('Site', 'Site'),
     ('Πρακτικό', 'Πρακτικό'),
-    ('Hardware', 'Hardware')
+    ('Hardware', 'Hardware'),
+    ('Ύδατα','Ύδατα'),
+    ('OPEN1 Process', 'OPEN1 Process'),
+    ('OPEN1 Fin', 'OPEN1 Fin'),
+    ('OPEN1 HR', 'OPEN1 HR'),
+    ('4myCity', '4myCity'),
+    ('OPEN1 Fleet', 'OPEN1 Fleet'),
+    ('Easy Pay', 'EasyPay'),
+
 )
 
 pc_brand_choice = (

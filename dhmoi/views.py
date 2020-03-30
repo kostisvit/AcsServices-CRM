@@ -13,7 +13,7 @@ from .user_register import user_register
 import datetime
 
 
-@login_required
+@login_required(login_url="/accounts/login")
 def home(request):
     return render(request, 'main/home.html')
 
@@ -52,7 +52,7 @@ def adeia(request):
 @login_required
 def training(request):
     today = datetime.date.today()
-    alltrainings = Training.objects.filter(importdate__year=today.year, employee=request.user).order_by('-importdate')
+    alltrainings = Training.objects.filter(importdate__year=today.year).order_by('-importdate')
     training_filter = TrainingFilter(request.GET, queryset=alltrainings)
     return render(request,'main/training.html', {'filter': training_filter})
 
