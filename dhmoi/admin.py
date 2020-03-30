@@ -26,7 +26,7 @@ make_unvisible.short_description = "Απενεργοποίηση πελάτη"
 class DhmosAdmin(ImportExportModelAdmin):
 	resource_class = DhmosinfoResource
 	list_display = ('name', 'phone','address','city', 'teamviewer', 'fax', 'email','is_visible')
-	list_filter = ['name',]
+	list_filter = ['name','is_visible']
 	search_fields = ['name',]
 	actions = [make_visible,make_unvisible]
 	
@@ -47,6 +47,7 @@ make_unvisible.short_description = "Απενεργοποίηση υπαλλήλ�
 
 class EmployeeAdmin(ImportExportModelAdmin):
 	list_display = ('dhmos','lastname', 'firstname', 'phone', 'email','is_visible')
+	list_filter = ['is_visible']
 	search_fields = ['lastname']
 	actions = [make_visible,make_unvisible]
 	
