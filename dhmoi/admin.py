@@ -114,7 +114,7 @@ admin.site.register(Training, TrainingAdmin)
 
 
 
-admin.site.unregister(Group)
+#admin.site.unregister(Group)
 admin.site.site_header = "Μαζιώτης Σταύρος & ΣΙΑ ΕΕ"
 admin.site.site_title = "Μαζιώτης Σταύρος & ΣΙΑ ΕΕ"
 admin.site.index_title = "ACS Services"
