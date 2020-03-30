@@ -69,7 +69,7 @@
     <td>{{ergasies.get_app_display|default_if_none:""}}</td>
     <td>{{ergasies.name|default_if_none:""}}</td>
     <td>{{ergasies.get_jobtype_display|default_if_none:""}}</td>
-    <td title="{{ergasies.info}}"><font color="blue">{{ergasies.info|truncatewords:2}}</font></td>
+    <td title="{{ergasies.info}}"  style="width: 300px;"><font color="blue">{{ergasies.info}}</font></td>
     <td>{{ergasies.employee.get_full_name}}</td>
     <td>{{ergasies.time}}</td>
     <td><a href="{% url 'ergasia_update' pk=ergasies.pk %}" class="btn btn-primary a-btn-slide-text">
