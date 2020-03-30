@@ -114,7 +114,7 @@ def training_new(request):
             post.save()
             return redirect('training')
     else:
-        form = TrainingForm()
+        form = TrainingForm(initial={'employee': request.user})
     return render(request, 'add_records/training_new.html', {'trainingform': form})
 
 
