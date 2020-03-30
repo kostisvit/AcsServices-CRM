@@ -86,7 +86,9 @@ polisi_choice = (
 
 foreas_choice = (
     ('OTS','OTS'),
-    ('Interlei','Interlei')
+    ('Interlei','Interlei'),
+    ('ACS','ACS')
+
 )
 
 training_choice = (
