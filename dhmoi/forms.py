@@ -28,8 +28,7 @@ class DhmosForm(forms.ModelForm):
 
 
 class EmployeeForm(forms.ModelForm):
-    dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by(
-        'name'), label='Πελάτης', required=True)
+    dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
     is_visible = forms.BooleanField(required=False, label="Ενεργός")
 
     class Meta:
@@ -38,7 +37,7 @@ class EmployeeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EmployeeForm, self).__init__(*args, **kwargs)
-        self.fields['dhmos'].queryset = Dhmos.objects.filter(is_visible=True)
+        self.fields['dhmos'].queryset = Dhmos.objects.order_by('name').filter(is_visible=True)
 
    
 
@@ -60,8 +59,8 @@ class ErgasiaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ErgasiaForm, self).__init__(*args, **kwargs)
         super(ErgasiaForm, self).__init__(*args, **kwargs)
-        self.fields['dhmos'].queryset = Dhmos.objects.filter(is_visible=True)
-        self.fields['name'].queryset = Employee.objects.filter(is_visible=True)
+        self.fields['dhmos'].queryset = Dhmos.objects.order_by('name').filter(is_visible=True)
+        self.fields['name'].queryset = Employee.objects.order_by('lastname').filter(is_visible=True)
         
 
 
@@ -79,12 +78,9 @@ class AdeiaForm(forms.ModelForm):
 
 
 class AithmataForm(forms.ModelForm):
-    dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by(
-        'name'), label='Πελάτης', required=True)
-    employee = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.',
-                               required=False)
-    assign = UserModelChoiceField(queryset=User.objects.order_by(
-        'last_name').filter(is_active=True), label='Χρέωση')
+    dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
+    employee = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.',required=False)
+    assign = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True), label='Χρέωση')
 
     class Meta:
         model = Aithmata
@@ -97,9 +93,8 @@ class AithmataForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AithmataForm, self).__init__(*args, **kwargs)
         super(AithmataForm, self).__init__(*args, **kwargs)
-        self.fields['dhmos'].queryset = Dhmos.objects.filter(is_visible=True)
-        self.fields['employee'].queryset = Employee.objects.filter(
-            is_visible=True)
+        self.fields['dhmos'].queryset = Dhmos.objects.order_by('name').filter(is_visible=True)
+        self.fields['employee'].queryset = Employee.objects.order_by('lastname').filter(is_visible=True)
 
 
 class PolisiForm(forms.ModelForm):
