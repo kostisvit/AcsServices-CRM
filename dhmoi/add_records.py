@@ -42,7 +42,7 @@ def ergasia_new(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('ergasia')
+            return redirect('ergasia_new')
     else:
         ergasiaform = ErgasiaForm(initial={'employee': request.user})
     return render(request, 'add_records/ergasia_new.html', {'ergasiaform': ergasiaform})
