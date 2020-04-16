@@ -46,6 +46,7 @@ make_unvisible.short_description = "Απενεργοποίηση υπαλλήλ�
 
 
 class EmployeeAdmin(ImportExportModelAdmin):
+	
 	list_display = ('dhmos','lastname', 'firstname', 'phone', 'email','is_visible')
 	list_filter = ['is_visible']
 	search_fields = ['lastname']
@@ -63,12 +64,14 @@ class ErgasiesResource(resources.ModelResource):
 	time = fields.Field(column_name='Χρόνος', attribute='time')
 	class Meta:
 		model = Ergasies
+		
 		exclude =('id','text','ticketid')
 		export_order = ('dhmos','importdate','app','employee','jobtype','info','name','time')
  		
 
 
 class ErgasiesAdmin(ImportExportModelAdmin):
+	date_hierarchy = 'importdate'
 	list_display = ('dhmos','app','importdate','name','jobtype','info','employee','time','ticketid')
 	search_fields = ['dhmos',]
 	list_filter = ['employee','dhmos','jobtype','app']
