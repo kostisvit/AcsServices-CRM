@@ -99,7 +99,7 @@ def export_ergasies(request):
         ]
         for col_num in range(len(row)):
             ws.write(row_num, col_num, row[col_num], font_style)
-            wb.save(response)
+    wb.save(response)
     return response
 
 
