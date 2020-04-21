@@ -77,7 +77,7 @@
         <td>{{service.employee.get_full_name}}</td>
         <td ><a href="{% url 'service_update' pk=service.pk %}" class="btn btn-primary a-btn-slide-text">
     <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
-        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_service' pk=service.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i>/span>
+        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_service' pk=service.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i></span>
     </a>
     </a></td>
 	</tr>
