@@ -34,7 +34,8 @@ tmhma_choice = (
 job_choice = (
     ('TeamViewer', 'TeamViewer'),
     ('Επίσκεψη', 'Επίσκεψη'),
-    ('Γραφείο', 'Γραφείο')
+    ('Γραφείο', 'Γραφείο'),
+    ('Webinar-Zoom', 'Webinar-Zoom')
 )
 
 adeia_choice = (
