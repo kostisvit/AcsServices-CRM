@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .add_records import dhmospost_new, epafi_new, ergasia_new, adeia_new, aithma_new, polisi_new, service_new, training_new, hardware_new
 from .delete_records import delete_pelatis, delete_epafi, delete_ergasia, delete_adeia, delete_aithma, delete_polisi, \
     delete_service, delete_training, delete_hardware
-from .export import export_pelates, export_contacts, export_ergasies, export_aithmata, export_adeia, export_training, export_hardware
+from .export import export_pelates, export_epafes, export_ergasies, export_aithmata, export_adeia, export_training, export_hardware
 from .update_records import pelatis_update, epafi_update, ergasia_update, adeia_update, aithma_update, polisi_update, \
     service_update, training_update, hardware_update
 from .user_register import user_register

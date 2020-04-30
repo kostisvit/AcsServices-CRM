@@ -47,20 +47,46 @@ def export_pelates(request):
     return response
 
 
-# Export υπαλλήλων
-def export_contacts(request):
-    # Get all data from UserDetail Database Table
-    employee = Employee.objects.all()
-    # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="employee.csv"'
-    writer = csv.writer(response)
-    writer.writerow(['dhmos', 'firstname', 'lastname', 'tmhma', 'phone', 'cellphone', 'email'])
-    for employee in employee:
-        writer.writerow([employee.dhmos.name, employee.firstname, employee.lastname, employee.phone, employee.cellphone,
-                         employee.email])
+#export υπαλλήλων
+def export_epafes(request):
+    employee_queryset = Employee.objects.all()
+
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=epafes.xls'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Pelates')
+    columns = [
+        'Πελάτης',
+        'Όνομα',
+        'Επώνυμο',
+        'Τμήμα',
+        'Τηλέφωνο',
+        'Κινητό',
+        'Email',
+    ]
+    row_num = 1
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    font_style = xlwt.XFStyle()
+    for employee in employee_queryset:
+        row_num += 1
+        row = [
+            employee.dhmos.name,
+            employee.firstname,
+            employee.lastname,
+            employee.tmhma,
+            employee.phone,
+            employee.cellphone,
+            employee.email,
+        ]
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+    wb.save(response)
 
     return response
+
 
 
 # Export εργασιών έτους
