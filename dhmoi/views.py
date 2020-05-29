@@ -11,27 +11,28 @@ from .update_records import pelatis_update, epafi_update, ergasia_update, adeia_
     service_update, training_update, hardware_update
 from .user_register import user_register
 import datetime
+from django.views.decorators.cache import cache_page
 
-
+@cache_page(60 * 15)
 @login_required(login_url="/accounts/login")
 def home(request):
     return render(request, 'main/home.html')
 
-
+@cache_page(60 * 15)
 @login_required
 def pelatis(request):
     alldhmos = Dhmos.objects.all().order_by('name')
     pelatis_filter = PelatisFilter(request.GET, queryset=alldhmos)
     return render(request, 'main/pelatis.html', {'filter': pelatis_filter})
 
-
+@cache_page(60 * 15)
 @login_required
 def epafi(request):
     allepafes = Employee.objects.all().order_by('lastname')
     epafi_filter = EpafiFilter(request.GET, queryset=allepafes)
     return render(request, 'main/epafi.html', {'filter': epafi_filter})
 
-
+@cache_page(60 * 15)
 @login_required
 def ergasia(request):
     order_by = request.GET.get('order_by', '-importdate')
@@ -40,7 +41,7 @@ def ergasia(request):
     ergasies_filter = ErgasiaFilter(request.GET, queryset=allergasies)
     return render(request, 'main/ergasia.html', {'filter': ergasies_filter})
 
-
+@cache_page(60 * 15)
 @login_required
 def adeia(request):
     today = datetime.date.today()
@@ -48,7 +49,7 @@ def adeia(request):
     context = {'alladeies': alladeies}
     return render(request, 'main/adeia.html', context)
 
-
+@cache_page(60 * 15)
 @login_required
 def training(request):
     today = datetime.date.today()
@@ -56,7 +57,7 @@ def training(request):
     training_filter = TrainingFilter(request.GET, queryset=alltrainings)
     return render(request,'main/training.html', {'filter': training_filter})
 
-
+@cache_page(60 * 15)
 @login_required
 def aithma(request):
     today = datetime.date.today()
@@ -64,7 +65,7 @@ def aithma(request):
     aithma_filter = AithmaFilter(request.GET, queryset=allaithmata)
     return render(request, 'main/aithma.html', {'filter': aithma_filter})
 
-
+@cache_page(60 * 15)
 @login_required
 def polisi(request):
     today = datetime.date.today()
@@ -72,7 +73,7 @@ def polisi(request):
     polisi_filter = PolisiFilter(request.GET, queryset=allpolisi)
     return render(request, 'main/polisi.html', {'filter': polisi_filter})
 
-
+@cache_page(60 * 15)
 @login_required
 def service(request):
     today = datetime.date.today()
@@ -80,23 +81,27 @@ def service(request):
     service_filter = ServiceFilter(request.GET, queryset=allservice)
     return render(request, 'main/service.html', {'filter': service_filter})
 
-
+@cache_page(60 * 15)
 @login_required
 def hardware(request):
     allhardware = Hardware.objects.all()
     hardware_filter = HardwareFilter(request.GET, queryset=allhardware)
     return render(request, 'main/hardware.html', {'filter': hardware_filter})
 
+
+@cache_page(60 * 15)
 @login_required
 def ergasia_search(request):
     return render(request, 'search/ergasia_search.html')
 
 
+@cache_page(60 * 15)
 @login_required
 def adeia_search(request):
     return render(request, 'search/adeia_search.html')
 
 
+@cache_page(60 * 15)
 @login_required
 def polisi_search(request):
     return render(request,'search/polisi_search.html')
