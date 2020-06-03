@@ -59,8 +59,10 @@
 		<th>Εργασία</th>
 		<th>Περιγραφή</th>
 		<th>ACS</th>
-		<th>Διάρκεια</th>
-		<th>Διόρθωση</th>
+    <th>Διάρκεια</th>
+    
+    <th>Διόρθωση</th>
+    <th>test</th>
   </tr>
   {% for ergasies in filter.qs %}
   <tr>
@@ -72,6 +74,7 @@
     <td title="{{ergasies.info}}"  style="width: 300px;"><font color="blue">{{ergasies.info}}</font></td>
     <td>{{ergasies.employee.get_full_name}}</td>
     <td>{{ergasies.time}}</td>
+  
     <td><a href="{% url 'ergasia_update' pk=ergasies.pk %}" class="btn btn-primary a-btn-slide-text">
     <span><i class="fa fa-eye" aria-hidden="true"></i></span></a>  
         <a href="{% url 'delete_ergasia' pk=ergasies.pk %}" class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');"><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
