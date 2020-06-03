@@ -185,13 +185,16 @@ class Ergasies(models.Model):
     time = models.CharField(max_length=20, verbose_name='Διάρκεια', default=0)
     name = models.CharField(max_length=100, verbose_name='Υπάλληλος Επικοιν.', null=True, help_text='Επώνυμο-Όνομα',blank=True)
     ticketid = models.CharField(max_length=50, verbose_name='Αίτημα OTS', blank=True)
-    
+    symbasi = models.ManyToManyField('Symbasi', blank=True, verbose_name='Σύμβαση')
     
 
     class Meta:
         verbose_name = 'Εργασίες'
         verbose_name_plural = 'Εργασίες'
         ordering = ['importdate']
+    
+    def get_symbasi(self):
+        return ",".join([str(p) for p in self.symbasi.all()])
 
 
 class Aithmata(models.Model):
@@ -302,3 +305,14 @@ class Profile(models.Model):
 
     def total(self):
         return self.days_sum + self.days_left
+
+class Symbasi(models.Model):
+    description = models.CharField(max_length=100, verbose_name='Υπηρεσία', blank=False, null=False)
+    short_descr = models.CharField(max_length=30, verbose_name='Σύντομη Περιγραφή', blank=False, null=False, unique=True)
+
+    class Meta: 
+        verbose_name = 'Σύμβαση'
+        verbose_name_plural = 'Σύμβαση'
+
+    def __str__(self):
+        return str(self.short_descr)

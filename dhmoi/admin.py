@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import Dhmos, Employee, Service, Ergasies, Aithmata, Adeia, Hardware, Polisi, Profile, Training
+from .models import Dhmos, Employee, Service, Ergasies, Aithmata, Adeia, Hardware, Polisi, Profile, Training,Symbasi
 from django.contrib.auth.models import User, Group
 from django.contrib.admin.models import LogEntry
 from import_export import fields,resources
@@ -72,7 +72,7 @@ class ErgasiesResource(resources.ModelResource):
 
 class ErgasiesAdmin(ImportExportModelAdmin):
 	date_hierarchy = 'importdate'
-	list_display = ('dhmos','app','importdate','name','jobtype','info','employee','time','ticketid')
+	list_display = ('dhmos','app','importdate','name','jobtype','info','employee','time','ticketid','get_symbasi')
 	search_fields = ['dhmos',]
 	list_filter = ['employee','dhmos','jobtype','app']
 	ordering = ['importdate']
@@ -99,6 +99,9 @@ class TrainingAdmin(ImportExportModelAdmin):
 	list_display = ('foreas', 'importdate', 'place', 'training_type', 'app', 'time', 'employee', 'created_at', 'updated_at')
 	
 
+class SymbasiAdmin(ImportExportModelAdmin):
+    	list_display = ('description','short_descr')
+
 
 admin.site.register(Dhmos, DhmosAdmin)
 admin.site.register(Employee, EmployeeAdmin)
@@ -110,6 +113,7 @@ admin.site.register(Hardware)
 admin.site.register(Polisi, PolisiAdmin)
 admin.site.register(Profile)
 admin.site.register(Training, TrainingAdmin)
+admin.site.register(Symbasi,SymbasiAdmin)
 
 
 
