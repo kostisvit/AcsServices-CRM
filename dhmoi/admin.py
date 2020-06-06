@@ -47,8 +47,8 @@ make_unvisible.short_description = "Απενεργοποίηση υπαλλήλ�
 
 class EmployeeAdmin(ImportExportModelAdmin):
 	
-	list_display = ('dhmos','lastname', 'firstname', 'phone', 'email','is_visible')
-	list_filter = ['is_visible']
+	list_display = ('dhmos','lastname', 'firstname', 'tmhma','phone', 'email','is_visible')
+	list_filter = ['is_visible','tmhma','dhmos']
 	search_fields = ['lastname']
 	actions = [make_visible,make_unvisible]
 	
