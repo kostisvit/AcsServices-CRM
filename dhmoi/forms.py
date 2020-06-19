@@ -114,9 +114,9 @@ class PolisiForm(forms.ModelForm):
 
 
 class ServiceForm(forms.ModelForm):
-    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),
-                                    label='Υπάλληλος ACS')
-
+    employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),label='Υπάλληλος ACS')
+    exportdate = forms.DateField(required=False,label='Ημ. Παράδοσης')
+    cost = forms.DecimalField(required=False,label='Κόστος')
     class Meta:
         model = Service
         fields = '__all__'

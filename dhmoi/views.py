@@ -37,7 +37,7 @@ def epafi(request):
 def ergasia(request):
     order_by = request.GET.get('order_by', '-importdate')
     today = datetime.date.today()
-    allergasies = Ergasies.objects.filter(importdate__year=today.year).order_by(order_by)
+    allergasies = Ergasies.objects.filter(importdate__year=today.year, employee=request.user).order_by(order_by)
     ergasies_filter = ErgasiaFilter(request.GET, queryset=allergasies)
     return render(request, 'main/ergasia.html', {'filter': ergasies_filter})
 

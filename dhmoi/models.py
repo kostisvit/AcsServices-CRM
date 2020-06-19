@@ -163,7 +163,7 @@ class Service(models.Model):
     importdate = models.DateField(default=datetime.date.today, verbose_name='Καταγραφή')
     info = models.TextField(max_length=500, verbose_name='Διάγνωση', null=True, blank=True)
     exportdate = models.DateField(default=datetime.date.today, verbose_name='Παράδοση')
-    cost = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Κόστος', null=False, blank=False)
+    cost = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Κόστος')
     year = models.CharField(max_length=50, verbose_name='Έτος', null=False, blank=True)
 
     class Meta:
