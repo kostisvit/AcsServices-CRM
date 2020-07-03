@@ -5,6 +5,9 @@
 <html>
 <head>
 <title></title>
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'pelatis1.css' %}">
+{% endblock %}
 </head>
 <body>
 {% block content %}
@@ -40,12 +43,10 @@
 </fieldset>
 </div>
 &nbsp
-<table class="table table-sm" id="pelatis-table" >
+<table id="pelatis-table" >
 <thead>
-        <tr>
-            <th colspan="8" class="tbhead" style="color: #333399;">Πελάτες</th>
-        </tr>
-    </thead>
+       
+    
   <tr style="color: #333399;">
     <th>Πελάτης</th>
     <th>Διέυθυνση</th>
@@ -56,22 +57,26 @@
     <th>Website</th>
     <th>Διόρθωση</th>
   </tr>
+</thead>
+
   {% for dhmos in filter.qs %}
+  <tbody>
   <tr>
-    <td>{{dhmos.name|default_if_none:""}}</td>
-    <td>{{dhmos.address|default_if_none:""}}</td>
-    <td>{{dhmos.city|default_if_none:""}}</td>
-    <td>{{dhmos.phone|default_if_none:""}}</td>
-    <td>{{dhmos.fax|default_if_none:""}}</td>
+    <td >{{dhmos.name|default_if_none:""}}</td>
+    <td >{{dhmos.address|default_if_none:""}}</td>
+    <td >{{dhmos.city|default_if_none:""}}</td>
+    <td >{{dhmos.phone|default_if_none:""}}</td>
+    <td >{{dhmos.fax|default_if_none:""}}</td>
     
-    <td><font color="blue">{{dhmos.email|default_if_none:""}}</font></td>
-    <td>{{dhmos.website|default_if_none:""}}</td>
-    <td><a href="{% url 'pelatis_update' pk=dhmos.pk %}" class="btn btn-primary a-btn-slide-text">
+    <td ><font color="blue">{{dhmos.email|default_if_none:""}}</font></td>
+    <td >{{dhmos.website|default_if_none:""}}</td>
+    <td ><a href="{% url 'pelatis_update' pk=dhmos.pk %}" class="btn btn-primary a-btn-slide-text">
     <span><i class="fa fa-eye" aria-hidden="true"></i></span>
         <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_pelatis' pk=dhmos.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
     </a>           
     </a></td>
   </tr>
+</tbody>
   {% endfor %}
 
 </table>
