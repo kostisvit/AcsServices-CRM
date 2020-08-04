@@ -6,7 +6,7 @@
 <head>
 <title></title>
 {% block extrahead %}
-<link rel="stylesheet" href="{% static 'pelatis1.css' %}">
+
 {% endblock %}
 </head>
 <body>
@@ -43,11 +43,13 @@
 </fieldset>
 </div>
 &nbsp
-<table id="pelatis-table" >
+<table class="table table-sm" id="pelatis-table" >
 <thead>
-       
-    
-  <tr style="color: #333399;">
+  <tr>
+    <th colspan="10" class="tbhead" style="color: #333399;">Εργασίες</th>
+</tr> 
+</thead>
+  <tr style="color: #333399;" >
     <th>Πελάτης</th>
     <th>Διέυθυνση</th>
     <th>Πόλη</th>
@@ -57,7 +59,7 @@
     <th>Website</th>
     <th>Διόρθωση</th>
   </tr>
-</thead>
+
 
   {% for dhmos in filter.qs %}
   <tbody>
