@@ -41,6 +41,11 @@
                     <li>
                         <a href="{% url 'adeia' %}">Άδειες</a>
                     </li>
+                    {% if perms.is_superuser %}
+                    <li>
+                        <a href="#">Σύνολο Αδειών</a>
+                    </li>
+                    {% endif %}<a href="#">Σύνολο Αδειών</a>
                     <li>
                         <a href="{% url 'aithma' %}">Αιτήματα</a>
                     </li>
