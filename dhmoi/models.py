@@ -222,7 +222,7 @@ class Adeia(models.Model):
         verbose_name = 'Άδειες'
         verbose_name_plural = 'Άδειες'
 
-    def total(self):
+    def total(self): #Προσθέτει τις μέρες άδειας του τρέχοντος έτους
         today = datetime.date.today()
         return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee).aggregate(
             sum_all=Sum('days')).get('sum_all')
@@ -303,5 +303,5 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
-    def total(self):
+    def total(self): #Προσθέτει τον αριθμό ημερώ άδειας που διακιούται ο εγαζόμενος με το υπόλοιπο μερών άδειας του προηγούμενου έτους
         return self.days_sum + self.days_left
