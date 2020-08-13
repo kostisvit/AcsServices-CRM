@@ -5,9 +5,11 @@
 <body>
 	{% block content %}
 	<div>
+    {% if perms.dhmoi.add_polisi %}
    <a href="{% url 'polisi_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη αιτήματος">
         <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>
     </a>
+    {% endif %}
     <a href="#" class="btn btn-success btn-lg a-btn-slide-text">
         <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
     </a>
