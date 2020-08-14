@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.contrib import admin
-from .models import Dhmos, Employee, Service, Ergasies, Aithmata, Adeia, Hardware, Polisi, Profile, Training
+from .models import *
 from django.contrib.auth.models import User, Group
 from django.contrib.admin.models import LogEntry
 from import_export import fields, resources
@@ -141,6 +141,7 @@ admin.site.register(Polisi, PolisiAdmin)
 admin.site.register(Profile)
 admin.site.register(Training, TrainingAdmin)
 admin.site.register(Task, TaskAdmin)
+admin.site.register(Tameiaki)
 
 
 # admin.site.unregister(Group)
