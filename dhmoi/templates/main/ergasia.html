@@ -1,64 +1,66 @@
-{% extends 'base.html' %}
-{% load widget_tweaks %}
-{% load static %}
-{% block content %}
-<head>
-
-</head>
+{% extends 'base.html' %} {% load widget_tweaks %} {% load static %} {% block
+content %}
+<head> </head>
 <div>
-   <a href="{% url 'ergasia_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη πελάτη">
-        <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>          
-    </a>
-    <a href="{% url 'export_ergasies' %}" class="btn btn-success btn-lg a-btn-slide-text">
-        <span class="fa fa-download"></span>&nbsp<strong>Export</strong>         
-    </a>
+  <a
+    href="{% url 'ergasia_new' %}"
+    class="btn btn-primary btn-lg a-btn-slide-text"
+    title="Προσθήκη πελάτη"
+  >
+    <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>
+  </a>
+  <a
+    href="{% url 'export_ergasies' %}"
+    class="btn btn-success btn-lg a-btn-slide-text"
+  >
+    <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
+  </a>
 
-<fieldset class="border p-1">
-   <legend  class="w-auto" style="color: #333399;">&nbspΦίλτρο</legend>
-<form method="get">
+  <fieldset class="border p-1">
+    <legend class="w-auto" style="color: #333399;">&nbspΦίλτρο</legend>
+    <form method="get">
       {% csrf_token %}
-    <div class="well">
-      
-      <div class="row">
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.dhmos.label_tag }}
-          {% render_field filter.form.dhmos class="form-control" %}
+      <div class="well">
+        <div class="row">
+          <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.dhmos.label_tag }} {% render_field filter.form.dhmos
+            class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.app.label_tag }} {% render_field filter.form.app
+            class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.employee.label_tag }} {% render_field
+            filter.form.employee class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-2">
+            {{ filter.form.jobtype.label_tag }} {% render_field
+            filter.form.jobtype class="form-control" %}
+          </div>
         </div>
-           <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.app.label_tag }}
-          {% render_field filter.form.app class="form-control" %}
-        </div>
-        <div class="form-group col-sm-4 col-md-2">
-          {{ filter.form.employee.label_tag }}
-          {% render_field filter.form.employee class="form-control" %}
-        </div>
-           <div class="form-group col-sm-4 col-md-2">
-          {{ filter.form.jobtype.label_tag }}
-          {% render_field filter.form.jobtype class="form-control" %}
-        </div>
-       </div>
-             <button type="submit" class="btn btn-primary">
-        <span class="fa fa-search"></span>&nbspΑναζήτηση
-      </button>
-        </div>
-</form>
-</fieldset>
+        <button type="submit" class="btn btn-primary">
+          <span class="fa fa-search"></span>&nbspΑναζήτηση
+        </button>
+      </div>
+    </form>
+  </fieldset>
 </div>
 &nbsp
 <table class="table table-sm" id="ergasia-table">
-<thead>
-        <tr>
-            <th colspan="10" class="tbhead" style="color: #333399;">Εργασίες</th>
-        </tr>
-    </thead>
+  <thead>
+    <tr>
+      <th colspan="10" class="tbhead" style="color: #333399;">Εργασίες</th>
+    </tr>
+  </thead>
   <tr style="color: #333399;">
-  	<th>Κατ.</th>
-		<th>Πελάτης</th>
-		<th>Εφαρμογή</th>
-		<th>Υπ.Επικοιν.</th>
-		<th>Εργασία</th>
-		<th>Περιγραφή</th>
-		<th>ACS</th>
+    <th>Κατ.</th>
+    <th>Πελάτης</th>
+    <th>Εφαρμογή</th>
+    <th>Υπ.Επικοιν.</th>
+    <th>Εργασία</th>
+    <th>Περιγραφή</th>
+    <th>ACS</th>
     <th>Διάρκεια</th>
     <th>Διόρθωση</th>
   </tr>
@@ -69,83 +71,111 @@
     <td>{{ergasies.get_app_display|default_if_none:""}}</td>
     <td>{{ergasies.name|default_if_none:""}}</td>
     <td>{{ergasies.get_jobtype_display|default_if_none:""}}</td>
-    <td title="{{ergasies.info}}"  style="width: 300px;"><font color="blue">{{ergasies.info}}</font></td>
+    <td title="{{ergasies.info}}" style="width: 300px;">
+      <font color="blue">{{ergasies.info}}</font>
+    </td>
     <td>{{ergasies.employee.get_full_name}}</td>
     <td>{{ergasies.time}}</td>
-  
-    <td><a href="{% url 'ergasia_update' pk=ergasies.pk %}" class="btn btn-primary a-btn-slide-text">
-    <span><i class="fa fa-eye" aria-hidden="true"></i></span></a>  
-        <a href="{% url 'delete_ergasia' pk=ergasies.pk %}" class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');"><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
-           
-    </a></td>
+
+    <td>
+      <a
+        href="{% url 'ergasia_update' pk=ergasies.pk %}"
+        class="btn btn-primary a-btn-slide-text"
+      >
+        <span><i class="fa fa-eye" aria-hidden="true"></i></span
+      ></a>
+      <a
+        href="{% url 'delete_ergasia' pk=ergasies.pk %}"
+        class="btn btn-danger a-btn-slide-text"
+        onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');"
+        ><span><i class="fa fa-trash" aria-hidden="true"></i></span>
+      </a>
+    </td>
   </tr>
   {% endfor %}
-
 </table>
 <script>
-	// get the table element
-var $table = document.getElementById("ergasia-table"),
-// number of rows per page
-$n = 50,
-// number of rows of the table
-$rowCount = $table.rows.length,
-// get the first cell's tag name (in the first row)
-$firstRow = $table.rows[0].firstElementChild.tagName,
-// boolean var to check if table has a head row
-$hasHead = ($firstRow === "TH"),
-// an array to hold each row
-$tr = [],
-// loop counters, to start count from rows[1] (2nd row) if the first row has a head tag
-$i,$ii,$j = ($hasHead)?1:0,
-// holds the first row if it has a (<TH>) & nothing if (<TD>)
-$th = ($hasHead?$table.rows[(0)].outerHTML:"");
-// count the number of pages
-var $pageCount = Math.ceil($rowCount / $n);
-// if we had one page only, then we have nothing to do ..
-if ($pageCount > 1) {
+  // get the table element
+  var $table = document.getElementById("ergasia-table"),
+    // number of rows per page
+    $n = 50,
+    // number of rows of the table
+    $rowCount = $table.rows.length,
+    // get the first cell's tag name (in the first row)
+    $firstRow = $table.rows[0].firstElementChild.tagName,
+    // boolean var to check if table has a head row
+    $hasHead = $firstRow === "TH",
+    // an array to hold each row
+    $tr = [],
+    // loop counters, to start count from rows[1] (2nd row) if the first row has a head tag
+    $i,
+    $ii,
+    $j = $hasHead ? 1 : 0,
+    // holds the first row if it has a (<TH>) & nothing if (<TD>)
+    $th = $hasHead ? $table.rows[0].outerHTML : "";
+  // count the number of pages
+  var $pageCount = Math.ceil($rowCount / $n);
+  // if we had one page only, then we have nothing to do ..
+  if ($pageCount > 1) {
     // assign each row outHTML (tag name & innerHTML) to the array
-    for ($i = $j,$ii = 0; $i < $rowCount; $i++, $ii++)
-        $tr[$ii] = $table.rows[$i].outerHTML;
+    for ($i = $j, $ii = 0; $i < $rowCount; $i++, $ii++)
+      $tr[$ii] = $table.rows[$i].outerHTML;
     // create a div block to hold the buttons
-    $table.insertAdjacentHTML("afterend","<div id='buttons'></div");
+    $table.insertAdjacentHTML("afterend", "<div id='buttons'></div");
     // the first sort, default page is the first one
     sort(1);
-}
+  }
 
-// ($p) is the selected page number. it will be generated when a user clicks a button
-function sort($p) {
+  // ($p) is the selected page number. it will be generated when a user clicks a button
+  function sort($p) {
     /* create ($rows) a variable to hold the group of rows
-    ** to be displayed on the selected page,
-    ** ($s) the start point .. the first row in each page, Do The Math
-    */
-    var $rows = $th,$s = (($n * $p)-$n);
-    for ($i = $s; $i < ($s+$n) && $i < $tr.length; $i++)
-        $rows += $tr[$i];
+     ** to be displayed on the selected page,
+     ** ($s) the start point .. the first row in each page, Do The Math
+     */
+    var $rows = $th,
+      $s = $n * $p - $n;
+    for ($i = $s; $i < $s + $n && $i < $tr.length; $i++) $rows += $tr[$i];
 
     // now the table has a processed group of rows ..
     $table.innerHTML = $rows;
     // create the pagination buttons
-    document.getElementById("buttons").innerHTML = pageButtons($pageCount,$p);
+    document.getElementById("buttons").innerHTML = pageButtons($pageCount, $p);
     // CSS Stuff
-    document.getElementById("id"+$p).setAttribute("class","active");
-}
+    document.getElementById("id" + $p).setAttribute("class", "active");
+  }
 
-
-// ($pCount) : number of pages,($cur) : current page, the selected one ..
-function pageButtons($pCount,$cur) {
+  // ($pCount) : number of pages,($cur) : current page, the selected one ..
+  function pageButtons($pCount, $cur) {
     /* this variables will disable the "Prev" button on 1st page
        and "next" button on the last one */
-    var $prevDis = ($cur == 1)?"disabled":"",
-        $nextDis = ($cur == $pCount)?"disabled":"",
-        /* this ($buttons) will hold every single button needed
-        ** it will creates each button and sets the onclick attribute
-        ** to the "sort" function with a special ($p) number..
-        */
-        $buttons = "<input type='button' value='&lt;&lt; Prev' onclick='sort("+($cur - 1)+")' "+$prevDis+">";
-    for ($i=1; $i<=$pCount;$i++)
-        $buttons += "<input type='button' id='id"+$i+"'value='"+$i+"' onclick='sort("+$i+")'>";
-    $buttons += "<input type='button' value='Next &gt;&gt;' onclick='sort("+($cur + 1)+")' "+$nextDis+">";
+    var $prevDis = $cur == 1 ? "disabled" : "",
+      $nextDis = $cur == $pCount ? "disabled" : "",
+      /* this ($buttons) will hold every single button needed
+       ** it will creates each button and sets the onclick attribute
+       ** to the "sort" function with a special ($p) number..
+       */
+      $buttons =
+        "<input type='button' value='&lt;&lt; Prev' onclick='sort(" +
+        ($cur - 1) +
+        ")' " +
+        $prevDis +
+        ">";
+    for ($i = 1; $i <= $pCount; $i++)
+      $buttons +=
+        "<input type='button' id='id" +
+        $i +
+        "'value='" +
+        $i +
+        "' onclick='sort(" +
+        $i +
+        ")'>";
+    $buttons +=
+      "<input type='button' value='Next &gt;&gt;' onclick='sort(" +
+      ($cur + 1) +
+      ")' " +
+      $nextDis +
+      ">";
     return $buttons;
-}
+  }
 </script>
 {% endblock %}

@@ -4,3 +4,6 @@
 *.pyc
 .DS_Store
 /dhmoi/.DS_Store
+/tasks/migrations/__pycache__/
+/tasks/__pycache__/
+/tasks/.DS_Store
