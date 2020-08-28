@@ -58,7 +58,8 @@ def adeia_new(request):
             post.save()
             return redirect('adeia')
     else:
-        form = AdeiaForm(initial={'employee': request.user})  # initial={'employee':request.user}
+        # initial={'employee':request.user}
+        form = AdeiaForm(initial={'employee': request.user})
     return render(request, 'add_records/adeia_new.html', {'adeiaform': form})
 
 
@@ -130,8 +131,3 @@ def hardware_new(request):
     else:
         form = HardwareForm()
     return render(request, 'add_records/hardware_new.html', {'hardwareform': form})
-
-
-
-
-

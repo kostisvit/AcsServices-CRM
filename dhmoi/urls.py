@@ -2,6 +2,10 @@ from django.conf.urls import url
 from . import views
 from django.conf import settings
 
+
+import tasks
+from tasks.views import index
+
 urlpatterns = [
     url(r'^$', views.home),
     url(r'acs-services/register/', views.user_register, name='register'),
@@ -22,9 +26,9 @@ urlpatterns = [
     url(r'acs-services/main/hardware', views.hardware, name='hardware'),
     url(r'acs-services/update-records/hardware/(?P<pk>\d+)/',views.hardware_update, name='hardware_update'),
     url(r'acs-services/main/training', views.training, name='training'),
-    url(r'acs-services/search/eragsies-search', views.ergasia_search, name='ergasia_search'),
-    url(r'acs-services/search/adeia-search', views.adeia_search, name='adeia_search'),
-    url(r'acs-services/search/polisi-search', views.polisi_search, name='polisi_search'),
+    url(r'acs-services/search/eragsies-search',views.ergasia_search, name='ergasia_search'),
+    url(r'acs-services/search/adeia-search',views.adeia_search, name='adeia_search'),
+    url(r'acs-services/search/polisi-search',views.polisi_search, name='polisi_search'),
     url(r'acs-services/update-records/training/(?P<pk>\d+)/',views.training_update, name='training_update'),
     url(r'acs-services/add-records/pelatis-new',views.dhmospost_new, name='pelatis_new'),
     url(r'acs-services/add-records/epafi-new',views.epafi_new, name='epafi_new'),
@@ -51,6 +55,11 @@ urlpatterns = [
     url(r'^export-adeia/xls/$', views.export_adeia, name='export_adeia'),
     url(r'^export-training/xls/$', views.export_training, name='export_training'),
     url(r'^export-hardware/xls/$', views.export_hardware, name='export_hardware'),
+    # url to tasks
+    url(r'tasks/', tasks.views.index, name='index'),
+    url(r'update_task/(?P<pk>\d+)/', tasks.views.updateTask, name='update_task'),
+    url(r'delete_task/(?P<pk>\d+)/', tasks.views.deleteTask, name='delete_task'),
+
 
 
 

@@ -51,7 +51,6 @@ def ergasia_update(request, pk):
     return render(request, 'update_records/ergasia_update.html', {'ergasiaform': form})
 
 
-
 @login_required
 def adeia_update(request, pk):
     post = get_object_or_404(Adeia, pk=pk)

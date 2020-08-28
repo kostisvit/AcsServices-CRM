@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% load static %}
+
+<link
+  rel="stylesheet" <link rel="stylesheet" 
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
+  integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" 
+  crossorigin="anonymous"
+/>
+
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+
+<div class="center-column">
+  <form method="POST" action="">
+    {% csrf_token %} {{form.title}} {{form.employee}} 
+    <input class="btn btn-info" type="submit" value="Δημιουργία" />
+  </form>
+
+  {% for task in tasks %}
+  <div class="item-row">
+    <a class="btn btn-sm btn-info" href="{% url 'update_task' pk=task.pk %}">Update</a>
+    <a class="btn btn-sm btn-danger" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;{{task.title}}');" href="{% url 'delete_task' pk=task.pk %}">Delete</a>
+    {% if task.complete == True %}
+    <br><strike>Ημ. Δημ.:&nbsp;{{ task.created|date:"d/m/Y" }} - {{ task }}</strike>
+    {% else %}
+    <br><span>Ημ. Δημ.:&nbsp;{{ task.created|date:"d/m/Y" }} - {{ task }}</span> 
+    {% endif %}
+  </div>
+
+  {% endfor %} 
+  {% endblock %}
+</div>

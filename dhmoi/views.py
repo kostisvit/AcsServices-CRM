@@ -11,6 +11,15 @@ from .user_register import user_register
 import datetime
 from django.views.decorators.cache import cache_page
 
+from tasks.views import index
+from tasks.models import *
+from tasks import context_processor
+
+
+
+
+
+
 
 @login_required(login_url="/accounts/login")
 def home(request):
@@ -38,8 +47,7 @@ def epafi(request):
 def ergasia(request):
     order_by = request.GET.get('order_by', '-importdate')
     today = datetime.date.today()
-    allergasies = Ergasies.objects.filter(
-        importdate__year=today.year, employee=request.user).order_by(order_by)
+    allergasies = Ergasies.objects.filter(importdate__year=today.year, employee=request.user).order_by(order_by)
     ergasies_filter = ErgasiaFilter(request.GET, queryset=allergasies)
     return render(request, 'main/ergasia.html', {'filter': ergasies_filter})
 
@@ -48,8 +56,7 @@ def ergasia(request):
 @login_required
 def adeia(request):
     today = datetime.date.today()
-    alladeies = Adeia.objects.filter(
-        createddate__year=today.year, employee=request.user).order_by('-startdate')
+    alladeies = Adeia.objects.filter(createddate__year=today.year, employee=request.user).order_by('-startdate')
     context = {'alladeies': alladeies}
     return render(request, 'main/adeia.html', context)
 
@@ -58,8 +65,7 @@ def adeia(request):
 @login_required
 def training(request):
     today = datetime.date.today()
-    alltrainings = Training.objects.filter(
-        importdate__year=today.year).order_by('-importdate')
+    alltrainings = Training.objects.filter(importdate__year=today.year).order_by('-importdate')
     training_filter = TrainingFilter(request.GET, queryset=alltrainings)
     return render(request, 'main/training.html', {'filter': training_filter})
 

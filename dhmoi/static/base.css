@@ -229,7 +229,13 @@ a.btn:hover {
  
   }
 
-
+  .task_count {
+    top: -.5em;
+    position: relative;
+    font-size: 20px;
+    line-height: 0;
+    vertical-align: baseline;
+}
 
 
 /* 

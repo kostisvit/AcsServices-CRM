@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'table',
     'crispy_forms',
+    'tasks',
+
 
 ]
 
@@ -75,6 +77,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'tasks.context_processor.task_count',
+                'dhmoi.context_processor.ergasies_count'
             ],
         },
     },
@@ -91,18 +95,18 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'acsservices',
         'USER': 'kostasvit',
-       'PASSWORD': '@c$2019',
+        'PASSWORD': '@c$2019',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
 
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-   # }
-#}
+# DATABASES = {
+#   'default': {
+#      'ENGINE': 'django.db.backends.sqlite3',
+#     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# }
+# }
 
 
 # Password validation
@@ -151,9 +155,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 # Cacching Views
-#CACHES = {
+# CACHES = {
 #    'default': {
 #        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
 #        'LOCATION': 'unique-snowflake',
 #    }
-#}
+# }

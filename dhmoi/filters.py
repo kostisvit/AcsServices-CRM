@@ -30,7 +30,8 @@ class PelatisFilter(django_filters.FilterSet):
 
 
 class EpafiFilter(django_filters.FilterSet):
-    lastname = django_filters.CharFilter(lookup_expr='icontains', label='Επώνυμο')
+    lastname = django_filters.CharFilter(
+        lookup_expr='icontains', label='Επώνυμο')
 
     class Meta:
         model = Employee
@@ -60,19 +61,15 @@ class ErgasiaFilter(django_filters.FilterSet):
         super(ErgasiaFilter, self).__init__(*args, **kwargs)
         if self.data == {}:
             self.queryset = self.queryset.none()
-     
-
- 
-        
 
 
 class AithmaFilter(django_filters.FilterSet):
-    employee = django_filters.CharFilter(lookup_expr='icontains', label='Υπάλληλος')
+    employee = django_filters.CharFilter(
+        lookup_expr='icontains', label='Υπάλληλος')
 
     class Meta:
         model = Aithmata
         fields = ['dhmos', 'employee', 'assign']
-        
 
     def __init__(self, *args, **kwargs):
         super(AithmaFilter, self).__init__(*args, **kwargs)
@@ -87,7 +84,8 @@ polisi_choice = (
 
 
 class PolisiFilter(django_filters.FilterSet):
-    status = django_filters.ChoiceFilter(choices=polisi_choice, label='Κατάσταση')
+    status = django_filters.ChoiceFilter(
+        choices=polisi_choice, label='Κατάσταση')
 
     class Meta:
         model = Polisi
@@ -100,7 +98,8 @@ class PolisiFilter(django_filters.FilterSet):
 
 
 class ServiceFilter(django_filters.FilterSet):
-    customername = django_filters.CharFilter(lookup_expr='icontains', label='Όνομα πελάτη')
+    customername = django_filters.CharFilter(
+        lookup_expr='icontains', label='Όνομα πελάτη')
 
     class Meta:
         model = Service
@@ -108,31 +107,29 @@ class ServiceFilter(django_filters.FilterSet):
 
 
 foreas_choice = (
-    ('OTS','OTS'),
-    ('Interlei','Interlei')
+    ('OTS', 'OTS'),
+    ('Interlei', 'Interlei')
 )
+
 
 class TrainingFilter(django_filters.FilterSet):
     foreas = django_filters.ChoiceFilter(choices=foreas_choice, label='Φορέας')
-    
+
     class Meta:
         model = Training
-        fields = ['foreas','employee']
-    
+        fields = ['foreas', 'employee']
+
     def __init__(self, *args, **kwargs):
         super(TrainingFilter, self).__init__(*args, **kwargs)
         if self.data == {}:
             self.queryset = self.queryset.none()
-    
-    
-
 
 
 class HardwareFilter(django_filters.FilterSet):
 
     class Meta:
         model = Hardware
-        fields = ['employee',]
+        fields = ['employee', ]
 
     def __init__(self, *args, **kwargs):
         super(HardwareFilter, self).__init__(*args, **kwargs)
