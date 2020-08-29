@@ -127,6 +127,9 @@ class SymbasiAdmin(ImportExportModelAdmin):
     list_display = ('description', 'short_descr')
 
 
+class TaskAdmin(ImportExportModelAdmin):
+    list_display = ('employee', 'title', 'complete', 'created')
+
 admin.site.register(Dhmos, DhmosAdmin)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Ergasies, ErgasiesAdmin)
@@ -137,7 +140,7 @@ admin.site.register(Hardware)
 admin.site.register(Polisi, PolisiAdmin)
 admin.site.register(Profile)
 admin.site.register(Training, TrainingAdmin)
-admin.site.register(Task)
+admin.site.register(Task, TaskAdmin)
 
 
 # admin.site.unregister(Group)
