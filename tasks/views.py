@@ -15,7 +15,7 @@ def index(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
-        return redirect('/')
+        return redirect('index')
     context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks/list.html', context)
 
@@ -27,7 +27,7 @@ def updateTask(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-        return redirect('/')
+        return redirect('index')
     context = {'form': form}
     return render(request, 'tasks/update_task.html', context)
 
@@ -36,4 +36,4 @@ def deleteTask(request, pk):
     item = Task.objects.get(pk=pk)
     context = {'item': item}
     item.delete()
-    return redirect('/', context)
+    return redirect('index')

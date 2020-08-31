@@ -56,9 +56,9 @@ urlpatterns = [
     url(r'^export-training/xls/$', views.export_training, name='export_training'),
     url(r'^export-hardware/xls/$', views.export_hardware, name='export_hardware'),
     # url to tasks
-    url(r'tasks/', tasks.views.index, name='index'),
-    url(r'update_task/(?P<pk>\d+)/', tasks.views.updateTask, name='update_task'),
-    url(r'delete_task/(?P<pk>\d+)/', tasks.views.deleteTask, name='delete_task'),
+    url(r'acs-services/tasks/', tasks.views.index, name='index'),
+    url(r'acs-services/update_task/(?P<pk>\d+)/', tasks.views.updateTask, name='update_task'),
+    url(r'acs-services/delete_task/(?P<pk>\d+)/', tasks.views.deleteTask, name='delete_task'),
 
 
 
