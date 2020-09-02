@@ -136,7 +136,7 @@ class Dhmos(models.Model):
     class Meta:
         verbose_name = 'Πελάτες'
         verbose_name_plural = 'Πελάτες'
-        ordering = ['id']
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -280,7 +280,7 @@ class Training(models.Model):
     class Meta:
         verbose_name = 'Εκπαιδεύσεις'
         verbose_name_plural = 'Εκπαιδεύσεις'
-
+        
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>

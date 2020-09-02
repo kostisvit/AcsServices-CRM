@@ -108,7 +108,8 @@ class ServiceFilter(django_filters.FilterSet):
 
 foreas_choice = (
     ('OTS', 'OTS'),
-    ('Interlei', 'Interlei')
+    ('Interlei', 'Interlei'),
+    ('ACS','ACS')
 )
 
 
@@ -118,6 +119,7 @@ class TrainingFilter(django_filters.FilterSet):
     class Meta:
         model = Training
         fields = ['foreas', 'employee']
+        
 
     def __init__(self, *args, **kwargs):
         super(TrainingFilter, self).__init__(*args, **kwargs)
