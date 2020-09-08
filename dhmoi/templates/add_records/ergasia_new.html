@@ -67,7 +67,7 @@
     var value = this[this.selectedIndex].value;
     
     $.ajax({
-      url:'/api/dhmoi/'+value,
+      url:'/api/ergasies/dhmoi-epafes/'+value,
       success:function(data){
         
         populateEpafes(data)
