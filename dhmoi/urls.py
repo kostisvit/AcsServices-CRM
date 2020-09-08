@@ -60,6 +60,8 @@ urlpatterns = [
     url(r'acs-services/update_task/(?P<pk>\d+)/', tasks.views.updateTask, name='update_task'),
     url(r'acs-services/delete_task/(?P<pk>\d+)/', tasks.views.deleteTask, name='delete_task'),
 
+    url(r'api/ergasies/dhmoi-epafes/(?P<pk>\d+)/', views.api_dhmos, name='api_dhmos')
+
 
 
 

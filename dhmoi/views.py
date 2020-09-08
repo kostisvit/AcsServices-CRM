@@ -15,6 +15,11 @@ from tasks.views import index
 from tasks.models import *
 from tasks import context_processor
 
+from django.core import serializers
+from django.http import JsonResponse
+
+import json
+
 
 
 
@@ -123,3 +128,14 @@ def adeia_search(request):
 @login_required
 def polisi_search(request):
     return render(request, 'search/polisi_search.html')
+
+
+@cache_page(60 * 15)
+@login_required
+def api_dhmos(request,pk):
+    allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
+    #epafi_filter = EpafiFilter(request.GET, queryset=allepafes)
+    #return render(request, 'main/epafi.html', {'filter': epafi_filter})
+    epafesSerialized = serializers.serialize ('json', allepafes, ensure_ascii=False)
+    return JsonResponse(json.loads(epafesSerialized), safe=False)
+
