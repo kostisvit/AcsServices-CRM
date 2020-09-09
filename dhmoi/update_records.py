@@ -43,7 +43,6 @@ def ergasia_update(request, pk):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-
             post.save()
             return redirect('ergasia')
     else:

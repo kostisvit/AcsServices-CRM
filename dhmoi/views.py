@@ -133,9 +133,21 @@ def polisi_search(request):
     return render(request, 'search/polisi_search.html')
 
 
+# chained selection view
+
 @cache_page(60 * 15)
 @login_required
 def api_dhmos(request,pk):
+    allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
+    #epafi_filter = EpafiFilter(request.GET, queryset=allepafes)
+    #return render(request, 'main/epafi.html', {'filter': epafi_filter})
+    epafesSerialized = serializers.serialize ('json', allepafes, ensure_ascii=False)
+    return JsonResponse(json.loads(epafesSerialized), safe=False)
+
+
+@cache_page(60 * 15)
+@login_required
+def api_dhmos_update(request,pk):
     allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
     #epafi_filter = EpafiFilter(request.GET, queryset=allepafes)
     #return render(request, 'main/epafi.html', {'filter': epafi_filter})

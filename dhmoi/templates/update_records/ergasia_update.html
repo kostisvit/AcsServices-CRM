@@ -51,6 +51,44 @@
     </div>
 </form>
 </fieldset>
+<script>
+  document.addEventListener('DOMContentLoaded',init);
 
+  function init(){
+    var dhmos_input = document.getElementById('id_dhmos')
+
+    dhmos_input.addEventListener('change', search_epafi)
+  }
+
+  function search_epafi(){
+    
+    var value = this[this.selectedIndex].value;
+    
+    $.ajax({
+      url:'/api/ergasies-update/dhmoi-epafes/'+value,
+      success:function(data){
+        
+        populateEpafes(data)
+      },
+      error:function(error){
+        console.log(error)
+      }
+      })
+  }
+  // <option value="134">Αγγελοπούλου Γεωργία</option>
+  function populateEpafes(epafes) {
+
+    var allOptions = '<option value="">---------</option>';
+    epafes.forEach( function(epafi) {
+      var fname = epafi.fields.firstname;
+      var lname = epafi.fields.lastname;
+      var fullName = lname + ' ' + fname;
+
+      allOptions += '<option value="'+epafi.pk+'">'+fullName+'</option>';
+    })
+
+    $('#id_name').html(allOptions)
+  }
+</script>
  
 {% endblock %}
