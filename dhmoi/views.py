@@ -79,8 +79,7 @@ def training(request):
 @login_required
 def aithma(request):
     today = datetime.date.today()
-    allaithmata = Aithmata.objects.filter(
-        importdate__year=today.year).order_by('-importdate')
+    allaithmata = Aithmata.objects.filter(importdate__year=today.year).order_by('-importdate')
     aithma_filter = AithmaFilter(request.GET, queryset=allaithmata)
     return render(request, 'main/aithma.html', {'filter': aithma_filter})
 
@@ -89,8 +88,7 @@ def aithma(request):
 @login_required
 def polisi(request):
     today = datetime.date.today()
-    allpolisi = Polisi.objects.filter(
-        katagrafi__year=today.year).order_by('-katagrafi')
+    allpolisi = Polisi.objects.filter(katagrafi__year=today.year).order_by('-katagrafi')
     polisi_filter = PolisiFilter(request.GET, queryset=allpolisi)
     return render(request, 'main/polisi.html', {'filter': polisi_filter})
 
@@ -138,6 +136,16 @@ def polisi_search(request):
 @cache_page(60 * 15)
 @login_required
 def api_dhmos(request,pk):
+    allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
+    #epafi_filter = EpafiFilter(request.GET, queryset=allepafes)
+    #return render(request, 'main/epafi.html', {'filter': epafi_filter})
+    epafesSerialized = serializers.serialize ('json', allepafes, ensure_ascii=False)
+    return JsonResponse(json.loads(epafesSerialized), safe=False)
+
+
+@cache_page(60 * 15)
+@login_required
+def api_aithma(request,pk):
     allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
     #epafi_filter = EpafiFilter(request.GET, queryset=allepafes)
     #return render(request, 'main/epafi.html', {'filter': epafi_filter})
