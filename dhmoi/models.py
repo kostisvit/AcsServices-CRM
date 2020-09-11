@@ -105,8 +105,9 @@ class Aithmata(models.Model):
     importdate = models.DateField(default=datetime.date.today, verbose_name='Ημ. Καταχώρησης')
     info = models.TextField(max_length=500, verbose_name='Περιγραφή')
     employee = models.CharField(max_length=100, verbose_name='Όν. Υπαλλήλου')
-    assign = models.ForeignKey('auth.User', max_length=100, verbose_name='Χρέωση', on_delete=models.CASCADE)
+    assign = models.ForeignKey('auth.User', max_length=100, verbose_name='Χρέωση - ACS', on_delete=models.CASCADE)
     closedate = models.DateField(verbose_name='Ημ. Κλεισίματος', blank=True, null=True)
+    phone = models.CharField(max_length=100, verbose_name='Τηλ. επικοινωνίας', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Αιτήματα'

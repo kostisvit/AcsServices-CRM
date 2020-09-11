@@ -64,18 +64,13 @@ class ErgasiaFilter(django_filters.FilterSet):
 
 
 class AithmaFilter(django_filters.FilterSet):
-    employee = django_filters.CharFilter(
-        lookup_expr='icontains', label='Υπάλληλος')
+    employee = django_filters.CharFilter(lookup_expr='icontains', label='Υπάλληλος')
 
     class Meta:
         model = Aithmata
         fields = ['dhmos', 'employee', 'assign']
 
-    def __init__(self, *args, **kwargs):
-        super(AithmaFilter, self).__init__(*args, **kwargs)
-        if self.data == {}:
-            self.queryset = self.queryset.none()
-
+    
 
 polisi_choice = (
     ('OPEN', 'OPEN'),

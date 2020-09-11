@@ -237,5 +237,13 @@ a.btn:hover {
     vertical-align: baseline;
 }
 
+.task_aithmata {
+    top: -.5em;
+    position: relative;
+    font-size: 20px;
+    line-height: 0;
+    vertical-align: baseline;
+}
+
 
 /* 

@@ -79,7 +79,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'tasks.context_processor.task_count',
                 'dhmoi.context_processor.ergasies_count',
-                'dhmoi.context_processor.training_count'
+                'dhmoi.context_processor.training_count',
+                'dhmoi.context_processor.aithmata_count',
+                'dhmoi.context_processor.aithmata_count_all',
             ],
         },
     },

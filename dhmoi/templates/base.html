@@ -42,7 +42,7 @@
                         <a href="{% url 'adeia' %}">Άδειες</a>
                     </li>
                     <li>
-                        <a href="{% url 'aithma' %}">Αιτήματα</a>
+                        <a href="{% url 'aithma' %}">Αιτήματα&nbsp<span class="badge badge-danger">{{all_aithmata}}</span></a>
                     </li>
                     <li>
                     <a href="{% url 'training' %}">Εκπαιδεύσεις&nbsp<span class="badge badge-danger">{{total_training}}</span></a>
@@ -100,7 +100,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'index' %}">Tasks&nbsp<sup class="task_count"><span class="badge badge-danger" title="Ενεργά Tasks">{{total_tasks}}</span></sup></a>
+                                <a class="nav-link" href="{% url 'aithma' %}">Αιτήματα&nbsp<sup class="task_aithmata"><span class="badge badge-warning" title="Ενεργά Αιτήματα">{{total_aithmata}}</span></sup></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'index' %}">Notes&nbsp<sup class="task_count"><span class="badge badge-danger" title="Ενεργά Tasks">{{total_tasks}}</span></sup></a>
                             </li>
                             {% if perms.is_superuser%}
                               <li class="nav-item">

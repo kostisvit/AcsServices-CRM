@@ -47,11 +47,12 @@
         </tr>
     </thead>
   <tr style="color: #333399;">
-  		<th>Καταχ.</th>
+  	<th>Ημ. Καταχ.</th>
 		<th>Πελάτης</th>
 		<th>Περιγραφή</th>
-		<th>Επαφή</th>
-		<th>Χρέωση</th>
+    <th>Επαφή</th>
+    <th>Τηλέφωνο</th>
+		<th>Χρέωση - ACS</th>
 		<th>Ημ.Κλεισ.</th>
 		<th>Διόρθωση</th>
   </tr>
@@ -60,7 +61,8 @@
     	<td>{{aithmata.importdate|date:"d/m/Y"}}</td>
 		<td>{{aithmata.dhmos}}</td>
 		<td title="{{aithmata.info}}">{{aithmata.info|truncatewords:5}}</td>
-		<td>{{aithmata.employee}}</td>
+    <td>{{aithmata.employee}}</td>
+    <td>{{aithmata.phone}}</td>
 		<td>{{aithmata.assign.get_full_name}}</td>
 		<td><font color="red">{{aithmata.closedate|date:'d/m/Y'}}</font></td>
     <td ><a href="{% url 'aithma_update' pk=aithmata.pk %}" class="btn btn-primary a-btn-slide-text">
