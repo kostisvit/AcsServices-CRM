@@ -18,5 +18,8 @@ def aithmata_count_all(request):
 # Σύνολο αιτημάτων προς υπάλληλο ACS
 def aithmata_count(request):
     today = datetime.date.today()
-    return { 'total_aithmata' : Aithmata.objects.filter(importdate__year=today.year,assign=request.user).order_by('-importdate').count() }
-        
+    if request.user.is_authenticated:
+        context =  { 'total_aithmata' : Aithmata.objects.filter(importdate__year=today.year,assign=request.user).order_by('-importdate').count() }
+        return context
+    else:
+        return {}

@@ -20,11 +20,13 @@ from django.http import JsonResponse
 
 import json
 
+from django.contrib.auth import logout
 
 
 
-
-
+def logout(request):
+     response.delete_cookie('user_location')
+     return response
 
 @login_required(login_url="/accounts/login")
 def home(request):

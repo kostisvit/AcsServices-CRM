@@ -42,7 +42,7 @@
                         <a href="{% url 'adeia' %}">Άδειες</a>
                     </li>
                     <li>
-                        <a href="{% url 'aithma' %}">Αιτήματα&nbsp<span class="badge badge-danger">{{all_aithmata}}</span></a>
+                        <a href="{% url 'aithma' %}" title="Σύνολο αιτημάτων ACS">Αιτήματα&nbsp<span class="badge badge-danger">{{all_aithmata}}</span></a>
                     </li>
                     <li>
                     <a href="{% url 'training' %}">Εκπαιδεύσεις&nbsp<span class="badge badge-danger">{{total_training}}</span></a>
@@ -111,7 +111,7 @@
                             </li>
                             {% endif %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login' %}">Έξοδος</a>
+                                <a class="nav-link" href="{% url 'logout' %}">Έξοδος</a>
                             </li>
                                
                         </ul>
