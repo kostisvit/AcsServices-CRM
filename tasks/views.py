@@ -3,10 +3,10 @@ from django.http import HttpResponse
 from .models import *
 from .forms import *
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
 import datetime
 
-
+@login_required
 def index(request):
     today = datetime.date.today()
     tasks = Task.objects.filter(created__year=today.year, employee=request.user).order_by('-created')
@@ -19,7 +19,7 @@ def index(request):
     context = {'tasks': tasks, 'form': form}
     return render(request, 'tasks/list.html', context)
 
-
+@login_required
 def updateTask(request, pk):
     task = Task.objects.get(pk=pk)
     form = TaskForm(instance=task)

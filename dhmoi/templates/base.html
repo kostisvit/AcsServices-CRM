@@ -24,28 +24,28 @@
         </div>
         <ul class="list-unstyled components">
             {% if user.is_authenticated %}
-  <p class="loguser"><b>Συνδεδεμένος χρήστης:</b>&nbsp{{ user.first_name }} {{ user.last_name }}</a> - {% now 'd/m/Y' %}</p>
+  <p class="loguser"><strong>Συνδεδεμένος χρήστης:</strong>&nbsp{{ user.first_name }} {{ user.last_name }}</a> - {% now 'd/m/Y' %}</p>
   {% endif %}
             <li class="active">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-home"></span>&nbsp&nbspΑρχείο</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                        <a href="{% url 'pelatis' %}">Πελάτες</a>
+                        <a href="{% url 'pelatis' %}"><i class="fas fa-address-book"></i>&nbsp&nbspΠελάτες</a>
                     </li>
                     <li>
-                        <a href="{% url 'epafi' %}">Επαφές</a>
+                        <a href="{% url 'epafi' %}"><i class="fas fa-user-friends"></i>&nbsp&nbspΕπαφές</a>
                     </li>
                     <li>
-                        <a href="{% url 'ergasia' %}">Εργασίες&nbsp<span class="badge badge-danger">{{total_ergasies}}</span></a>
+                        <a href="{% url 'ergasia' %}"><i class="fas fa-list-ol"></i>&nbsp&nbspΕργασίες&nbsp<span class="badge badge-danger">{{total_ergasies}}</span></a>
                     </li>
                     <li>
-                        <a href="{% url 'adeia' %}">Άδειες</a>
+                        <a href="{% url 'adeia' %}"><i class="fas fa-calendar"></i>&nbsp&nbspΆδειες</a>
                     </li>
                     <li>
-                        <a href="{% url 'aithma' %}" title="Σύνολο αιτημάτων ACS">Αιτήματα&nbsp<span class="badge badge-danger">{{all_aithmata}}</span></a>
+                        <a href="{% url 'aithma' %}" title="Σύνολο αιτημάτων ACS"><i class="fas fa-tasks"></i>&nbsp&nbspΑιτήματα&nbsp<span class="badge badge-danger">{{all_aithmata}}</span></a>
                     </li>
                     <li>
-                    <a href="{% url 'training' %}">Εκπαιδεύσεις&nbsp<span class="badge badge-danger">{{total_training}}</span></a>
+                    <a href="{% url 'training' %}"><i class="fas fa-book-open"></i>&nbsp&nbspΕκπαιδεύσεις&nbsp<span class="badge badge-danger">{{total_training}}</span></a>
                     </li>
                 </ul>
             </li>
@@ -68,16 +68,16 @@
                 <a href="#configSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-desktop"></span>&nbsp&nbspACS</a>
                 <ul class="collapse list-unstyled" id="configSubmenu">
                     <li>
-                        <a href="{% url 'polisi' %}">Πωλήσεις</a>
+                        <a href="{% url 'polisi' %}"><i class="fas fa-euro-sign"></i>&nbsp&nbspΠωλήσεις</a>
                     </li>
                     <li>
-                        <a href="{% url 'tameiaki' %}">Ταμειακές</a>
+                        <a href="{% url 'tameiaki' %}"><i class="fas fa-wallet"></i>&nbsp&nbspΤαμειακές</a>
                     </li>
                     <li>
-                        <a href="{% url 'service' %}">Service</a>
+                        <a href="{% url 'service' %}"><i class="fas fa-wrench"></i>&nbsp&nbspService</a>
                     </li>
                     <li>
-                        <a href="{% url 'hardware' %}">Hardware</a>
+                        <a href="{% url 'hardware' %}"><i class="fas fa-microchip"></i>&nbsp&nbspHardware</a>
                     </li>
                 </ul>
             </li>
@@ -111,7 +111,7 @@
                             </li>
                             {% endif %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">Έξοδος</a>
+                                <a class="nav-link" href="{% url 'logout' %}"><strong>Έξοδος</strong></a>
                             </li>
                                
                         </ul>
