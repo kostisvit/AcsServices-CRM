@@ -59,7 +59,7 @@ def ergasia(request):
     return render(request, 'main/ergasia.html', {'filter': ergasies_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def adeia(request):
     today = datetime.date.today()
@@ -68,7 +68,7 @@ def adeia(request):
     return render(request, 'main/adeia.html', context)
 
 
-@cache_page(60 * 15)
+
 @login_required
 def training(request):
     today = datetime.date.today()
@@ -77,7 +77,7 @@ def training(request):
     return render(request, 'main/training.html', {'filter': training_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def aithma(request):
     today = datetime.date.today()
@@ -86,7 +86,7 @@ def aithma(request):
     return render(request, 'main/aithma.html', {'filter': aithma_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def polisi(request):
     today = datetime.date.today()
@@ -95,7 +95,7 @@ def polisi(request):
     return render(request, 'main/polisi.html', {'filter': polisi_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def service(request):
     today = datetime.date.today()
@@ -104,12 +104,12 @@ def service(request):
     return render(request, 'main/service.html', {'filter': service_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def tameiaki(request):
     return render(request, 'main/tameiaki.html' )
 
-@cache_page(60 * 15)
+
 @login_required
 def hardware(request):
     allhardware = Hardware.objects.all()
@@ -117,19 +117,19 @@ def hardware(request):
     return render(request, 'main/hardware.html', {'filter': hardware_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def ergasia_search(request):
     return render(request, 'search/ergasia_search.html')
 
 
-@cache_page(60 * 15)
+
 @login_required
 def adeia_search(request):
     return render(request, 'search/adeia_search.html')
 
 
-@cache_page(60 * 15)
+
 @login_required
 def polisi_search(request):
     return render(request, 'search/polisi_search.html')
@@ -137,7 +137,7 @@ def polisi_search(request):
 
 # chained selection view
 
-@cache_page(60 * 15)
+
 @login_required
 def api_dhmos(request,pk):
     allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
@@ -147,7 +147,7 @@ def api_dhmos(request,pk):
     return JsonResponse(json.loads(epafesSerialized), safe=False)
 
 
-@cache_page(60 * 15)
+
 @login_required
 def api_dhmos_update(request,pk):
     allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
@@ -157,7 +157,7 @@ def api_dhmos_update(request,pk):
     return JsonResponse(json.loads(epafesSerialized), safe=False)
 
 
-@cache_page(60 * 15)
+
 @login_required
 def api_aithma(request,pk):
     allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
