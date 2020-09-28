@@ -55,6 +55,7 @@ app_choice = (
     ('OPEN1 Process', 'OPEN1 Process'),
     ('OPEN1 Fin', 'OPEN1 Fin'),
     ('OPEN1 HR', 'OPEN1 HR'),
+    ('OPEN1 PROPERTY', 'OPEN1 PROPERTY'),
     ('4myCity', '4myCity'),
     ('OPEN1 Fleet', 'OPEN1 Fleet'),
     ('Easy Pay', 'EasyPay'),
