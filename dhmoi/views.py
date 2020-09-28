@@ -9,7 +9,7 @@ from .export import *
 from .update_records import *
 from .user_register import user_register
 import datetime
-from django.views.decorators.cache import cache_page
+#from django.views.decorators.cache import cache_page
 
 from tasks.views import index
 from tasks.models import *
@@ -33,7 +33,7 @@ def home(request):
     return render(request, 'main/home.html')
 
 
-@cache_page(60 * 15)
+
 @login_required
 def pelatis(request):
     alldhmos = Dhmos.objects.all().order_by('name')
@@ -41,7 +41,7 @@ def pelatis(request):
     return render(request, 'main/pelatis.html', {'filter': pelatis_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def epafi(request):
     allepafes = Employee.objects.all().order_by('lastname')
@@ -49,7 +49,7 @@ def epafi(request):
     return render(request, 'main/epafi.html', {'filter': epafi_filter})
 
 
-@cache_page(60 * 15)
+
 @login_required
 def ergasia(request):
     order_by = request.GET.get('order_by', '-importdate')
