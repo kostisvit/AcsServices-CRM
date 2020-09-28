@@ -25,7 +25,7 @@ SECRET_KEY = 'y318ewbu1(4cc2ndo9o5+$aays*@+0$ob6dd#231-3w^^m&!@4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['acsmaz.ddns.net']
+ALLOWED_HOSTS = ['acsmaz.ddns.net','127.0.0.1']
 
 
 # Application definition

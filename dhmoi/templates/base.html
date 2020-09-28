@@ -81,6 +81,22 @@
                     </li>
                 </ul>
             </li>
+            {% if perms.is_superuser%}
+            <li>
+                <a href="#configmanager" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-desktop"></span>&nbsp&nbspΔιεύθυνση</a>
+                <ul class="collapse list-unstyled" id="configmanager">
+                    <li>
+                        <a href="{% url 'polisi' %}"><i class="fas fa-euro-sign"></i>&nbsp&nbspΠροσφορές</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'tameiaki' %}"><i class="fas fa-wallet"></i>&nbsp&nbspΣυμβάσεις</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'service' %}"><i class="fas fa-wrench"></i>&nbsp&nbspΤιμολογήσεις</a>
+                    </li>
+                </ul>
+            </li>
+            {% endif %}
         </ul>
     </nav>
 
