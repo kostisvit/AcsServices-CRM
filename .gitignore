@@ -8,3 +8,6 @@
 /tasks/__pycache__/
 /tasks/.DS_Store
 .vscode
+/timologisi/.DS_Store
+/timologisi/__pycache__/
+/timologisi/migrations/__pycache__/
