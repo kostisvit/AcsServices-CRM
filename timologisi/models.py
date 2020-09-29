@@ -2,6 +2,11 @@ from django.db import models
 from dhmoi.model_choices import *
 import datetime
 
+symbasi_type = (
+    ('REL00','REL00'),
+    ('HARD00','HARD00')
+)
+
 # Create your models here.
 class Prosfora(models.Model):
     pelatis = models.ForeignKey('dhmoi.Dhmos', on_delete=models.CASCADE, verbose_name='Πελάτης', null=False,blank=False)
@@ -21,6 +26,17 @@ class Prosfora(models.Model):
         verbose_name_plural = 'Προσφορά'
         ordering = ['id']
         #db_table = ""
+
+
+class Symbasi(models.Model):
+    pelatis = models.ForeignKey('dhmoi.Dhmos', on_delete=models.CASCADE, verbose_name='Πελάτης', null=False,blank=False)
+    end_date = models.DateField(default=datetime.date.today, verbose_name='Ημ.Λήξης', null=False, blank=False)
+    sign_date = models.DateField(default=datetime.date.today, verbose_name='Ημ.Υπογρ.', null=False, blank=False)
+    symbasi = models.CharField(max_length=100, choices=symbasi_type, null=False, blank=False)
+    #symbasi_code = models.PositiveIntegerField(default=0, null=False)
+    symbasi_description = models.TextField(max_length=600, null=True, blank=True)
+
+
     
     
 
