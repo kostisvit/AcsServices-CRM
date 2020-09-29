@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_filters',
     'dhmoi',
-
     'mptt',
     'xlwt',
     'widget_tweaks',
@@ -50,6 +49,7 @@ INSTALLED_APPS = [
     'table',
     'crispy_forms',
     'tasks',
+    'timologisi',
 
 
 ]
