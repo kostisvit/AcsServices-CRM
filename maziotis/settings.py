@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'table',
     'crispy_forms',
     'tasks',
-    'timologisi',
+
 
 
 ]
