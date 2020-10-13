@@ -8,6 +8,9 @@ from import_export import fields, resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import ForeignKeyWidget, CharWidget
 from tasks.models import Task
+from timologisi.models import *
+
+
 
 
 
@@ -132,6 +135,9 @@ class TaskAdmin(ImportExportModelAdmin):
     list_display = ('employee', 'title', 'complete', 'created')
 
 
+class ProsforaAdmin(ImportExportModelAdmin):
+    list_display = ('pelatis', 'app', 'contact', 'poso','is_approved','prosfora_des','created_at','updated_at')
+
 admin.site.register(Dhmos, DhmosAdmin)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Ergasies, ErgasiesAdmin)
@@ -144,6 +150,7 @@ admin.site.register(Profile)
 admin.site.register(Training, TrainingAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Tameiaki)
+admin.site.register(Prosfora,ProsforaAdmin)
 
 
 
