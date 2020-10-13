@@ -3,7 +3,7 @@ from dhmoi.model_choices import *
 import datetime
 
 class Prosfora(models.Model):
-    pelatis = models.ForeignKey('dhmoi.Dhmos', on_delete=models.CASCADE, null=False, blank=False)
+    pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     app = models.CharField(max_length=100, choices=app_choice, null=True, blank=True)
     contact = models.ForeignKey('dhmoi.Employee', on_delete=models.CASCADE, null=False, blank=False)
     poso = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False)
