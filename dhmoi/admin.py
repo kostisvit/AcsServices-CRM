@@ -138,6 +138,9 @@ class TaskAdmin(ImportExportModelAdmin):
 class ProsforaAdmin(ImportExportModelAdmin):
     list_display = ('pelatis', 'app', 'contact', 'poso','is_approved','prosfora_des','created_at','updated_at')
 
+class ContractAdmin(ImportExportModelAdmin):
+    list_display = ('pelatis','contract_end','contract_sign','contract_code','contact','contract_ammount','contract_desc','combined')
+
 admin.site.register(Dhmos, DhmosAdmin)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Ergasies, ErgasiesAdmin)
@@ -151,7 +154,7 @@ admin.site.register(Training, TrainingAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Tameiaki)
 admin.site.register(Prosfora,ProsforaAdmin)
-
+admin.site.register(Contract, ContractAdmin)
 
 
 
