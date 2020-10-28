@@ -8,6 +8,13 @@ contract_choice = (
     ('SOFT00','SOFT00')
 )
 
+bank_choice = (
+    ('Τράπεζα Πειραιώς','Τράπεζα Πειραιώς'),
+    ('Εθνική Τράπεζα','Εθνική Τράπεζα'),
+    ('AlphaBank','AlphaBank'),
+    ('EuroBank','Eurobank')
+)
+
 class Prosfora(models.Model):
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     app = models.CharField(max_length=100, choices=app_choice, null=True, blank=True)
@@ -35,6 +42,8 @@ class Contract(models.Model):
     contact = models.ForeignKey('dhmoi.Employee', on_delete=models.CASCADE, verbose_name='Επαφή', null=True, blank=True)
     contract_ammount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό Σύμβασης')
     contract_desc = models.TextField(verbose_name='Περιγραφή Σύμβασης', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Σύμβαση'
@@ -43,3 +52,24 @@ class Contract(models.Model):
 
     def combined(obj):
         return "%s %s" % (obj.contract_code, obj.id)
+
+    
+    
+    
+
+class Invoice(models.Model):
+    pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
+    contract_code = models.ForeignKey('Contract', on_delete=models.CASCADE, null=False, blank=False, verbose_name='Κωδ.Συμβ.')
+    invoice_date = models.DateField(verbose_name=' Ημ.Τιμολόγησης', null=False, blank=False)
+    ammount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό')
+    bank = models.CharField(max_length=150, choices=bank_choice, verbose_name='Τράπεζα', null=False, blank=False)
+    is_paid = models.BooleanField(default=False, verbose_name='Πληρώθηκε')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Τιμολόγηση'
+        verbose_name_plural = 'Τιμολόγηση'
+        ordering = ['id']
+    
+    
