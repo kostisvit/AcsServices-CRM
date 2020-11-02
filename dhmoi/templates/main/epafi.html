@@ -1,63 +1,49 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Επαφές</title>
-</head>
-<body>
 {% block content%}
 <div>
-	<a href="{% url 'epafi_new' %}" class="btn btn-primary btn-lg a-btn-slide-text">
-        <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>          
+	<a href="{% url 'epafi_new' %}" class="btn btn-primary btn-sm">
+    <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>          
     </a>
-    <a href="{% url 'export_epafes' %}" class="btn btn-success btn-lg a-btn-slide-text">
-        <span class="fa fa-download"></span>&nbsp<strong>Export</strong>         
+    <a href="{% url 'export_epafes' %}" class="btn btn-success btn-sm">
+    <span class="fa fa-download"></span>&nbsp<strong>Export</strong>         
     </a>
-	<fieldset class="border p-1">
-   <legend  class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
+    <p></p>
+<fieldset class="border p-1">
+    <legend  class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
 <form method="get">
     <div class="well">
-     
-      <div class="row">
+        <div class="row">
         <div class="form-group col-sm-4 col-md-3">
           {{ filter.form.dhmos.label_tag }}
           {% render_field filter.form.dhmos class="form-control" %}
         </div>
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.firstname.label_tag }}
-          {% render_field filter.form.firstname class="form-control" %}
         </div>
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.lastname.label_tag }}
-          {% render_field filter.form.lastname class="form-control" %}
-        </div>
-        </div>
-        <button type="submit" class="btn btn-primary"><span class="fa fa-search"></span>&nbspΑναζήτηση</button>
+    <button type="submit" class="btn btn-warning btn-sm"><span class="fa fa-search"></span>&nbspΑναζήτηση</button>
   	</div>
 </form>
 </fieldset>
 </div>
-<div>
 &nbsp
-<table border="0"  class="table table-sm" id="epafi-table">
-  <thead>
-        <tr>
-            <th colspan="8" class="tbhead" style="color: #333399;">Επαφές</th>
-        </tr>
-    </thead>
-	<tr style="color:#333399;">
-		<th>Πελάτης</th>
-		<th>Επώνυμο</th>
-		<th>Όνομα</th>
-		<th>Τμήμα</th>
+<table id="epafi-table" class="display compact">
+<thead>
+    <tr>
+        <th colspan="8" class="tbhead" style="color: #333399;">Επαφές</th>
+    </tr>
+    <tr style="color:#333399;">
+		<th class="tableHead">Πελάτης<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Επώνυμο<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Όνομα<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Τμήμα<i class="fas fa-sort fa-fw"></i></th>
 		<th>Τηλέφωνο</th>
 		<th>Κινητό</th>
 		<th>Email</th>
 		<th>Διόρθωση</th>
-	</tr>
-	{% for employee in filter.qs %}
+    </tr>
+</thead>
+<tbody>
+{% for employee in filter.qs %}
 	<tr>
 		<td>{{employee.dhmos}}</td>
 		<td>{{employee.lastname}}</td>
@@ -66,82 +52,35 @@
 		<td>{{employee.phone}}</td>
 		<td>{{employee.cellphone|default_if_none:""}}</td>
 		<td><font color="blue">{{employee.email|default_if_none:""}}</font></td>
-		<td><a href="{% url 'epafi_update' pk=employee.pk %}" class="btn btn-primary a-btn-slide-text"> 
+		<td><a href="{% url 'epafi_update' pk=employee.pk %}" class="btn btn-primary btn-sm mr-1"> 
     <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
-    <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_epafi' pk=employee.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
+    <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_epafi' pk=employee.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i></span>            
     </a>           
     </a></td>
 	</tr>
-	{% endfor %}
+    {% endfor %}
+</tbody>
 </table>
 <script>
-	// get the table element
-var $table = document.getElementById("epafi-table"),
-// number of rows per page
-$n = 20,
-// number of rows of the table
-$rowCount = $table.rows.length,
-// get the first cell's tag name (in the first row)
-$firstRow = $table.rows[0].firstElementChild.tagName,
-// boolean var to check if table has a head row
-$hasHead = ($firstRow === "TH"),
-// an array to hold each row
-$tr = [],
-// loop counters, to start count from rows[1] (2nd row) if the first row has a head tag
-$i,$ii,$j = ($hasHead)?1:0,
-// holds the first row if it has a (<TH>) & nothing if (<TD>)
-$th = ($hasHead?$table.rows[(0)].outerHTML:"");
-// count the number of pages
-var $pageCount = Math.ceil($rowCount / $n);
-// if we had one page only, then we have nothing to do ..
-if ($pageCount > 1) {
-    // assign each row outHTML (tag name & innerHTML) to the array
-    for ($i = $j,$ii = 0; $i < $rowCount; $i++, $ii++)
-        $tr[$ii] = $table.rows[$i].outerHTML;
-    // create a div block to hold the buttons
-    $table.insertAdjacentHTML("afterend","<div id='buttons'></div");
-    // the first sort, default page is the first one
-    sort(1);
-}
-
-// ($p) is the selected page number. it will be generated when a user clicks a button
-function sort($p) {
-    /* create ($rows) a variable to hold the group of rows
-    ** to be displayed on the selected page,
-    ** ($s) the start point .. the first row in each page, Do The Math
-    */
-    var $rows = $th,$s = (($n * $p)-$n);
-    for ($i = $s; $i < ($s+$n) && $i < $tr.length; $i++)
-        $rows += $tr[$i];
-
-    // now the table has a processed group of rows ..
-    $table.innerHTML = $rows;
-    // create the pagination buttons
-    document.getElementById("buttons").innerHTML = pageButtons($pageCount,$p);
-    // CSS Stuff
-    document.getElementById("id"+$p).setAttribute("class","active");
-}
-
-
-// ($pCount) : number of pages,($cur) : current page, the selected one ..
-function pageButtons($pCount,$cur) {
-    /* this variables will disable the "Prev" button on 1st page
-       and "next" button on the last one */
-    var $prevDis = ($cur == 1)?"disabled":"",
-        $nextDis = ($cur == $pCount)?"disabled":"",
-        /* this ($buttons) will hold every single button needed
-        ** it will creates each button and sets the onclick attribute
-        ** to the "sort" function with a special ($p) number..
-        */
-        $buttons = "<input type='button' value='&lt;&lt; Prev' onclick='sort("+($cur - 1)+")' "+$prevDis+">";
-    for ($i=1; $i<=$pCount;$i++)
-        $buttons += "<input type='button' id='id"+$i+"'value='"+$i+"' onclick='sort("+$i+")'>";
-    $buttons += "<input type='button' value='Next &gt;&gt;' onclick='sort("+($cur + 1)+")' "+$nextDis+">";
-    return $buttons;
-}
-</script>
-</div>
+    $(document).ready( function () {
+        $('#epafi-table').DataTable({
+          "pagingType": "full_numbers",
+          "language": {
+                "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+                "zeroRecords": "Nothing found - sorry",
+                "info": "Σελίδα _PAGE_ από _PAGES_",
+                "infoEmpty": "No records available",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search": "Αναζήτηση:",
+                "paginate": {
+                "previous": " < ",
+                "next": " > ",
+                "first": " << ",
+                "last": " >> "
+              }
+            },
+        });
+    } );
+    </script>
 {% endblock %}
 
-</body>
-</html>

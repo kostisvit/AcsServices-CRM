@@ -5,13 +5,13 @@
 <body>
 	{% block content %}
 	<div>
-   <a href="{% url 'aithma_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη αιτήματος">
+   <a href="{% url 'aithma_new' %}" class="btn btn-primary btn-sm" title="Προσθήκη αιτήματος">
         <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>          
     </a>
-    <a href="{% url 'export_aithmata' %}" class="btn btn-success btn-lg a-btn-slide-text">
+    <a href="{% url 'export_aithmata' %}" class="btn btn-success btn-sm">
         <span class="fa fa-download"></span>&nbsp<strong>Export</strong>         
     </a>
-
+    <p></p>
 <fieldset class="border p-1">
    <legend  class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
 <form method="get">
@@ -32,7 +32,7 @@
           {% render_field filter.form.assign class="form-control" %}
         </div>
        </div>
-             <button type="submit" class="btn btn-primary">
+             <button type="submit" class="btn btn-warning btn-sm">
         <span class="fa fa-search"></span>&nbspΑναζήτηση
       </button>
         </div>
@@ -40,40 +40,61 @@
 </fieldset>
 </div>
 &nbsp
-<table class="table table-sm" id="table1">
+<table class="table table-sm" id="aithma-table">
 <thead>
-        <tr>
-            <th colspan="10" class="tbhead" style="color: #333399;">Αιτήματα</th>
-        </tr>
-    </thead>
-  <tr style="color: #333399;">
-  	<th>Ημ. Καταχ.</th>
-		<th>Πελάτης</th>
-		<th>Περιγραφή</th>
-    <th>Επαφή</th>
-    <th>Τηλέφωνο</th>
-		<th>Χρέωση - ACS</th>
-		<th>Ημ.Κλεισ.</th>
-		<th>Διόρθωση</th>
+  <tr>
+    <th colspan="10" class="tbhead" style="color: #333399;">Αιτήματα</th>
   </tr>
+  <tr style="color: #333399;">
+  	<th>Ημ. Καταχ.<i class="fas fa-sort fa-fw"></i></th>
+		<th>Πελάτης<i class="fas fa-sort fa-fw"></i></th>
+		<th>Περιγραφή<i class="fas fa-sort fa-fw"></i></th>
+    <th>Επαφή<i class="fas fa-sort fa-fw"></i></th>
+    <th>Τηλέφωνο<i class="fas fa-sort fa-fw"></i></th>
+		<th>Χρέωση - ACS<i class="fas fa-sort fa-fw"></i></th>
+		<th>Ημ.Κλεισ.<i class="fas fa-sort fa-fw"></i></th>
+		<th>Διόρθωση<i class="fas fa-sort fa-fw"></i></th>
+  </tr>
+</thead>
+<tbody>
   {% for aithmata in filter.qs %}
   <tr>
-    	<td>{{aithmata.importdate|date:"d/m/Y"}}</td>
+    <td>{{aithmata.importdate|date:"d/m/Y"}}</td>
 		<td>{{aithmata.dhmos}}</td>
 		<td title="{{aithmata.info}}">{{aithmata.info|truncatewords:5}}</td>
     <td>{{aithmata.employee}}</td>
     <td>{{aithmata.phone}}</td>
 		<td>{{aithmata.assign.get_full_name}}</td>
 		<td><font color="red">{{aithmata.closedate|date:'d/m/Y'}}</font></td>
-    <td ><a href="{% url 'aithma_update' pk=aithmata.pk %}" class="btn btn-primary a-btn-slide-text">
+    <td ><a href="{% url 'aithma_update' pk=aithmata.pk %}" class="btn btn-primary btn-sm mr-1">
     <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
-        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_aithma' pk=aithmata.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i></span>
+    <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="{% url 'delete_aithma' pk=aithmata.pk %}"><span><span><i class="fa fa-trash" aria-hidden="true"></i></span>
     </a>
     </a></td>
   </tr>
   {% endfor %}
-
+</tbody>
 </table>
+<script>
+  $(document).ready( function () {
+      $('#aithma-table').DataTable({
+        "pagingType": "full_numbers",
+        "language": {
+              "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+              "zeroRecords": "Nothing found - sorry",
+              "info": "Σελίδα _PAGE_ από _PAGES_",
+              "infoEmpty": "No records available",
+              "infoFiltered": "(filtered from _MAX_ total records)",
+              "search": "Αναζήτηση:",
+              "paginate": {
+              "previous": " < ",
+              "next": " > ",
+              "first": " << ",
+              "last": " >> "
+            }
+          }
+      });
+  } );
+  </script>
 	{% endblock %}
-	
 </body>
