@@ -1,8 +1,6 @@
 from django.conf.urls import url
 from . import views
 from django.conf import settings
-
-
 import tasks
 from tasks.views import index
 
@@ -23,7 +21,7 @@ urlpatterns = [
     url(r'acs-services/update-records/polisi/(?P<pk>\d+)/',views.polisi_update, name='polisi_update'),
     url(r'acs-services/main/service', views.service, name='service'),
     url(r'acs-services/update-records/service/(?P<pk>\d+)/',views.service_update, name='service_update'),
-     url(r'acs-services/main/tameiakes', views.tameiaki, name='tameiaki'),
+    url(r'acs-services/main/tameiakes', views.tameiaki, name='tameiaki'),
     url(r'acs-services/main/hardware', views.hardware, name='hardware'),
     url(r'acs-services/update-records/hardware/(?P<pk>\d+)/',views.hardware_update, name='hardware_update'),
     url(r'acs-services/main/training', views.training, name='training'),

@@ -6,22 +6,20 @@
 	{% block content %}
 	<div>
     {% if perms.dhmoi.add_polisi %}
-   <a href="{% url 'polisi_new' %}" class="btn btn-primary btn-lg a-btn-slide-text" title="Προσθήκη αιτήματος">
+  <a href="{% url 'polisi_new' %}" class="btn btn-primary btn-sm" title="Προσθήκη">
         <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>
-    </a>
+  </a>
     {% endif %}
-    <a href="#" class="btn btn-success btn-lg a-btn-slide-text">
+  <a href="#" class="btn btn-success btn-sm">
         <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
-    </a>
-
+  </a><p></p>
 <fieldset class="border p-1">
    <legend  class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
 <form method="get">
       {% csrf_token %}
     <div class="well">
-
       <div class="row">
-           <div class="form-group col-sm-4 col-md-3">
+        <div class="form-group col-sm-4 col-md-3">
           {{ filter.form.dhmos.label_tag }}
           {% render_field filter.form.dhmos class="form-control" %}
         </div>
@@ -34,30 +32,30 @@
           {% render_field filter.form.status class="form-control" %}
         </div>
        </div>
-             <button type="submit" class="btn btn-primary">
-        <span class="fa fa-search"></span>&nbspΑναζήτηση
+       <button type="submit" class="btn btn-warning btn-sm">
+          <span class="fa fa-search"></span>&nbspΑναζήτηση
       </button>
-        </div>
+    </div>
 </form>
 </fieldset>
-    </div>
 &nbsp
-<table class="table table-sm" id="table1">
+<table class="display compact" style="width:100%" id="polisi-table">
 <thead>
-        <tr>
-            <th colspan="10" class="tbhead" style="color: #333399;">Αιτήματα</th>
-        </tr>
-    </thead>
+  <tr>
+    <th colspan="10" class="tbhead" style="color: #333399;">Αιτήματα</th>
+  </tr>
   <tr style="color: #333399;">
-		<th>Πελάτης</th>
-		<th>Είδος</th>
-		<th>Ποσότητα</th>
-		<th>Συνολ. τιμή</th>
-		<th>Καταγραφή</th>
-		<th>Έτος</th>
-    <th>Status</th>
+		<th class="tableHead">Πελάτης<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Είδος<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Ποσότητα<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Σύνολο<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Καταγραφή<i class="fas fa-sort fa-fw"></i></th>
+		<th class="tableHead">Έτος</th>
+    <th class="tableHead">Status<i class="fas fa-sort fa-fw"></i></th>
 		<th>Διόρθωση</th>
-	</tr>
+  </tr>
+</thead>
+<tbody>
   {% for polisi in filter.qs %}
 	<tr>
 		<td>{{polisi.dhmos}}</td>
@@ -67,19 +65,35 @@
 		<td>{{polisi.katagrafi|date:"d/m/Y"}}</font></td>
 		<td>{{polisi.etos}}</td>
     <td><b><font color="red">{{polisi.status}}</font></b></td>
-
-
-		<td ><a href="{% url 'polisi_update' pk=polisi.pk %}" class="btn btn-primary a-btn-slide-text">
-    <span><span><i class="fa fa-eye" aria-hidden="true"></i></span>
-        <a class="btn btn-danger a-btn-slide-text" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="#{% url 'delete_polisi' pk=polisi.pk %}">
-            <span><span><i class="fa fa-trash" aria-hidden="true"></i></span>
-    </a>
-    </a></td>
+    <td><a href="{% url 'polisi_update' pk=polisi.pk %}" class="btn btn-primary btn-sm mr-1">
+    <span><i class="fa fa-eye" aria-hidden="true"></i></span>
+      <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή;');" href="#{% url 'delete_polisi' pk=polisi.pk %}">
+      <span><span><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+    </td>
 	</tr>
 	{% endfor %}
-
-
+</tbody>
 </table>
+<script>
+  $(document).ready( function () {
+      $('#polisi-table').DataTable({
+        "pagingType": "full_numbers",
+        "language": {
+              "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+              "zeroRecords": "Nothing found - sorry",
+              "info": "Σελίδα _PAGE_ από _PAGES_",
+              "infoEmpty": "No records available",
+              "infoFiltered": "(filtered from _MAX_ total records)",
+              "search": "Αναζήτηση:",
+              "paginate": {
+              "previous": " < ",
+              "next": " > ",
+              "first": " << ",
+              "last": " >> "
+            }
+          }
+      });
+  } );
+  </script>
 	{% endblock %}
-
 </body>
