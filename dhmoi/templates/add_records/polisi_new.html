@@ -13,30 +13,24 @@
      <div class="form-group col-md-4">
     {{ polisiform.eidos|as_crispy_field }}
     </div>
-     <div class="form-group col-md-4">
+     <div class="form-group col-md-2">
     {{ polisiform.posothta|as_crispy_field }}
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-2">
     {{ polisiform.sinoltimi|as_crispy_field }}
 </div>
-	<div class="form-group col-md-4">
+	<div class="form-group col-md-2">
 	{{ polisiform.katagrafi|as_crispy_field }}
 	</div>
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-2">
     {{ polisiform.etos|as_crispy_field }}
     </div>
+    <div class="form-group col-md-2">
+      {{ polisiform.status|as_crispy_field }}
+  </div>
 </div>
-<div class="form-row">
-    
-    <div class="form-group col-md-4">
-    {{ polisiform.status|as_crispy_field }}
-</div>
-</div>
-
-
-         <div class="form-row" style="clear:both; float: right; margin-right: 20px;">
-
-<a href="{% url 'polisi' %}"><button type="button" class="save btn btn-primary">Επιστροφή</button></a>&nbsp&nbsp
+ <div class="form-row" style="clear:both; float: right; margin-right: 20px;">
+  <a href="{% url 'polisi' %}"><button type="button" class="save btn btn-primary mr-1">Επιστροφή</button></a>
         <button type="submit" class="save btn btn-success">Αποθήκευση</button>
       
     </div>

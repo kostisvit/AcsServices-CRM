@@ -3,6 +3,8 @@ from . import views
 from django.conf import settings
 import tasks
 from tasks.views import index
+import timologisi
+from timologisi.views import *
 
 urlpatterns = [
     url(r'^$', views.home),
@@ -58,6 +60,10 @@ urlpatterns = [
     url(r'acs-services/tasks/', tasks.views.index, name='index'),
     url(r'acs-services/update_task/(?P<pk>\d+)/', tasks.views.updateTask, name='update_task'),
     url(r'acs-services/delete_task/(?P<pk>\d+)/', tasks.views.deleteTask, name='delete_task'),
+    #url timologisi
+    url(r'acs-services/timologisi-main/prosfora', timologisi.views.prosfora, name='prosfora'),
+    url(r'acs-services/timologisi-main/symbasi', timologisi.views.symbasi, name='symbasi'),
+    url(r'acs-services/timologisi-main/timologisi', timologisi.views.timologio, name='timologio'),
     # chained selection ergasia_new
     url(r'api/ergasies/dhmoi-epafes/(?P<pk>\d+)/', views.api_dhmos, name='api_dhmos'),
     url(r'api/ergasies-update/dhmoi-epafes/(?P<pk>\d+)/', views.api_dhmos_update, name='api_dhmos_update'),

@@ -90,6 +90,8 @@ class ErgasiesResource(resources.ModelResource):
         exclude = ('id', 'text', 'ticketid')
         export_order = ('dhmos', 'importdate', 'app', 'employee',
                         'jobtype', 'info', 'name', 'time')
+                        
+                        
 
 
 class ErgasiesAdmin(ImportExportModelAdmin):

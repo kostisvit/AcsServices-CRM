@@ -15,6 +15,8 @@ from tasks.views import index
 from tasks.models import *
 from tasks import context_processor
 
+from timologisi.views import *
+
 from django.core import serializers
 from django.http import JsonResponse
 
