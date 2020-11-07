@@ -219,3 +219,5 @@ class Tameiaki(models.Model):
     class Meta:
         verbose_name = 'Ταμειακές'
         verbose_name_plural = 'Ταμειακές'
+
+

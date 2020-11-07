@@ -136,12 +136,6 @@ def adeia_search(request):
 def polisi_search(request):
     return render(request, 'search/polisi_search.html')
 
-
-@login_required
-def update_history(request):
-    return render(request, 'main/update.html')
-
-
 # chained selection view
 
 
