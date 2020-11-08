@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tasks',
     'timologisi',
+    'admin_honeypot',
 
 
 
