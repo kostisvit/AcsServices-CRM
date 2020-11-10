@@ -95,6 +95,10 @@
                     </li>
                 </ul>
             </li>
+            {% else %}
+            <li>
+                <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" onclick="alert('Περιορισμένα δικαιώματα {{user.first_name}}');"><span class="fa fa-chalkboard-teacher mr-2"></span>Διεύθυνση</a>
+            </li>
             {% endif %}
         </ul>
     </nav>
