@@ -83,7 +83,7 @@ def training(request):
 @login_required
 def aithma(request):
     today = datetime.date.today()
-    allaithmata = Aithmata.objects.filter(importdate__year=today.year,assign=request.user).order_by('-importdate')
+    allaithmata = Aithmata.objects.filter(importdate__year=today.year).order_by('-importdate')
     aithma_filter = AithmaFilter(request.GET, queryset=allaithmata)
     return render(request, 'main/aithma.html', {'filter': aithma_filter})
 
