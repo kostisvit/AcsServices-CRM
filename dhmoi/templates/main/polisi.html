@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load auth_extras %}
 {% load static %}
 <body>
-	{% block content %}
+  {% block content %}
 	<div>
-    {% if perms.dhmoi.add_polisi %}
-  <a href="{% url 'polisi_new' %}" class="btn btn-primary btn-sm" title="Προσθήκη">
+    <a href="{% url 'polisi_new' %}" class="btn btn-primary btn-sm" title="Προσθήκη">
         <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>
-  </a>
-    {% endif %}
+    </a>
   <a href="#" class="btn btn-success btn-sm">
         <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
   </a><p></p>
