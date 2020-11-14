@@ -1,5 +1,6 @@
 /dhmoi/__pycache__/
 /dhmoi/migrations/__pycache__/
+/dhmoi/templatetags/__pycache__/
 /maziotis/__pycache__/
 *.pyc
 .DS_Store
