@@ -24,8 +24,9 @@
         </div>
         <ul class="list-unstyled components">
             {% if user.is_authenticated %}
-  <p class="loguser"><strong>Συνδεδεμένος χρήστης:</strong>&nbsp{{ user.first_name }} {{ user.last_name }}</a> - {% now 'd/m/Y' %}</p>
-  {% endif %}
+  <p class="loguser"><strong>Χρήστης:</strong>&nbsp{{ user.first_name }} {{ user.last_name }}<br>
+    <strong>Ημερομηνία:</strong> {% now 'd/m/Y' %}
+            {% endif %}
             <li class="active">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-home mr-2"></span>Αρχείο</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -120,9 +121,13 @@
                                 <a class="nav-link" href="{% url 'index' %}">Notes&nbsp<sup class="task_count"><span class="badge badge-danger" title="Ενεργά Tasks">{{total_tasks}}</span></sup></a>
                             </li>
                             {% if perms.is_superuser%}
-                              <li class="nav-item">
-                                <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">Διαχείριση</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">Διαχείριση</a>
                             </li>
+                            {% else %}
+                                <li classs="nav-item">
+                                    <a class="nav-link" href="#" onclick="alert('Περιορισμένα δικαιώματα {{user.first_name}}');">Διαχείριση</a>
+                                </li>
                             {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'logout' %}"><strong>Έξοδος</strong></a>
