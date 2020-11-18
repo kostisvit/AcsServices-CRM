@@ -25,6 +25,10 @@ import json
 from django.contrib.auth import logout
 
 
+from django.views.generic import TemplateView, ListView
+from django.db.models import Q
+
+
 
 def logout(request):
      response.delete_cookie('user_location')
@@ -167,3 +171,19 @@ def api_aithma(request,pk):
     epafesSerialized = serializers.serialize ('json', allepafes, ensure_ascii=False)
     return JsonResponse(json.loads(epafesSerialized), safe=False)
 
+
+
+class SearchResultsView(ListView):
+    model = Ergasies
+    template_name = 'search/ergasia_search.html'
+
+    def get_queryset(self): # new
+        
+        query = self.request.GET.get('q')
+        if query:
+            object_list = Ergasies.objects.filter(
+             Q(info__icontains=query) | Q(dhmos__name__icontains=query) | Q(name__icontains=query)
+        )
+        else:
+           object_list = None
+        return object_list

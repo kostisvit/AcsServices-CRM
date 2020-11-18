@@ -6,6 +6,9 @@ from tasks.views import index
 import timologisi
 from timologisi.views import *
 
+
+from .views import SearchResultsView
+
 urlpatterns = [
     url(r'^$', views.home),
     url(r'acs-services/register/', views.user_register, name='register'),
@@ -27,7 +30,7 @@ urlpatterns = [
     url(r'acs-services/main/hardware', views.hardware, name='hardware'),
     url(r'acs-services/update-records/hardware/(?P<pk>\d+)/',views.hardware_update, name='hardware_update'),
     url(r'acs-services/main/training', views.training, name='training'),
-    url(r'acs-services/search/eragsies-search',views.ergasia_search, name='ergasia_search'),
+    url(r'acs-services/search/eragsies-search',SearchResultsView.as_view(), name='ergasia_search'),
     url(r'acs-services/search/adeia-search',views.adeia_search, name='adeia_search'),
     url(r'acs-services/search/polisi-search',views.polisi_search, name='polisi_search'),
     url(r'acs-services/update-records/training/(?P<pk>\d+)/',views.training_update, name='training_update'),
