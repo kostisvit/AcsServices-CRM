@@ -53,7 +53,8 @@ class Contract(models.Model):
     def combined(obj):
         return "%s %s" % (obj.contract_code, obj.id)
 
-    
+    def __str__(self):
+        return (self.contract_code) + ' ' + str(self.id)
     
     
 
