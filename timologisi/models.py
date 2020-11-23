@@ -62,7 +62,7 @@ class Invoice(models.Model):
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     contract_code = models.ForeignKey('Contract', on_delete=models.CASCADE, null=False, blank=False, verbose_name='Κωδ.Συμβ.')
     invoice_date = models.DateField(verbose_name=' Ημ.Τιμολόγησης', null=False, blank=False)
-    ammount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό')
+    amount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό')
     bank = models.CharField(max_length=150, choices=bank_choice, verbose_name='Τράπεζα', null=False, blank=False)
     is_paid = models.BooleanField(default=False, verbose_name='Πληρώθηκε')
     created_at = models.DateTimeField(auto_now_add=True)

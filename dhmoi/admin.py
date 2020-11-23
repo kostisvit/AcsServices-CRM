@@ -144,7 +144,7 @@ class ContractAdmin(ImportExportModelAdmin):
     list_display = ('pelatis','contract_end','contract_sign','contract_code','contact','contract_ammount','contract_desc','combined')
 
 class InvoiceAdmin(ImportExportModelAdmin):
-    list_display = ('pelatis','contract_code','invoice_date','ammount','bank','is_paid')
+    list_display = ('pelatis','contract_code','invoice_date','amount','bank','is_paid')
 
 admin.site.register(Dhmos, DhmosAdmin)
 admin.site.register(Employee, EmployeeAdmin)
