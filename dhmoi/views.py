@@ -8,6 +8,7 @@ from .delete_records import *
 from .export import *
 from .update_records import *
 from .user_register import user_register
+from .charts import *
 import datetime
 #from django.views.decorators.cache import cache_page
 
@@ -28,7 +29,7 @@ from django.contrib.auth import logout
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
 
-
+from django.db.models import Sum
 
 def logout(request):
      response.delete_cookie('user_location')
@@ -187,3 +188,15 @@ class SearchResultsView(ListView):
         else:
            object_list = None
         return object_list
+
+
+class ChartView(TemplateView):
+    template_name = 'charts/adeia_chart.html'
+
+    def get_context_data(self, **kwargs):
+        today = datetime.date.today()
+        context = super().get_context_data(**kwargs)
+        context["qs"] = Adeia.objects.values('employee__first_name','employee__last_name').filter(createddate__year=today.year).annotate(days=Sum('days'))
+        return context
+   
+

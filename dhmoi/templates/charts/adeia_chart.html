@@ -1,0 +1,55 @@
+{% extends 'base_charts.html' %}
+
+{% block title %}Σύνολο Άδειας έτους {% now "Y"%}{% endblock title %}
+
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        var ctx = document.getElementById('AdeiaChart');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for item in qs %}'{{item.employee__first_name}} {{item.employee__last_name}}',{% endfor %}],
+                datasets: [{
+                    label: '# Ημέρες άδειας {% now "Y" %}',
+                    data: [{% for item in qs %}{{item.days}},{% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+            })
+
+</script>
+{% endblock scripts %}
+
+
+{% block content %}
+<canvas id="AdeiaChart" width="400" height="200"></canvas>
+
+{% endblock content %}
