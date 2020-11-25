@@ -8,7 +8,7 @@ from timologisi.views import *
 
 
 from .views import SearchResultsView
-from dhmoi.views import AdeiaChartView
+from .charts import *
 
 urlpatterns = [
     url(r'^$', views.home),
@@ -72,8 +72,9 @@ urlpatterns = [
     url(r'api/ergasies/dhmoi-epafes/(?P<pk>\d+)/', views.api_dhmos, name='api_dhmos'),
     url(r'api/ergasies-update/dhmoi-epafes/(?P<pk>\d+)/', views.api_dhmos_update, name='api_dhmos_update'),
     url(r'api/aithmata/dhmoi-epafes/(?P<pk>\d+)/', views.api_aithma, name='api_aithma'),
-
-    url(r'acs-services/charts', AdeiaChartView.as_view(), name='adeia_chart'),
+    # charts
+    url(r'acs-services/adeia-charts', AdeiaChartView.as_view(), name='adeia_chart'),
+    url(r'acs-services/polisi-chart', PolisiChartView.as_view(), name='polisi_chart')
     
 
 
