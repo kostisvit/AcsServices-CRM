@@ -7,10 +7,13 @@
   {% block content %}
 	<div>
     <a href="{% url 'polisi_new' %}" class="btn btn-primary btn-sm" title="Προσθήκη">
-        <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>
+        <span class="fa fa-plus mr-2"></span><strong>Νέα εγγραφή</strong>
+    </a>
+    <a href="{% url 'polisi_chart' %}" target='_blank' class="btn btn-info btn-sm" title="Στατιστικά">
+        <span class="fas fa-chart-line mr-2"></span><strong>Stats</strong>
     </a>
   <a href="#" class="btn btn-success btn-sm">
-        <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
+        <span class="fa fa-download mr-2"></span><strong>Export</strong>
   </a><p></p>
 <fieldset class="border p-1">
    <legend  class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
