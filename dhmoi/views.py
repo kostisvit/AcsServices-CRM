@@ -11,24 +11,15 @@ from .user_register import user_register
 from .charts import *
 import datetime
 #from django.views.decorators.cache import cache_page
-
 from tasks.views import index
 from tasks.models import *
 from tasks import context_processor
-
-from timologisi.views import *
-
 from django.core import serializers
 from django.http import JsonResponse
-
 import json
-
 from django.contrib.auth import logout
-
-
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-
 from django.db.models import Sum
 
 def logout(request):

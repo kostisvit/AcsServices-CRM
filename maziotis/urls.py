@@ -9,7 +9,7 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(),{'template_name': 'registration/logout.html'}, name='logout'),
     path('', include('dhmoi.urls'), name='home'),
-    path('', include, ('tasks.urls'), name='home'),
-    path('', include, ('timologisi.urls'), name='home')
+    path('', include, ('tasks.urls'), name='home')
+    #path('', include, ('timologisi.urls'), name='home')
 
 ]

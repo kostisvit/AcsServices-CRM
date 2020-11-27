@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'table',
     'crispy_forms',
     'tasks',
-    'timologisi',
     'admin_honeypot',
 
 
