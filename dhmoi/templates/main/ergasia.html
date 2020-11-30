@@ -86,6 +86,7 @@
   <script>
     $(document).ready( function () {
         $('#ergasia-table').DataTable({
+        
           "pagingType": "full_numbers",
           "language": {
                 "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
@@ -100,7 +101,12 @@
                 "first": " << ",
                 "last": " >> "
               }
-            }
+            },  
+            dom: 'Bfrtip',
+             buttons: [
+            'copy', 'csv', 'excel', 'pdf',
+        ],
+           
         });
     } );
     </script>

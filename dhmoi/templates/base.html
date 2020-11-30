@@ -13,6 +13,7 @@
     {% block extrahead %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}"/>
     <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/buttons.dataTables.min.css' %}"></script>
     {% endblock %}
 </head>
 <body>
@@ -154,13 +155,20 @@
     </div>
 </div>   
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="{% static 'js/jquery-3.5.1.js' %}"></script>
+
     <!-- Popper.JS -->
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <!-- Bootstrap JS -->
     <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
- 
-
+    <script type="text/javascript" src="{% static 'js-datatable/jquery-3.3.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/dataTables.buttons.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/buttons.html5.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/buttons.flash.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js-datatable/jszip.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js-datatable/pdfmake.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js-datatable/vfs_fonts.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js-datatable/buttons.bootstrap4.min.js' %}"></script>
      <script type="text/javascript">
         $(document).ready(function () {
 
