@@ -213,3 +213,28 @@ a.article:hover {
     margin: 0;
     white-space: nowrap;
 } 
+
+.btn-export-xlx {
+    background: green;
+    margin-right: 5px;
+    height: 40px;
+    font-size: small;
+    font-weight: bold;
+}
+
+.btn-export-pdf {
+    background: red;
+    color: white;
+    margin-right: 5px;
+    height: 40px;
+    font-size: small;
+    font-weight: bold;
+}
+
+.btn-export-csv {
+    background: purple;
+    color: white;
+    height: 40px;
+    font-size: small;
+    font-weight: bold;
+}
