@@ -1,1 +1,16 @@
 {% extends 'base.html' %}
+
+
+{% block content %}
+
+<h3>Contract Form</h3>
+<hr>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{contractform}}<br/>
+    {{invoiceform}}<br/>
+    <input type="submit">
+</form>
+
+{% endblock %}

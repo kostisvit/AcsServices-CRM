@@ -1,1 +1,14 @@
 {% extends 'base.html'%}
+
+{% block content %}
+
+<h3>Prosfora Form</h3>
+<hr>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{prosforaform}}
+    <input type="submit">
+</form>
+
+{% endblock %}
