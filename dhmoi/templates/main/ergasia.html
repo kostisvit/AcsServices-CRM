@@ -85,8 +85,11 @@
   </table>
   <script>
     $(document).ready( function () {
+      
         $('#ergasia-table').DataTable({
-          "order": [[ 1, "desc" ]],
+           columnDefs: [ { type: 'date', 'targets': [1] } ],
+          order: [[ 1, 'desc' ]],
+
           "pagingType": "full_numbers",
           "language": {
                 "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
