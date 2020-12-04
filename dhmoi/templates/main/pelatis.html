@@ -29,9 +29,9 @@
 <tbody>
 {% for dhmos in filter.qs %}
 <tr>
-    <td >{{dhmos.name|default_if_none:""}}</td>
-    <td >{{dhmos.address|default_if_none:""}}</td>
-    <td >{{dhmos.city|default_if_none:""}}</td>
+    <td >{{dhmos.name|title|default_if_none:""}}</td>
+    <td >{{dhmos.address|title|default_if_none:""}}</td>
+    <td >{{dhmos.city|title|default_if_none:""}}</td>
     <td >{{dhmos.phone|default_if_none:""}}</td>
     <td >{{dhmos.fax|default_if_none:""}}</td>
     <td ><font color="blue">{{dhmos.email|default_if_none:""}}</font></td>

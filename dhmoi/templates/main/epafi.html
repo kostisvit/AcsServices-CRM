@@ -46,8 +46,8 @@
 {% for employee in filter.qs %}
 	<tr>
 		<td>{{employee.dhmos}}</td>
-		<td>{{employee.lastname}}</td>
-		<td>{{employee.firstname}}</td>
+		<td>{{employee.lastname|title}}</td>
+		<td>{{employee.firstname|title}}</td>
 		<td>{{employee.get_tmhma_display|default_if_none:""}}</td>
 		<td>{{employee.phone}}</td>
 		<td>{{employee.cellphone|default_if_none:""}}</td>
