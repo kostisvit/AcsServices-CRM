@@ -91,7 +91,26 @@ $(document).ready( function () {
             "first": " << ",
             "last": " >> "
           }
-        }
+        },
+        dom: 'Bfrtip',
+             buttons: [{
+               extend: 'excelHtml5',
+               autoFilter: true,
+               sheetName: 'Εργασίες',
+               className: 'btn-export-xlx'
+             },
+             {
+               extend: 'pdfHtml5',
+               download: 'open',
+               className: 'btn-export-pdf'
+             },
+             {
+               extend: 'csv',
+               className: 'btn-export-csv',
+             }
+             
+            
+        ],
     });
 } );
 </script>
