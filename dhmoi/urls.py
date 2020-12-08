@@ -66,7 +66,9 @@ urlpatterns = [
     url(r'acs-services/delete_task/(?P<pk>\d+)/', tasks.views.deleteTask, name='delete_task'),
     #url timologisi
     url(r'acs-services/timologisi-main/prosfora', timologisi.views.prosfora, name='prosfora'),
+    url(r'acs-services/timologisi-main/symbasi/(?P<pk>\d+)/', timologisi.views.symbasi, name='symbasi'),
     url(r'acs-services/timologisi-main/symbasi', timologisi.views.symbasi, name='symbasi'),
+    #url(r'acs-services/timologisi-main/symbasi/(?P<pk>\d+)/', timologisi.views.symbasi, name='symbasi'),
     url(r'acs-services/timologisi-main/timologisi', timologisi.views.timologio, name='timologio'),
     # chained selection ergasia_new
     url(r'api/ergasies/dhmoi-epafes/(?P<pk>\d+)/', views.api_dhmos, name='api_dhmos'),
@@ -75,6 +77,7 @@ urlpatterns = [
     # charts
     url(r'acs-services/adeia-charts', AdeiaChartView.as_view(), name='adeia_chart'),
     url(r'acs-services/polisi-chart', PolisiChartView.as_view(), name='polisi_chart')
+    #timologis-test
     
 
 

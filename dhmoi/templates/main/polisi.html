@@ -62,7 +62,7 @@
 		<td>{{polisi.posothta}}</td>
 		<td>{{polisi.sinoltimi}}</td>
 		<td>{{polisi.katagrafi|date:"d/m/Y"}}</font></td>
-		<td>{{polisi.etos}}</td>
+		<td>{{polisi.etos|safe}}</td>
     <td><b><font color="red">{{polisi.status}}</font></b></td>
     <td><a href="{% url 'polisi_update' pk=polisi.pk %}" class="btn btn-primary btn-sm mr-1">
     <span><i class="fa fa-eye" aria-hidden="true"></i></span>
