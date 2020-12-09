@@ -97,10 +97,10 @@
                 <a href="#configmanager" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-chalkboard-teacher mr-2"></span>Sales</a>
                 <ul class="collapse list-unstyled" id="configmanager">
                     <li>
-                        <a href="#"><i class="fas fa-euro-sign mr-2"></i>Προσφορά</a>
+                        <a href="{% url 'timologio' %}"><i class="fas fa-euro-sign mr-2"></i>Προσφορά</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fas fa-wallet mr-2"></i>Σύμβαση</a>
+                        <a href="{% url 'symbasi'%}"><i class="fas fa-wallet mr-2"></i>Σύμβαση</a>
                     </li>
                     <li>
                         <a href="#"><i class="fas fa-file-alt mr-2"></i>Τιμολόγηση</a>
@@ -167,11 +167,11 @@
     <script type="text/javascript" src="{% static 'js-datatable/dataTables.buttons.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js-datatable/buttons.html5.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js-datatable/buttons.flash.min.js' %}"></script>
-     <script type="text/javascript" src="{% static 'js-datatable/jszip.min.js' %}"></script>
-     <script type="text/javascript" src="{% static 'js-datatable/pdfmake.min.js' %}"></script>
-     <script type="text/javascript" src="{% static 'js-datatable/vfs_fonts.js' %}"></script>
-       <script type="text/javascript" src="{% static 'js-datatable/buttons.bootstrap4.min.js' %}"></script>
-     <script type="text/javascript">
+    <script type="text/javascript" src="{% static 'js-datatable/jszip.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/pdfmake.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/vfs_fonts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js-datatable/buttons.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript">
         $(document).ready(function () {
 
     $('#sidebarCollapse').on('click', function () {
