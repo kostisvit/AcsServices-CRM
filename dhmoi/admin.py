@@ -11,7 +11,7 @@ from tasks.models import Task
 from timologisi.models import *
 
 
-
+from django.utils.safestring import mark_safe
 
 
 class DhmosinfoResource(resources.ModelResource):
@@ -121,8 +121,11 @@ class AdeiesAdmin(ImportExportModelAdmin):
 
 class PolisiAdmin(ImportExportModelAdmin):
     list_display = ('dhmos', 'eidos', 'posothta',
-                    'sinoltimi', 'katagrafi', 'etos')
-
+                    'sinoltimi', 'katagrafi', 'etos','enter_etos_safe')
+    
+    def enter_etos_safe(self, obj):
+        return mark_safe(obj.etos)
+    enter_etos_safe.etos = 'etos'
 
 class TrainingAdmin(ImportExportModelAdmin):
     list_display = ('foreas', 'importdate', 'place', 'training_type',

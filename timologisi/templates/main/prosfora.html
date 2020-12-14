@@ -2,16 +2,23 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+<style>
+  .modal-xl {
+    width: 100%;
+   max-width:1800px;
+  }
 
+</style>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
   Νέα προσφορά
 </button>
-
+ <a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
+    <span class="fas fa-chart-line mr-2"></span>Stats</a>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Νέα εγγραφή</h5>
@@ -20,9 +27,26 @@
         </button>
       </div>
       <div class="modal-body">
-     <form action="" method="POST">
+     <form action="" method="POST" >
     {% csrf_token %}
-    {{prosforaform|crispy}}
+    <div class="form-row">
+      <div class="col-5">
+        {{prosforaform.pelatis|as_crispy_field}}
+      </div>
+      <div class="col-md-4">
+        {{prosforaform.contact|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{prosforaform.poso|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{prosforaform.date_send|as_crispy_field}}
+        {{prosforaform.is_approved|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{prosforaform.prosfora_des|as_crispy_field}}
+      </div>
+    </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Ακύρωση</button>
         <button type="submit" class="btn btn-primary">Αποθήκευση</button>
@@ -114,8 +138,45 @@ $(document).ready( function () {
     });
 } );
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded',init);
 
+  function init(){
+    var dhmos_input = document.getElementById('id_pelatis')
+    
+    dhmos_input.addEventListener('change', search_epafi)
+  }
 
+  function search_epafi(){
+    
+    var value = this[this.selectedIndex].value;
+    
+    $.ajax({
+      url:'/api/prosfora/dhmoi-epafes/'+value,
+      success:function(data){
+        
+        populateEpafes(data)
+      },
+      error:function(error){
+        console.log(error)
+      }
+      })
+  }
+  // <option value="134">Αγγελοπούλου Γεωργία</option>
+  function populateEpafes(epafes) {
+
+    var allOptions = '<option value="">---------</option>';
+    epafes.forEach( function(epafi) {
+      var fname = epafi.fields.firstname;
+      var lname = epafi.fields.lastname;
+      var fullName = lname + ' ' + fname;
+
+      allOptions += '<option value="'+epafi.pk+'">'+fullName+'</option>';
+    })
+
+    $('#id_contact').html(allOptions)
+  }
+</script>
 
 {% endblock %}
 

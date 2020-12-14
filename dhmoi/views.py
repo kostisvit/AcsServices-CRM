@@ -137,7 +137,7 @@ def polisi_search(request):
 
 @login_required
 def api_dhmos(request,pk):
-    allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('lastname')
+    allepafes = Employee.objects.all().filter(dhmos_id=pk).order_by('laśtname')
     #epafi_filter = EpafiFilter(request.GET, queryset=allepafes)
     #return render(request, 'main/epafi.html', {'filter': epafi_filter})
     epafesSerialized = serializers.serialize ('json', allepafes, ensure_ascii=False)

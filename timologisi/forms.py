@@ -21,11 +21,12 @@ class ProsforaForm(ModelForm):
     app = forms.ChoiceField(choices = app_choice, label='Εφαρμογή',required=False)
     contact = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
     poso = forms.DecimalField(required=False,label='Ποσό')
-    prosfora_des = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea)
+    prosfora_des = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:800px;'}))
+    is_approved = forms.BooleanField(required=False,initial=False,label='Εγκρίθηκε')
     class Meta:
         model = Prosfora
-        fields = ['pelatis', 'app','contact','poso','prosfora_des']
-       
+        fields = ['pelatis', 'app','contact','poso','date_send','prosfora_des']
+    
         
 
 class ContractForm(ModelForm):

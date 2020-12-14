@@ -20,6 +20,7 @@ class Prosfora(models.Model):
     app = models.CharField(max_length=100, choices=app_choice, null=True, blank=True)
     contact = models.ForeignKey('dhmoi.Employee', on_delete=models.CASCADE, null=False, blank=False)
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
+    date_send = models.DateField(verbose_name=' Ημ.Αποστολής', null=False, blank=False)
     is_approved = models.BooleanField(default=False)
     prosfora_des = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
