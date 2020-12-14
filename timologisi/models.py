@@ -3,6 +3,10 @@ from dhmoi.model_choices import *
 import datetime
 
 
+def current_year():
+    return datetime.date.today().year
+
+
 contract_choice = (
     ('HARD00','HARD00'),
     ('SOFT00','SOFT00')
@@ -17,7 +21,7 @@ bank_choice = (
 
 class Prosfora(models.Model):
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
-    app = models.CharField(max_length=100, choices=app_choice, null=True, blank=True)
+    app = models.CharField(max_length=150, null=True, blank=True)
     contact = models.ForeignKey('dhmoi.Employee', on_delete=models.CASCADE, null=False, blank=False)
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
     date_send = models.DateField(verbose_name=' Ημ.Αποστολής', null=False, blank=False)
@@ -64,11 +68,18 @@ class Contract(models.Model):
     
 
 class Invoice(models.Model):
+    payment_choice = (
+        ('Δόσεις','Δόσεις'),
+        ('Εφάπαξ','Εφάπαξ')
+    )
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     contract_code = models.ForeignKey('Contract', on_delete=models.CASCADE, null=False, blank=False, verbose_name='Κωδ.Συμβ.')
     invoice_date = models.DateField(verbose_name=' Ημ.Τιμολόγησης', null=False, blank=False)
+    invoice_code = models.IntegerField(verbose_name='Κωδ.Τιμ', null=False, blank=True, default=0)
     amount = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό')
     bank = models.CharField(max_length=150, choices=bank_choice, verbose_name='Τράπεζα', null=False, blank=False)
+    payment_type = models.CharField(max_length=150,choices=payment_choice,verbose_name='Τύπος πληρωμής', default='------', null=False,blank=False)
+    payment_date = models.DateField(default=datetime.date.today)
     is_paid = models.BooleanField(default=False, verbose_name='Πληρώθηκε')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
