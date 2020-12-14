@@ -1,5 +1,8 @@
 {% extends 'base.html'%}
 {% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% bootstrap_css %} 
+{% bootstrap_javascript jquery='full' %}
 {% block content %}
 
 <style>
@@ -44,6 +47,7 @@
       </div>
       <div class="col-2">
         {{prosforaform.date_send|as_crispy_field}}
+        {{ prosforaform.media }}
         </div>
         <div class="form-row">
       <div class="col-2">
@@ -66,13 +70,14 @@
 <table id="prosfora-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="7" class="tbhead" style="color: #333399;">Προσφορές</th>
+        <th colspan="8" class="tbhead" style="color: #333399;">Προσφορές</th>
         </tr>
         <tr style="color: #333399; font-size:14px; text-align:center;">
         <th>Πελάτης</th>
         <th>Εφαρμογή</th>
         <th>Επαφή</th>
         <th>Ποσό</th>
+        <th>Αποστ.</th>
         <th>Περιγραφή</th>
         <th>Αποδοχή</th>
         <th>#</th>
@@ -85,6 +90,7 @@
         <td>{{prosfora.app}}</td>
         <td>{{prosfora.contact}}</td>
         <td><em>€</em>&nbsp{{prosfora.poso|floatformat}}</td>
+        <td>{{prosfora.date_send}}</td>
         <td>{{prosfora.prosfora_des|truncatewords:5}}</td>
         <td>{{prosfora.is_approved|yesno}}</td>
         <td>{% if prosfora.is_approved == False %}

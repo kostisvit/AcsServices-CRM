@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'tasks',
     'admin_honeypot',
     'timologisi',
+    'bootstrap_datepicker_plus',
 
 
 
@@ -166,3 +167,10 @@ LOGOUT_REDIRECT_URL = "/accounts/login/"
 #        'LOCATION': 'unique-snowflake',
 #    }
 # }
+
+
+
+# Use BOOTSTRAP3 if you are using Bootstrap 3
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

@@ -1,16 +1,165 @@
-{% extends 'base.html' %}
-
-
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% bootstrap_css %} 
+{% bootstrap_javascript jquery='full' %}
 {% block content %}
 
-<h3>Contract Form</h3>
-<hr>
-
-<form action="" method="post">
+ <a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
+    <span class="fas fa-chart-line mr-2"></span>Stats</a>
+<br/><br/>
+     <form action="" method="POST" >
     {% csrf_token %}
-    {{contractform}}<br/>
-    {{invoiceform}}<br/>
-    <input type="submit">
+    <div class="form-row">
+      <div class="col-5">
+        {{contractform.pelatis|as_crispy_field}}
+      </div>
+    <div class="col-md-4">
+        {{contractform.contact|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{contractform.contract_code|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{contractform.contract_sign|as_crispy_field}}
+        {{ contractform.media }}
+      </div>
+      <div class="col-2">
+        {{contractform.contract_end|as_crispy_field}}
+        {{ contractform.media }}
+        </div>
+         <div class="col-2">
+        {{contractform.poso|as_crispy_field}}
+        </div>
+        <div class="col-2">
+        {{contractform.contract_desc|as_crispy_field}}
+      </div>  
+        <div class="form-row">
+      </div>
+     
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ακύρωση</button>
+        <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+      </div>
 </form>
 
+<br/>
+<br/>
+ <table id="symbasi-table" class="display compact" style="width:100%">
+    <thead>
+        <tr>
+        <th colspan="7" class="tbhead" style="color: #333399;">Προσφορές</th>
+        </tr>
+        <tr style="color: #333399; font-size:14px; text-align:center;">
+        <th>Πελάτης</th>
+        <th>Επαφή</th>
+        <th>Κωδ.Σύμβ.</th>
+        <th>Ημ.Έναρ.</th>
+        <th>Ημ.Λήξ.</th>
+        <th>Ποσό</th>
+        <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+ {% for contract in allcontract %}
+    <tr style="text-align:center;">
+        <td>{{contract.pelatis}}</td>
+        <td>{{contract.contact}}</td>
+        <td>{{contract.combined}}</td>
+        <td>{{contract.contract_sign}}</td>
+        <td>{{contract.contract_end}}</td>
+        <td><em>€</em>&nbsp{{contract.poso}}</td>
+        <td><a href="#"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
+        <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
+        <a href="#" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
+        <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
+        <a class="btn btn-danger btn-sm" onclick="" href="#" title="Διαγραφή">
+        <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+$(document).ready( function () {
+    $('#symbasi-table').DataTable({
+      "pagingType": "full_numbers",
+      "language": {
+            "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Σελίδα _PAGE_ από _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Αναζήτηση:",
+            "paginate": {
+            "previous": " < ",
+            "next": " > ",
+            "first": " << ",
+            "last": " >> "
+          }
+        },
+        dom: 'Bfrtip',
+             buttons: [{
+               extend: 'excelHtml5',
+               autoFilter: true,
+               sheetName: 'Εργασίες',
+               className: 'btn-export-xlx'
+             },
+             {
+               extend: 'pdfHtml5',
+               download: 'open',
+               className: 'btn-export-pdf'
+             },
+             {
+               extend: 'csv',
+               className: 'btn-export-csv',
+             }
+             
+            
+        ],
+    });
+} );
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded',init);
+
+  function init(){
+    var dhmos_input = document.getElementById('id_pelatis')
+    
+    dhmos_input.addEventListener('change', search_epafi)
+  }
+
+  function search_epafi(){
+    
+    var value = this[this.selectedIndex].value;
+    
+    $.ajax({
+      url:'/api/prosfora/dhmoi-epafes/'+value,
+      success:function(data){
+        
+        populateEpafes(data)
+      },
+      error:function(error){
+        console.log(error)
+      }
+      })
+  }
+  // <option value="134">Αγγελοπούλου Γεωργία</option>
+  function populateEpafes(epafes) {
+
+    var allOptions = '<option value="">---------</option>';
+    epafes.forEach( function(epafi) {
+      var fname = epafi.fields.firstname;
+      var lname = epafi.fields.lastname;
+      var fullName = lname + ' ' + fname;
+
+      allOptions += '<option value="'+epafi.pk+'">'+fullName+'</option>';
+    })
+
+    $('#id_contact').html(allOptions)
+  }
+</script>
+
 {% endblock %}
+
+   

@@ -27,10 +27,11 @@ def symbasi(request,pk=-1):
     form = ContractForm()
     #form2 = InvoiceForm()
     if request.method == 'POST':
-        form = ContractForm(request.POST,instance=post)
+        form = ContractForm(request.POST)
        # form2 = InvoiceForm(request.POST)
         if form.is_valid():
             form.save()
+            form = ContractForm()
         #if form1.is_valid():
          #   form2.save()
     else:
@@ -38,7 +39,8 @@ def symbasi(request,pk=-1):
             form = ContractForm(instance=post)
         else:
             form = ContractForm()
-    context = {'contractform': form}
+    allcontract = Contract.objects.all()
+    context = {'contractform': form, 'allcontract': allcontract }
     return render(request,'main/symbasi.html', context)
 
 
