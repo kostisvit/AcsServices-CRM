@@ -6,15 +6,18 @@ import json
 from dhmoi.models import *
 from django.core import serializers
 from django.http import JsonResponse
+import datetime
+from .filters import *
 
 def prosfora(request):
+    today = datetime.date.today()
     form = ProsforaForm()
     if request.method == 'POST':
         form = ProsforaForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('prosfora')
-    allprosfores = Prosfora.objects.all()
+    allprosfores = Prosfora.objects.filter(date_send__year=today.year)
     context = {'prosforaform': form , 'allprosfores': allprosfores}
     return render(request,'main/prosfora.html', context)
 

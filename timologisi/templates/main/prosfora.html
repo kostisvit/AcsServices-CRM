@@ -1,8 +1,7 @@
 {% extends 'base.html'%}
+{% load widget_tweaks %}
 {% load crispy_forms_tags %}
-{% load bootstrap4 %}
-{% bootstrap_css %} 
-{% bootstrap_javascript jquery='full' %}
+
 {% block content %}
 
 <style>
@@ -19,6 +18,8 @@
 </button>
  <a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
     <span class="fas fa-chart-line mr-2"></span>Stats</a>
+    <br/>
+    <br/>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
