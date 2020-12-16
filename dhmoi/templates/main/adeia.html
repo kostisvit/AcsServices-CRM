@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
-{% load auth_extras %}
+{% load calculations %}
 {% load static %}
 {% block content %}
 
@@ -10,33 +10,33 @@
 	</head>
 	<div class="row">
 	<div class="column">
-		<div class="card">
-		<h3>Σύνολο άδειας</h3>
-		<p>&nbsp;&nbsp;&nbsp;&nbsp;Ημέρες άδειας έτους {% now "Y" %}:&nbsp;<strong>{{user.profile.days_sum}}</strong></p>
+		<div class="card text-white bg-success">
+		<h3>Δικαιούμενες μέρες άδειας</h3>
+		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Έτους {% now "Y" %}:&nbsp;<strong>{{user.profile.days_sum}}</strong></p>
 		</div>
 	</div>
 
 	<div class="column">
-		<div class="card">
+		<div class="card text-white bg-primary">
 		<h3>Υπόλοιπο άδειας</h3>
-		<p>&nbsp;&nbsp;&nbsp;&nbsp;Υπόλοιπο προηγούμενου έτους:&nbsp;{{user.profile.days_left}}</strong></p>
+		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Υπόλοιπο προηγούμενου έτους:&nbsp;{{user.profile.days_left}}</strong></p>
 		</div>
 	</div>
 	
 	<div class="column">
-		<div class="card">
-		<h3>Σύνολο άδειας</h3>
-		<p>&nbsp;&nbsp;&nbsp;&nbsp;Σύνολο ημερών:&nbsp;<strong>{{user.profile.total}}</strong></p>
+		<div class="card text-white bg-warning">
+		<h3>Σύνολο ημερών</h3>
+		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{user.profile.total}}</strong></p>
 		</div>
 	</div>
 	
 	<div class="column">
-		<div class="card">
-		<h3>Τρέχον έτος</h3>
-		<p>&nbsp;&nbsp;&nbsp;&nbsp;Σύνολο ημερών έτους {% now "Y" %}: 
+		<div class="card text-white bg-danger">
+		<h3>Υπόλοιπο έτους</h3>
+		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Υπόλοιπο άδειας έτους {% now "Y" %}: 
 		{% for adeia in alladeies %}
 		{% if forloop.first %}
-		<strong>{{adeia.total}}</strong></p>
+		<strong>{{adeia.total|subtract:user.profile.total|cut:'-'}}</strong></p>
 		{%endif%}
 		{% endfor %}
 		</div>
