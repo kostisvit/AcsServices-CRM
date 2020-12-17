@@ -132,6 +132,17 @@ class Adeia(models.Model):
             sum_all=Sum('days')).get('sum_all')
 
 
+    def anarotiki_total(self): 
+        today = datetime.date.today()
+        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee, adeiatype='2').aggregate(
+            sum_all=Sum('days')).get('sum_all')
+
+
+    def kanoniki_total(self): 
+        today = datetime.date.today()
+        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee, adeiatype='1').aggregate(
+            sum_all=Sum('days')).get('sum_all')
+
 class Hardware(models.Model):
     employee = models.ForeignKey('auth.User', max_length=100, verbose_name='Υπάλληλος', on_delete=models.CASCADE)
     pcbrand = models.CharField(max_length=150, choices=pc_brand_choice,verbose_name='Μάρκα Η/Υ', null=True, blank=True)

@@ -8,7 +8,7 @@
 	<head>
 		<link rel="stylesheet" href="{% static 'adeia.css' %}">
 	</head>
-	<div class="row">
+	<div class="d-flex justify-content-center">
 	<div class="column">
 		<div class="card text-white bg-success">
 		<h3>Δικαιούμενες μέρες άδειας</h3>
@@ -26,12 +26,35 @@
 	<div class="column">
 		<div class="card text-white bg-warning">
 		<h3>Σύνολο ημερών</h3>
-		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{user.profile.total}}</strong></p>
+		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Έτους {% now "Y" %}:<strong>{{user.profile.total}}</strong></p>
 		</div>
 	</div>
-	
+	</div><br/>
+	<div class="d-flex justify-content-around">
 	<div class="column">
 		<div class="card text-white bg-danger">
+		<h3>Αναρρωτική</h3>
+		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Έτους {% now "Y" %}: 
+		{% for adeia in alladeies %}
+		{% if forloop.first %}
+		<strong>{{adeia.anarotiki_total|add:'1'}}</strong></p>
+		{%endif%}
+		{% endfor %}
+		</div>
+	</div>
+	<div class="column">
+		<div class="card text-white bg-info">
+		<h3>Κανονική</h3>
+		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Έτους {% now "Y" %}: 
+		{% for adeia in alladeies %}
+		{% if forloop.first %}
+		<strong>{{adeia.kanoniki_total|add:'1'}}</strong></p>
+		{%endif%}
+		{% endfor %}
+		</div>
+	</div>
+	<div class="column">
+		<div class="card text-white bg-primary">
 		<h3>Υπόλοιπο έτους</h3>
 		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Υπόλοιπο άδειας έτους {% now "Y" %}: 
 		{% for adeia in alladeies %}
