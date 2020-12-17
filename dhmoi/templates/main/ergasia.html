@@ -110,7 +110,16 @@
                extend: 'excelHtml5',
                autoFilter: true,
                sheetName: 'Εργασίες',
-               className: 'btn-export-xlx'
+               className: 'btn-export-xlx',
+               exportOptions: {
+              columns: ':visible',
+              format: {
+              body: function(data, row, column, node) {
+                  data = $('<p>' + data + '</p>').text();
+                  return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+              }
+          }
+      }
              },
              {
                extend: 'pdfHtml5',
@@ -120,7 +129,8 @@
              {
                extend: 'csv',
                className: 'btn-export-csv',
-             }
+             },
+  
              
             
         ],
