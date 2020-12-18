@@ -37,7 +37,7 @@
 		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Έτους {% now "Y" %}: 
 		{% for adeia in alladeies %}
 		{% if forloop.first %}
-		<strong>{{adeia.anarotiki_total|add:'1'}}</strong></p>
+		<strong>{{adeia.anarotiki_total}}</strong></p>
 		{%endif%}
 		{% endfor %}
 		</div>
@@ -48,7 +48,7 @@
 		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Έτους {% now "Y" %}: 
 		{% for adeia in alladeies %}
 		{% if forloop.first %}
-		<strong>{{adeia.kanoniki_total|add:'1'}}</strong></p>
+		<strong>{{adeia.kanoniki_total}}</strong></p>
 		{%endif%}
 		{% endfor %}
 		</div>

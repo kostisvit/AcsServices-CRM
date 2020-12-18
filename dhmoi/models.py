@@ -128,7 +128,7 @@ class Adeia(models.Model):
 
     def total(self):  # Προσθέτει τις μέρες άδειας του τρέχοντος έτους
         today = datetime.date.today()
-        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee).aggregate(
+        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee).exclude(adeiatype='2').aggregate(
             sum_all=Sum('days')).get('sum_all')
 
 
