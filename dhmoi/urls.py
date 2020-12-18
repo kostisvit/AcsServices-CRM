@@ -77,7 +77,8 @@ urlpatterns = [
     url(r'api/prosfora/dhmoi-epafes/(?P<pk>\d+)/', timologisi.views.api_dhmos_prosfora, name='api_dhmos_prosfora'),
     # charts
     url(r'acs-services/adeia-charts', AdeiaChartView.as_view(), name='adeia_chart'),
-    url(r'acs-services/polisi-chart', PolisiChartView.as_view(), name='polisi_chart')
+    url(r'acs-services/polisi-chart', PolisiChartView.as_view(), name='polisi_chart'),
+    url(r'acs-services/ergasia-chart', ErgasiaChartView.as_view(), name='ergasia_chart')
     #timologis-test
     
 
