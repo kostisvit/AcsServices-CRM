@@ -11,27 +11,14 @@
   }
 
 </style>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-  Νέα προσφορά
-</button>
- <a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
-    <span class="fas fa-chart-line mr-2"></span>Stats</a>
-    <br/>
-    <br/>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Νέα εγγραφή</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-     <form action="" method="POST" >
+<button  class="btn btn-primary btn-sm" onclick="addRecord()">Νέα Εγγραφή</button>
+<button  class="btn btn-success btn-sm" onclick="searchRecord()">Αναζήτηση</button>
+<a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
+  <span class="fas fa-chart-line mr-2"></span>Stats</a>
+<br/>
+<br/>
+<div id="myDIV" style="display:none">
+  <form action="" method="POST" >
     {% csrf_token %}
     <div class="form-row">
       <div class="col-5">
@@ -57,14 +44,34 @@
       </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ακύρωση</button>
+        <button type="reset" class="btn btn-danger" data-dismiss="modal">Ακύρωση</button>
         <button type="submit" class="btn btn-primary">Αποθήκευση</button>
       </div>
 </form>
-      </div>
-     
-    </div>
-  </div>
+</div>
+<div id="myDIV2" style="display: none;">
+<fieldset class="border p-1">
+      <legend class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
+      <form method="get">
+        {% csrf_token %}
+        <div class="well">
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.pelatis.label_tag }} 
+              {% render_field filter.form.pelatis class="form-control" %}
+            </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.is_approved.label_tag }} 
+              {% render_field filter.form.is_approved class="form-control" %}
+            </div>
+            
+          </div>
+          <button type="submit" class="btn btn-warning btn-sm">
+            <span class="fa fa-search"></span>&nbspΑναζήτηση
+          </button>
+        </div>
+      </form>
+    </fieldset>
 </div>
 <br/>
 <br/>
@@ -85,13 +92,13 @@
         </tr>
     </thead>
     <tbody>
-    {% for prosfora in allprosfores %}
+    {% for prosfora in filter.qs %}
     <tr style="text-align:center;">
         <td>{{prosfora.pelatis}}</td>
         <td>{{prosfora.app}}</td>
         <td>{{prosfora.contact}}</td>
         <td><em>€</em>&nbsp{{prosfora.poso|floatformat}}</td>
-        <td>{{prosfora.date_send}}</td>
+        <td>{{prosfora.date_send|date:"d/m/Y"}}</td>
         <td>{{prosfora.prosfora_des|truncatewords:5}}</td>
         <td>{{prosfora.is_approved|yesno}}</td>
         <td>{% if prosfora.is_approved == False %}
@@ -101,8 +108,8 @@
         <a href="#" class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
         <span><i class="fas fa-check-circle " aria-hidden="true"></i></span></a>
         {% endif %}
-        <a href="#" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
-        <span><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+        <a href="{% url 'prosfora_update' pk=prosfora.pk %}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
+        <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
         <a class="btn btn-danger btn-sm" onclick="" href="#" title="Διαγραφή">
         <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
     </tr>
@@ -112,6 +119,7 @@
 <script>
 $(document).ready( function () {
     $('#prosfora-table').DataTable({
+      
       "pagingType": "full_numbers",
       "language": {
             "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
@@ -188,7 +196,26 @@ $(document).ready( function () {
     $('#id_contact').html(allOptions)
   }
 </script>
-
+<script>
+function addRecord() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+<script>
+function searchRecord() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 {% endblock %}
 
    

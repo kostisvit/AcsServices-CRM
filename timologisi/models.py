@@ -7,18 +7,6 @@ def current_year():
     return datetime.date.today().year
 
 
-contract_choice = (
-    ('HARD00','HARD00'),
-    ('SOFT00','SOFT00')
-)
-
-bank_choice = (
-    ('Τράπεζα Πειραιώς','Τράπεζα Πειραιώς'),
-    ('Εθνική Τράπεζα','Εθνική Τράπεζα'),
-    ('AlphaBank','AlphaBank'),
-    ('EuroBank','Eurobank')
-)
-
 class Prosfora(models.Model):
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     app = models.CharField(max_length=150, null=True, blank=True)
@@ -35,15 +23,14 @@ class Prosfora(models.Model):
         verbose_name = 'Προσφορά'
         verbose_name_plural = 'Προσφορά'
         ordering = ['id']
-    
-    #@property
-    #def price_display(self):
-    #    return "€%s" % self.poso
 
-    #def combined(obj): 
-     #   return "%s %s" % (obj.app, obj.id)
 
 class Contract(models.Model):
+    contract_choice = (
+    ('HARD00','HARD00'),
+    ('SOFT00','SOFT00')
+    )
+
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     contract_end = models.DateField(verbose_name=' Ημ.Λήξης', null=False, blank=False)
     contract_sign = models.DateField(verbose_name=' Ημ.Υπογραφ.', null=False, blank=False)
@@ -71,6 +58,13 @@ class Invoice(models.Model):
     payment_choice = (
         ('Δόσεις','Δόσεις'),
         ('Εφάπαξ','Εφάπαξ')
+    )
+
+    bank_choice = (
+    ('Τράπεζα Πειραιώς','Τράπεζα Πειραιώς'),
+    ('Εθνική Τράπεζα','Εθνική Τράπεζα'),
+    ('AlphaBank','AlphaBank'),
+    ('EuroBank','Eurobank')
     )
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     contract_code = models.ForeignKey('Contract', on_delete=models.CASCADE, null=False, blank=False, verbose_name='Κωδ.Συμβ.')

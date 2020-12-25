@@ -1,13 +1,27 @@
 {% extends 'base.html'%}
 {% load crispy_forms_tags %}
-{% load bootstrap4 %}
-{% bootstrap_css %} 
-{% bootstrap_javascript jquery='full' %}
+{% load widget_tweaks %}
+
 {% block content %}
 
- <a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
-    <span class="fas fa-chart-line mr-2"></span>Stats</a>
-<br/><br/>
+
+<style>
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: left;
+  
+  margin-top: 20px;
+}
+</style>
+
+<button  class="btn btn-primary btn-sm" onclick="addRecord()">Νέα Εγγραφή</button>
+<button  class="btn btn-success btn-sm" onclick="searchRecord()">Αναζήτηση</button>
+<a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
+<span class="fas fa-chart-line mr-2"></span>Stats</a>
+<br/>
+<br/>
+<div>
      <form action="" method="POST" >
     {% csrf_token %}
     <div class="form-row">
@@ -39,11 +53,33 @@
      
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ακύρωση</button>
+        <button type="reset" class="btn btn-danger" data-dismiss="modal">Ακύρωση</button>
         <button type="submit" class="btn btn-primary">Αποθήκευση</button>
       </div>
 </form>
+</div>
 
+
+<div id="myDIV2" style="display: none;">
+<fieldset class="border p-1">
+      <legend class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
+      <form method="get">
+        {% csrf_token %}
+        <div class="well">
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.pelatis.label_tag }} 
+              {% render_field filter.form.pelatis class="form-control" %}
+            </div>
+            
+          </div>
+          <button type="submit" class="btn btn-warning btn-sm">
+            <span class="fa fa-search"></span>&nbspΑναζήτηση
+          </button>
+        </div>
+      </form>
+    </fieldset>
+</div>
 <br/>
 <br/>
  <table id="symbasi-table" class="display compact" style="width:100%">
@@ -62,17 +98,17 @@
         </tr>
     </thead>
     <tbody>
- {% for contract in allcontract %}
+ {% for contract in filter.qs%}
     <tr style="text-align:center;">
         <td>{{contract.pelatis}}</td>
         <td>{{contract.contact}}</td>
         <td>{{contract.combined}}</td>
-        <td>{{contract.contract_sign}}</td>
-        <td>{{contract.contract_end}}</td>
+        <td>{{contract.contract_sign|date:"d/m/Y"}}</td>
+        <td>{{contract.contract_end|date:"d/m/Y"}}</td>
         <td><em>€</em>&nbsp{{contract.poso}}</td>
         <td><a href="#"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
         <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
-        <a href="#" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
+        <a href="{% url 'symbasi_update' pk=contract.pk%}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
         <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
         <a class="btn btn-danger btn-sm" onclick="" href="#" title="Διαγραφή">
         <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
@@ -158,6 +194,17 @@ $(document).ready( function () {
 
     $('#id_contact').html(allOptions)
   }
+</script>
+
+<script>
+function searchRecord() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
 </script>
 
 {% endblock %}

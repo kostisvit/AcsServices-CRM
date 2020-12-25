@@ -10,19 +10,24 @@ import datetime
 from .filters import *
 
 def prosfora(request):
+    
     today = datetime.date.today()
+    
     form = ProsforaForm()
     if request.method == 'POST':
         form = ProsforaForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('prosfora')
+    
     allprosfores = Prosfora.objects.filter(date_send__year=today.year)
-    context = {'prosforaform': form , 'allprosfores': allprosfores}
+    prosfora_filter = ProsforaFilter(request.GET, queryset=allprosfores)
+    context = {'prosforaform': form , 'allprosfores': allprosfores, 'filter': prosfora_filter}
     return render(request,'main/prosfora.html', context)
 
 
 def symbasi(request,pk=-1):
+    today = datetime.date.today()
     if pk!= -1:
         post = get_object_or_404(Prosfora, pk=pk)
         post.is_approved = True
@@ -42,8 +47,10 @@ def symbasi(request,pk=-1):
             form = ContractForm(instance=post)
         else:
             form = ContractForm()
-    allcontract = Contract.objects.all()
-    context = {'contractform': form, 'allcontract': allcontract }
+    #allcontract = Contract.objects.all()
+    allcontract = Contract.objects.filter(contract_sign__year=today.year)
+    contract_filter=ContractFilter(request.GET, queryset=allcontract)
+    context = {'contractform': form, 'allcontract': allcontract, 'filter': contract_filter}
     return render(request,'main/symbasi.html', context)
 
 

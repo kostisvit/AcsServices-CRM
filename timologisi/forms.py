@@ -23,7 +23,7 @@ class ProsforaForm(ModelForm):
     app = forms.CharField( label='Εφαρμογή',required=False)
     contact = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
     poso = forms.DecimalField(required=False,label='Ποσό')
-    prosfora_des = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:800px;'}))
+    prosfora_des = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:800px; height:150px;'}))
     
     class Meta:
         model = Prosfora

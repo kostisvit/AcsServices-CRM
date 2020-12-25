@@ -10,7 +10,22 @@ class DateInput(forms.DateInput):
 
 
 
+
 class ProsforaFilter(django_filters.FilterSet):
+    choices = (
+    (True, "YES"),
+    (False, "NO")
+    )
+    
+    is_approved = django_filters.ChoiceFilter(null_label='ALL', choices=choices, label='Αποδοχή')
     class Meta:
         model = Prosfora
         fields = ['pelatis','is_approved']
+        
+
+
+class ContractFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Contract
+        fields = ['pelatis']
