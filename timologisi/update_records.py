@@ -6,7 +6,7 @@ from .forms import ProsforaForm, ContractForm
 def prosfora_update(request, pk):
     post = get_object_or_404(Prosfora, pk=pk)
     if request.method == "POST":
-        form = ProsforaForm(request.POST, instance=post)
+        form = ProsforaForm(request.POST,request.FILES,instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -21,7 +21,7 @@ def prosfora_update(request, pk):
 def symbasi_update(request, pk):
     post = get_object_or_404(Contract, pk=pk)
     if request.method == "POST":
-        form = ContractForm(request.POST, instance=post)
+        form = ContractForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user

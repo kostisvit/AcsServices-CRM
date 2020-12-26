@@ -18,7 +18,7 @@
 <br/>
 <br/>
 <div id="myDIV" style="display:none">
-  <form action="" method="POST" >
+  <form action="" method="POST" enctype = "multipart/form-data">
     {% csrf_token %}
     <div class="form-row">
       <div class="col-5">
@@ -36,6 +36,10 @@
       <div class="col-2">
         {{prosforaform.date_send|as_crispy_field}}
         {{ prosforaform.media }}
+        </div>
+         <div class="col-2">
+        {{prosforaform.document|as_crispy_field}}
+       
         </div>
         <div class="form-row">
       <div class="col-2">
@@ -78,7 +82,7 @@
 <table id="prosfora-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="8" class="tbhead" style="color: #333399;">Προσφορές</th>
+        <th colspan="9" class="tbhead" style="color: #333399;">Προσφορές</th>
         </tr>
         <tr style="color: #333399; font-size:14px; text-align:center;">
         <th>Πελάτης</th>
@@ -86,6 +90,7 @@
         <th>Επαφή</th>
         <th>Ποσό</th>
         <th>Αποστ.</th>
+        <th>Αρχείο</th>
         <th>Περιγραφή</th>
         <th>Αποδοχή</th>
         <th>#</th>
@@ -99,13 +104,14 @@
         <td>{{prosfora.contact}}</td>
         <td><em>€</em>&nbsp{{prosfora.poso|floatformat}}</td>
         <td>{{prosfora.date_send|date:"d/m/Y"}}</td>
+        <td>{{prosfora.filename}}</td>
         <td>{{prosfora.prosfora_des|truncatewords:5}}</td>
         <td>{{prosfora.is_approved|yesno}}</td>
         <td>{% if prosfora.is_approved == False %}
         <a href="{% url 'symbasi' pk=prosfora.pk %}"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
         <span><i class="fa fa-handshake " aria-hidden="true"></i></span></a>
         {% else %}
-        <a href="#" class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
+        <a href="#" class="btn btn-success btn-sm mr-1" title="Αποδοχή προσφοράς">
         <span><i class="fas fa-check-circle " aria-hidden="true"></i></span></a>
         {% endif %}
         <a href="{% url 'prosfora_update' pk=prosfora.pk %}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">

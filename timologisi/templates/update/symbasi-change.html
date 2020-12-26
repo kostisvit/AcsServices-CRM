@@ -5,7 +5,7 @@
 
 <fieldset class="border ps-1">
     <legend class="w-auto" style=" color: #333399;">&nbspΔιόρθωση εγγραφής</legend>
-<form method="POST">{% csrf_token %}
+<form method="POST" enctype = "multipart/form-data">{% csrf_token %}
   <div class="form-row">
     <div class="form-group col-md-4">
     {{contractform.pelatis|as_crispy_field}}

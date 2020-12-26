@@ -45,6 +45,9 @@
          <div class="col-2">
         {{contractform.poso|as_crispy_field}}
         </div>
+         <div class="col-2">
+        {{contractform.file|as_crispy_field}}
+        </div>
         <div class="col-2">
         {{contractform.contract_desc|as_crispy_field}}
       </div>  
@@ -85,7 +88,7 @@
  <table id="symbasi-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="7" class="tbhead" style="color: #333399;">Προσφορές</th>
+        <th colspan="8" class="tbhead" style="color: #333399;">Προσφορές</th>
         </tr>
         <tr style="color: #333399; font-size:14px; text-align:center;">
         <th>Πελάτης</th>
@@ -94,6 +97,7 @@
         <th>Ημ.Έναρ.</th>
         <th>Ημ.Λήξ.</th>
         <th>Ποσό</th>
+        <th>Αρχείο</th>
         <th>#</th>
         </tr>
     </thead>
@@ -106,6 +110,7 @@
         <td>{{contract.contract_sign|date:"d/m/Y"}}</td>
         <td>{{contract.contract_end|date:"d/m/Y"}}</td>
         <td><em>€</em>&nbsp{{contract.poso}}</td>
+        <td>{{contract.file}}</td>
         <td><a href="#"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
         <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
         <a href="{% url 'symbasi_update' pk=contract.pk%}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">

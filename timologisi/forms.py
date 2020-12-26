@@ -20,14 +20,14 @@ class DateInput(forms.DateInput):
 
 class ProsforaForm(ModelForm):
     pelatis = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
-    app = forms.CharField( label='Εφαρμογή',required=False)
+    app = forms.CharField( label='Τίτλος',required=False)
     contact = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
     poso = forms.DecimalField(required=False,label='Ποσό')
     prosfora_des = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:800px; height:150px;'}))
-    
+    document = forms.FileField(label='Αρχείο', required=False)
     class Meta:
         model = Prosfora
-        fields = ['pelatis', 'app','contact','poso','date_send','prosfora_des']
+        fields = ['pelatis', 'app','contact','poso','date_send','document','prosfora_des']
         widgets = {
             'date_send': DatePickerInput(format='%d/%m/%Y'), 
         }
@@ -37,6 +37,7 @@ class ContractForm(ModelForm):
     pelatis = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
     contact = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
     contract_desc = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:500px; height: 80px;'}))
+    file = forms.FileField(label='Αρχείο', required=False)
     class Meta:
         model = Contract
         fields = '__all__'

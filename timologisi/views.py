@@ -15,7 +15,7 @@ def prosfora(request):
     
     form = ProsforaForm()
     if request.method == 'POST':
-        form = ProsforaForm(request.POST)
+        form = ProsforaForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('prosfora')

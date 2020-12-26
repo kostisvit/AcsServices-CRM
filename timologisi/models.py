@@ -1,6 +1,7 @@
 from django.db import models
 from dhmoi.model_choices import *
 import datetime
+import os
 
 
 def current_year():
@@ -8,16 +9,23 @@ def current_year():
 
 
 class Prosfora(models.Model):
+    def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+        return 'pel_prosf__{0}/{1}'.format(instance.pelatis, filename)
+
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     app = models.CharField(max_length=150, null=True, blank=True)
     contact = models.ForeignKey('dhmoi.Employee', on_delete=models.CASCADE, null=False, blank=False)
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
     date_send = models.DateField(verbose_name=' Ημ.Αποστολής', null=False, blank=False)
+    document = models.FileField(upload_to=user_directory_path, default='-', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
     prosfora_des = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    def filename(self):
+        return os.path.basename(self.document.name) #return only the file not the full path
 
     class Meta:
         verbose_name = 'Προσφορά'
@@ -26,6 +34,9 @@ class Prosfora(models.Model):
 
 
 class Contract(models.Model):
+    def user_directory_path(instance, filename):
+        return 'pel_contr__{0}/{1}'.format(instance.pelatis, filename)
+
     contract_choice = (
     ('HARD00','HARD00'),
     ('SOFT00','SOFT00')
@@ -37,9 +48,13 @@ class Contract(models.Model):
     contract_code = models.CharField(max_length=150, choices=contract_choice, verbose_name='Κωδικός Σύμβ.', null=False, blank=False)
     contact = models.ForeignKey('dhmoi.Employee', on_delete=models.CASCADE, verbose_name='Επαφή', null=True, blank=True)
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό Σύμβασης')
+    file = models.FileField(upload_to=user_directory_path, default='-', blank=True, null=True)
     contract_desc = models.TextField(verbose_name='Περιγραφή Σύμβασης', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def filename(self):
+        return os.path.basename(self.file.name) 
 
     class Meta:
         verbose_name = 'Σύμβαση'
