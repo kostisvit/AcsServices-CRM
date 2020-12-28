@@ -17,7 +17,7 @@ class ProsforaFilter(django_filters.FilterSet):
     (False, "NO")
     )
     
-    is_approved = django_filters.ChoiceFilter(null_label='ALL', choices=choices, label='Αποδοχή')
+    is_approved = django_filters.ChoiceFilter(choices=choices, label='Αποδοχή')
     class Meta:
         model = Prosfora
         fields = ['pelatis','is_approved']
@@ -29,3 +29,18 @@ class ContractFilter(django_filters.FilterSet):
     class Meta:
         model = Contract
         fields = ['pelatis']
+
+
+class InvoiceFilter(django_filters.FilterSet):
+    bank_choice = (
+    ('Τράπεζα Πειραιώς','Τράπεζα Πειραιώς'),
+    ('Εθνική Τράπεζα','Εθνική Τράπεζα'),
+    ('AlphaBank','AlphaBank'),
+    ('EuroBank','Eurobank')
+    )
+
+    bank = django_filters.ChoiceFilter(choices=bank_choice, label='Τράπεζα')
+
+    class Meta:
+        model = Invoice
+        fields = ['pelatis','bank']

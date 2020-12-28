@@ -23,14 +23,17 @@ class Prosfora(models.Model):
     prosfora_des = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
-    def filename(self):
-        return os.path.basename(self.document.name) #return only the file not the full path
-
     class Meta:
         verbose_name = 'Προσφορά'
         verbose_name_plural = 'Προσφορά'
         ordering = ['id']
+    
+    def filename(self):
+        return os.path.basename(self.document.name) #return only the file not the full path
+    
+    def delete(self, *args, **kwargs): #delete also the file
+        self.document.delete()
+        super().delete(*args, **kwargs)
 
 
 class Contract(models.Model):
@@ -52,10 +55,6 @@ class Contract(models.Model):
     contract_desc = models.TextField(verbose_name='Περιγραφή Σύμβασης', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def filename(self):
-        return os.path.basename(self.file.name) 
-
     class Meta:
         verbose_name = 'Σύμβαση'
         verbose_name_plural = 'Σύμβαση'
@@ -66,6 +65,13 @@ class Contract(models.Model):
 
     def __str__(self):
         return (self.contract_code) + ' ' + str(self.id)
+    
+    def filename(self):
+        return os.path.basename(self.file.name) 
+    
+    def delete(self, *args, **kwargs): #delete also the file
+        self.file.delete()
+        super().delete(*args, **kwargs)
     
     
 

@@ -115,7 +115,7 @@
         <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
         <a href="{% url 'symbasi_update' pk=contract.pk%}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
         <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
-        <a class="btn btn-danger btn-sm" onclick="" href="#" title="Διαγραφή">
+        <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{prosfora.pelatis}} - {{prosfora.app}}');" href="{% url 'delete_contract' pk=contract.pk %}" title="Διαγραφή">
         <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
     </tr>
     {% endfor %}

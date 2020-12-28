@@ -18,4 +18,4 @@ Dockerfile
 docker-compose.yml
 Pipfile
 Pipfile.lock
-/dhmoi/media/
+/media/

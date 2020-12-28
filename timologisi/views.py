@@ -55,12 +55,15 @@ def symbasi(request,pk=-1):
 
 
 def timologio(request):
+    today = datetime.date.today()
     form = InvoiceForm()
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
         if form.is_valid():
             form.save()
-    context = {'invoiceform': form }
+    allinvoices = Invoice.objects.filter(invoice_date__year=today.year)
+    invoice_filter = InvoiceFilter(request.GET, queryset=allinvoices)
+    context = {'invoiceform': form ,'filter': invoice_filter}
     return render(request,'main/timologisi.html', context)
 
 
