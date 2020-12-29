@@ -13,7 +13,7 @@
                 labels: [{% for item in qs %}'{{item.dhmos__name}}',{% endfor %}],
                 datasets: [{
                     label: '# Ημέρες άδειας {% now "Y" %}',
-                    data: [{% for item in qs %}{{item.sinoltimi}},{% endfor %}],
+                    data: [{% for item in qs %}{{item.total}},{% endfor %}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -42,7 +42,8 @@
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            
                         }
                     }]
                 },
