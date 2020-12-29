@@ -52,7 +52,7 @@ job_choice = (
 
 class ErgasiaFilter(django_filters.FilterSet):
     jobtype = django_filters.ChoiceFilter(choices=job_choice, label='Τύπος')
-
+    employee = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
     class Meta:
         model = Ergasies
         fields = ['dhmos', 'app', 'employee', 'jobtype']
@@ -65,7 +65,7 @@ class ErgasiaFilter(django_filters.FilterSet):
 
 class AithmaFilter(django_filters.FilterSet):
     employee = django_filters.CharFilter(lookup_expr='icontains', label='Υπάλληλος')
-
+    assign = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
     class Meta:
         model = Aithmata
         fields = ['dhmos', 'employee', 'assign']
@@ -110,7 +110,7 @@ foreas_choice = (
 
 class TrainingFilter(django_filters.FilterSet):
     foreas = django_filters.ChoiceFilter(choices=foreas_choice, label='Φορέας')
-
+    employee = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
     class Meta:
         model = Training
         fields = ['foreas', 'employee']
@@ -123,7 +123,7 @@ class TrainingFilter(django_filters.FilterSet):
 
 
 class HardwareFilter(django_filters.FilterSet):
-
+    employee = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
     class Meta:
         model = Hardware
         fields = ['employee', ]
