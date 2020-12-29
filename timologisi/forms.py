@@ -4,10 +4,8 @@ from .models import Prosfora, Contract, Invoice
 from dhmoi.models import Dhmos, Employee
 from django.forms import ModelChoiceField
 from dhmoi.model_choices import *
-
-
 from bootstrap_datepicker_plus import DatePickerInput
-
+import datetime
 
 class NameChoiceField(ModelChoiceField):
 
@@ -25,11 +23,13 @@ class ProsforaForm(ModelForm):
     poso = forms.DecimalField(required=False,label='Ποσό')
     prosfora_des = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:800px; height:150px;'}))
     document = forms.FileField(label='Αρχείο', required=False)
+    
     class Meta:
         model = Prosfora
         fields = ['pelatis', 'app','contact','poso','date_send','document','prosfora_des']
         widgets = {
-            'date_send': DatePickerInput(format='%d/%m/%Y'), 
+            'date_send': DatePickerInput(format='%d/%m/%Y')
+            
         }
         
 

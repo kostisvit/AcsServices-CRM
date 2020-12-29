@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'maziotis.wsgi.application'
 
 
 #Develop
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'acsservices',
@@ -106,10 +106,10 @@ DATABASES = {
         'HOST': 'db',
         'PORT': '5432',
     }
-}
+} """
 
 #Production
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'acsservices',
@@ -118,7 +118,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-} """
+}
 
 # DATABASES = {
 #   'default': {

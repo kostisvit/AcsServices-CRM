@@ -12,7 +12,7 @@
             data: {
                 labels: [{% for item in qs %}'{{item.employee__first_name}} {{item.employee__last_name}}',{% endfor %}],
                 datasets: [{
-                    label: '# Ημέρες άδειας {% now "Y" %}',
+                    label: '# Ημέρες κανονικής άδειας {% now "Y" %}',
                     data: [{% for item in qs %}{{item.days}},{% endfor %}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
