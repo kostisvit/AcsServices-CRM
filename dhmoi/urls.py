@@ -30,10 +30,10 @@ urlpatterns = [
     url(r'acs-services/main/hardware', views.hardware, name='hardware'),
     url(r'acs-services/update-records/hardware/(?P<pk>\d+)/',views.hardware_update, name='hardware_update'),
     url(r'acs-services/main/training', views.training, name='training'),
+    #search
     url(r'acs-services/search/eragsies-search',views.search, name='ergasia_search'),
-    url(r'acs-services/search/adeia-search',views.adeia_search, name='adeia_search'),
-    url(r'acs-services/search/polisi-search',views.polisi_search, name='polisi_search'),
     url(r'acs-services/update-records/training/(?P<pk>\d+)/',views.training_update, name='training_update'),
+    #add new records
     url(r'acs-services/add-records/pelatis-new',views.dhmospost_new, name='pelatis_new'),
     url(r'acs-services/add-records/epafi-new',views.epafi_new, name='epafi_new'),
     url(r'acs-services/add-records/ergasia-new',views.ergasia_new, name='ergasia_new'),
@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'acs-services/add-records/service-new',views.service_new, name='service_new'),
     url(r'acs-services/add-records/training-new',views.training_new, name='training_new'),
     url(r'acs-services/add-records/hardware-new',views.hardware_new, name='hardware_new'),
+    # delete records
     url(r'delete_pelatis/(?P<pk>\d+)/',views.delete_pelatis, name='delete_pelatis'),
     url(r'delete_epafi/(?P<pk>\d+)/', views.delete_epafi, name='delete_epafi'),
     url(r'delete_ergasia/(?P<pk>\d+)/',views.delete_ergasia, name='delete_ergasia'),
@@ -52,6 +53,7 @@ urlpatterns = [
     url(r'delete_service/(?P<pk>\d+)/',views.delete_service, name='delete_service'),
     url(r'delete_training/(?P<pk>\d+)/',views.delete_training, name='delete_training'),
     url(r'delete_hardware/(?P<pk>\d+)/',views.delete_hardware, name='delete_hardware'),
+    #export data
     url(r'^export-pelates/xls/$', views.export_pelates, name='export_pelates'),
     url(r'^export-epafes/xls/$', views.export_epafes, name='export_epafes'),
     url(r'^export-ergasies/xls/$', views.export_ergasies, name='export_ergasies'),

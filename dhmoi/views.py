@@ -121,16 +121,12 @@ def ergasia_search(request):
     return render(request, 'search/ergasia_search.html')
 
 
-
 @login_required
-def adeia_search(request):
-    return render(request, 'search/adeia_search.html')
+def search(request):
+    ergasies_list = Ergasies.objects.all()
+    ergasies_filter = ErgasiaFilterAll(request.GET, queryset=ergasies_list)
+    return render(request, 'search/ergasia_search.html', {'filter': ergasies_filter})
 
-
-
-@login_required
-def polisi_search(request):
-    return render(request, 'search/polisi_search.html')
 
 # chained selection view
 
@@ -164,11 +160,7 @@ def api_aithma(request,pk):
     return JsonResponse(json.loads(epafesSerialized), safe=False)
 
 
-@login_required
-def search(request):
-    ergasies_list = Ergasies.objects.all()
-    ergasies_filter = ErgasiaFilterAll(request.GET, queryset=ergasies_list)
-    return render(request, 'search/ergasia_search.html', {'filter': ergasies_filter})
+
 
 
 
