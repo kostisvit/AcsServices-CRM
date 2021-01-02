@@ -1,5 +1,6 @@
 from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training, Hardware
 import django_filters
+from django_filters import DateRangeFilter,DateFilter
 from django.contrib.auth.models import User
 from django_filters.widgets import RangeWidget
 from django.forms import ModelChoiceField
@@ -61,6 +62,22 @@ class ErgasiaFilter(django_filters.FilterSet):
         super(ErgasiaFilter, self).__init__(*args, **kwargs)
         if self.data == {}:
             self.queryset = self.queryset.none()
+
+
+class ErgasiaFilterAll(django_filters.FilterSet):
+    jobtype = django_filters.ChoiceFilter(choices=job_choice, label='Τύπος')
+    employee = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
+    importdate = django_filters.NumberFilter(lookup_expr='year', label='Έτος')
+    class Meta:
+        model = Ergasies
+        fields = ['dhmos', 'app', 'employee', 'jobtype']
+    
+    def __init__(self, *args, **kwargs):
+        super(ErgasiaFilterAll, self).__init__(*args, **kwargs)
+        if self.data == {}:
+            self.queryset = self.queryset.none()
+
+ 
 
 
 class AithmaFilter(django_filters.FilterSet):

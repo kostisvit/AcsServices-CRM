@@ -18,7 +18,7 @@ from django.core import serializers
 from django.http import JsonResponse
 import json
 from django.contrib.auth import logout
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView
 from django.db.models import Q
 from django.db.models import Sum
 
@@ -164,21 +164,11 @@ def api_aithma(request,pk):
     return JsonResponse(json.loads(epafesSerialized), safe=False)
 
 
-
-class SearchResultsView(ListView):
-    model = Ergasies
-    template_name = 'search/ergasia_search.html'
-
-    def get_queryset(self): # new
-        
-        query = self.request.GET.get('q')
-        if query:
-            object_list = Ergasies.objects.filter(
-             Q(info__icontains=query) | Q(dhmos__name__icontains=query) | Q(name__icontains=query)
-        )
-        else:
-           object_list = None
-        return object_list
+@login_required
+def search(request):
+    ergasies_list = Ergasies.objects.all()
+    ergasies_filter = ErgasiaFilterAll(request.GET, queryset=ergasies_list)
+    return render(request, 'search/ergasia_search.html', {'filter': ergasies_filter})
 
 
 

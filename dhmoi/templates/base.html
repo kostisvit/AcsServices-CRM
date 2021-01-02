@@ -1,4 +1,5 @@
 {% load static %}
+{% load auth_extras %}
 <html>
 <head>
     <meta charset="utf-8">
@@ -81,7 +82,6 @@
                     </li>
                 </ul>
             </li>
-            {% if perms.is_superuser%}
              <li>
                 <a href="#config-manager-diagr" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-chart-pie mr-2"></i>Διαγράματα</a>
                 <ul class="collapse list-unstyled" id="config-manager-diagr">
@@ -97,8 +97,10 @@
                 </ul>
             </li>
             <li>
+            {% if request.user|has_group:"manager" %} 
                 <a href="#configmanager" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><span class="fa fa-chalkboard-teacher mr-2"></span>Sales</a>
                 <ul class="collapse list-unstyled" id="configmanager">
+                
                     <li>
                         <a href="{% url 'prosfora' %}"><i class="fas fa-euro-sign mr-2"></i>Προσφορά</a>
                     </li>
@@ -112,12 +114,12 @@
             </li>
             {% else %}
             <li>
-                <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" onclick="alert('Περιορισμένα δικαιώματα {{user.first_name}}');"><span class="fa fa-chalkboard-teacher mr-2"></span>Διαγράμματα</a>
+                <a href="#" data-toggle="collapse" onclick="alert('Περιορισμένα δικαιώματα {{user.first_name}}');" class="dropdown-toggle"><span class="fa fa-chalkboard-teacher mr-2"></span>Sales</a>
+                
             </li>
-            <li>
-                <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" onclick="alert('Περιορισμένα δικαιώματα {{user.first_name}}');"><span class="fa fa-chalkboard-teacher mr-2"></span>Διεύθυνση</a>
-            </li>
+           
             {% endif %}
+            
         </ul>
     </nav>
     <!-- Page Content -->
@@ -137,7 +139,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'index' %}">Notes&nbsp<sup class="task_count"><span class="badge badge-danger" title="Ενεργά Tasks">{{total_tasks}}</span></sup></a>
                             </li>
-                            {% if perms.is_superuser%}
+                            {% if request.user|has_group:"manager"  %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">Διαχείριση</a>
                             </li>
