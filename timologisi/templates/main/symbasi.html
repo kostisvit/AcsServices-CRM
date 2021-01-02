@@ -111,7 +111,7 @@
         <td>{{contract.contract_end|date:"d/m/Y"}}</td>
         <td><em>€</em>&nbsp{{contract.poso}}</td>
         <td>{{contract.file}}</td>
-        <td><a href="#"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
+        <td><a href="{% url 'timologio' pk=contract.pk %}"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
         <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
         <a href="{% url 'symbasi_update' pk=contract.pk%}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
         <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>

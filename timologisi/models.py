@@ -59,7 +59,7 @@ class Contract(models.Model):
         verbose_name = 'Σύμβαση'
         verbose_name_plural = 'Σύμβαση'
         ordering = ['id']
-
+    
     def combined(obj):
         return "%s %s" % (obj.contract_code, obj.id)
 
@@ -87,8 +87,14 @@ class Invoice(models.Model):
     ('AlphaBank','AlphaBank'),
     ('EuroBank','Eurobank')
     )
+
+    contract_choice = (
+    ('HARD00','HARD00'),
+    ('SOFT00','SOFT00')
+    )
+
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
-    contract_code = models.ForeignKey('Contract', on_delete=models.CASCADE, null=False, blank=False, verbose_name='Κωδ.Συμβ.')
+    contract_code = models.CharField(max_length=150, choices=contract_choice, verbose_name='Κωδικός Σύμβ.', null=False, blank=False)
     invoice_date = models.DateField(verbose_name=' Ημ.Τιμολόγησης', null=False, blank=False)
     invoice_code = models.IntegerField(verbose_name='Κωδ.Τιμ', null=False, blank=True, default=0)
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό')
@@ -99,6 +105,7 @@ class Invoice(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    
     class Meta:
         verbose_name = 'Τιμολόγηση'
         verbose_name_plural = 'Τιμολόγηση'

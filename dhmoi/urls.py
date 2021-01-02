@@ -69,6 +69,7 @@ urlpatterns = [
     url(r'acs-services/timologisi-main/prosfora/', timologisi.views.prosfora, name='prosfora'),
     url(r'acs-services/timologisi-main/symbasi/(?P<pk>\d+)/', timologisi.views.symbasi, name='symbasi'),
     url(r'acs-services/timologisi-main/symbasi/', timologisi.views.symbasi, name='symbasi'),
+    url(r'acs-services/timologisi-main/timologisi/(?P<pk>\d+)/', timologisi.views.timologio, name='timologio'),
     url(r'acs-services/timologisi-main/timologisi/', timologisi.views.timologio, name='timologio'),
     url(r'acs-services/timologisi/update/(?P<pk>\d+)/', timologisi.update_records.prosfora_update, name='prosfora_update'),
     url(r'acs-services/symbasi/update/(?P<pk>\d+)/', timologisi.update_records.symbasi_update, name='symbasi_update'),

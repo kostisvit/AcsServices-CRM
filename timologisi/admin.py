@@ -9,7 +9,7 @@ class ProsforaAdmin(ImportExportModelAdmin):
 
 class ContractAdmin(ImportExportModelAdmin):
     list_display = ('pelatis','contract_end','contract_sign','contract_code','contact','poso','contract_desc','combined')
-
+    
 class InvoiceAdmin(ImportExportModelAdmin):
     list_display = ('pelatis','contract_code','invoice_date','poso','bank','is_paid')
 

@@ -54,13 +54,23 @@ def symbasi(request,pk=-1):
     return render(request,'main/symbasi.html', context)
 
 
-def timologio(request):
+def timologio(request,pk=-1):
     today = datetime.date.today()
+    
+    if pk!= -1:
+        post = get_object_or_404(Contract, pk=pk)
+        post.save()
     form = InvoiceForm()
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
         if form.is_valid():
             form.save()
+            form = InvoiceForm()
+    else:
+        if pk!= -1:
+            form = InvoiceForm(instance=post)
+        else:
+            form = InvoiceForm()
     allinvoices = Invoice.objects.filter(invoice_date__year=today.year)
     invoice_filter = InvoiceFilter(request.GET, queryset=allinvoices)
     context = {'invoiceform': form ,'filter': invoice_filter}

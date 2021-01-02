@@ -34,10 +34,13 @@ class ProsforaForm(ModelForm):
         
 
 class ContractForm(ModelForm):
+ 
+
     pelatis = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
     contact = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
     contract_desc = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:500px; height: 80px;'}))
     file = forms.FileField(label='Αρχείο', required=False)
+    
     class Meta:
         model = Contract
         fields = '__all__'
@@ -45,6 +48,7 @@ class ContractForm(ModelForm):
             'contract_sign': DatePickerInput(format='%d/%m/%Y'),
             'contract_end': DatePickerInput(format='%d/%m/%Y'),
         }
+        
 
 class InvoiceForm(ModelForm):
     pelatis = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
