@@ -47,6 +47,11 @@ class ContractForm(ModelForm):
         }
 
 class InvoiceForm(ModelForm):
+    pelatis = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
     class Meta:
         model = Invoice
         fields = '__all__'
+        widgets = {
+            'invoice_date': DatePickerInput(format='%d/%m/%Y'),
+            'payment_date': DatePickerInput(format='%d/%m/%Y')
+        }
