@@ -46,7 +46,10 @@
         {{invoiceform.payment_date|as_crispy_field}}
         {{ invoiceform.media }}
        </div>
+       <div class="col-2">
+        {{invoiceform.is_paid|as_crispy_field}}
        
+       </div>
     </div>
     <div class="modal-footer">
         <button type="reset" class="btn btn-danger" data-dismiss="modal">Ακύρωση</button>
@@ -80,6 +83,86 @@
 </div>
 <br/>
 <br/>
+ <table id="symbasi-table" class="display compact" style="width:100%">
+    <thead>
+        <tr>
+        <th colspan="10" class="tbhead" style="color: #333399;">Προσφορές</th>
+        </tr>
+        <tr style="color: #333399; font-size:14px; text-align:center;">
+        <th>Πελάτης</th>
+        <th>Κωδ.Σύμβ.</th>
+        <th>Ημ.Τιμολόγ.</th>
+        <th>Αρ.Τιμολογ.</th>
+        <th>Ποσό</th>
+        <th>Τράπεζα</th>
+        <th>ΠΛηρωμή</th>
+        <th>Ημ.Πληρ.</th>
+        <th>Πληρώθηκε</th>
+        <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+ {% for invoice in filter.qs%}
+    <tr style="text-align:center;">
+        <td>{{invoice.pelatis}}</td>
+        <td>{{invoice.contract_code}}</td>
+        <td>{{invoice.invoice_date|date:"d/m/Y"}}</td>
+        <td>{{invoice.invoice_code}}</td>
+        <td><em>€</em>&nbsp{{invoice.poso}}</td>
+        <td>{{invoice.bank}}</td>
+        <td>{{invoice.payment_type}}</td>
+        <td>{{invoice.payment_date|date:"d/m/Y"}}</td>
+        <td>{{invoice.is_paid|yesno}}</td>
+        <td><a href="#"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
+        <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
+        <a href="#" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
+        <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
+        <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{prosfora.pelatis}} - {{prosfora.app}}');" href="#" title="Διαγραφή">
+        <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+$(document).ready( function () {
+    $('#symbasi-table').DataTable({
+      "pagingType": "full_numbers",
+      "language": {
+            "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Σελίδα _PAGE_ από _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Αναζήτηση:",
+            "paginate": {
+            "previous": " < ",
+            "next": " > ",
+            "first": " << ",
+            "last": " >> "
+          }
+        },
+        dom: 'Bfrtip',
+             buttons: [{
+               extend: 'excelHtml5',
+               autoFilter: true,
+               sheetName: 'Εργασίες',
+               className: 'btn-export-xlx'
+             },
+             {
+               extend: 'pdfHtml5',
+               download: 'open',
+               className: 'btn-export-pdf'
+             },
+             {
+               extend: 'csv',
+               className: 'btn-export-csv',
+             }
+             
+            
+        ],
+    });
+} );
+</script>
 <script>
 function addRecord() {
   var x = document.getElementById("myDIV");
@@ -100,14 +183,5 @@ function searchRecord() {
   }
 }
 </script>
-<script>
-function searchRecord() {
-  var x = document.getElementById("myDIV2");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
-</script>
+
 {% endblock %}

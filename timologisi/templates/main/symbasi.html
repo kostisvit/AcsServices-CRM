@@ -21,7 +21,7 @@
 <span class="fas fa-chart-line mr-2"></span>Stats</a>
 <br/>
 <br/>
-<div>
+<div id="myDIV">
      <form action="" method="POST" >
     {% csrf_token %}
     <div class="form-row">
@@ -200,7 +200,16 @@ $(document).ready( function () {
     $('#id_contact').html(allOptions)
   }
 </script>
-
+<script>
+function addRecord() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 <script>
 function searchRecord() {
   var x = document.getElementById("myDIV2");
