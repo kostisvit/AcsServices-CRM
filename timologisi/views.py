@@ -73,7 +73,7 @@ def timologio(request,pk=-1):
             form = InvoiceForm()
     allinvoices = Invoice.objects.filter(invoice_date__year=today.year)
     invoice_filter = InvoiceFilter(request.GET, queryset=allinvoices)
-    context = {'invoiceform': form ,'filter': invoice_filter}
+    context = {'invoiceform': form ,'allinvoices': allinvoices,'filter': invoice_filter}
     return render(request,'main/timologisi.html', context)
 
 
