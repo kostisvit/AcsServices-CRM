@@ -7,6 +7,7 @@ from django.forms import ModelChoiceField
 from django import forms
 
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -22,6 +23,8 @@ class UserModelChoiceField(ModelChoiceField):
         return '{last_name} {first_name}'.format(last_name=obj.last_name, first_name=obj.first_name)
 
 
+
+
 class PelatisFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(lookup_expr='icontains', label='Πελάτης')
 
@@ -31,8 +34,8 @@ class PelatisFilter(django_filters.FilterSet):
 
 
 class EpafiFilter(django_filters.FilterSet):
-    lastname = django_filters.CharFilter(
-        lookup_expr='icontains', label='Επώνυμο')
+    dhmos = django_filters.ModelChoiceFilter(queryset=Dhmos.objects.all(),label='Φορέας')
+    lastname = django_filters.CharFilter(lookup_expr='icontains', label='Επώνυμο')
 
     class Meta:
         model = Employee
@@ -52,6 +55,7 @@ job_choice = (
 
 
 class ErgasiaFilter(django_filters.FilterSet):
+    dhmos = django_filters.ModelChoiceFilter(queryset=Dhmos.objects.filter(is_visible=True),label='Φορέας')
     jobtype = django_filters.ChoiceFilter(choices=job_choice, label='Τύπος')
     employee = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
     class Meta:
@@ -65,6 +69,7 @@ class ErgasiaFilter(django_filters.FilterSet):
 
 
 class ErgasiaFilterAll(django_filters.FilterSet):
+    dhmos = django_filters.ModelChoiceFilter(queryset=Dhmos.objects.filter(is_visible=True),label='Φορέας')
     jobtype = django_filters.ChoiceFilter(choices=job_choice, label='Τύπος')
     employee = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
     importdate = django_filters.NumberFilter(lookup_expr='year', label='Έτος')
@@ -81,6 +86,7 @@ class ErgasiaFilterAll(django_filters.FilterSet):
 
 
 class AithmaFilter(django_filters.FilterSet):
+    dhmos = django_filters.ModelChoiceFilter(queryset=Dhmos.objects.filter(is_visible=True),label='Φορέας')
     employee = django_filters.CharFilter(lookup_expr='icontains', label='Υπάλληλος')
     assign = django_filters.ModelChoiceFilter(queryset=User.objects.filter(is_active=True))
     class Meta:

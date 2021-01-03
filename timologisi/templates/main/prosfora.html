@@ -1,4 +1,6 @@
 {% extends 'base.html'%}
+{% load l10n %}
+
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
 
@@ -111,7 +113,7 @@
         <td>{{prosfora.pelatis}}</td>
         <td>{{prosfora.app}}</td>
         <td>{{prosfora.contact}}</td>
-        <td><em>€</em>&nbsp{{prosfora.poso|floatformat}}</td>
+        <td><em>€</em>&nbsp{{prosfora.poso|localize}}</td>
         <td>{{prosfora.date_send|date:"d/m/Y"}}</td>
         <td>{{prosfora.filename}}</td>
         <td>{{prosfora.prosfora_des|truncatewords:5}}</td>

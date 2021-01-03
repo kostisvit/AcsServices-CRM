@@ -37,7 +37,7 @@
 		<p style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;Έτους {% now "Y" %}: 
 		{% for adeia in alladeies %}
 		{% if forloop.first %}
-		<strong>{{adeia.anarotiki_total}}</strong></p>
+		<strong>{{adeia.anarotiki_total|default_if_none:"0"}}</strong></p>
 		{%endif%}
 		{% endfor %}
 		</div>
@@ -76,13 +76,13 @@
 	<table id="adeia-table" border="0"  class="table table-sm">
 	<thead>
 			<tr>
-				<th colspan="8" class="tbhead">Επαφές</th>
+				<th colspan="8" class="tbhead">Άδεια</th>
 			</tr>
 	<tr style="color:#333399; text-align: center;">
 			<th class="tableHead">Υπάλληλος</th>
 			<th class="tableHead">Τύπος Άδειας<i class="fas fa-sort fa-fw"></i></th>
-			<th class="tableHead">Αρχή<i class="fas fa-sort fa-fw"></i></th>
-			<th class="tableHead">Τέλος<i class="fas fa-sort fa-fw"></i></th>
+			<th class="tableHead">Από<i class="fas fa-sort fa-fw"></i></th>
+			<th class="tableHead">Έως<i class="fas fa-sort fa-fw"></i></th>
 			<th class="tableHead">Σύνολο<i class="fas fa-sort fa-fw"></i></th>
 			<th class="tableHead">Ημ. Καταγραφής<i class="fas fa-sort fa-fw"></i></th>
 			<th class="tableHead">Διόρθωση</th>
@@ -105,22 +105,7 @@
 			</tr>
 		{% endfor %}
 		</tbody>
-		<tfoot> 
-		{% for adeia in alladeies %}
-	{% if forloop.first %}
-		<tr>  
-			<tr style="text-align: center;"> 
-				<td style="background-color: white;">&nbsp;</td> 
-				<td style="background-color: white;">&nbsp;</td>
-				<td style="background-color: white;">&nbsp;</td>
-				<th colspan="1" style="background-color: white;">Σύνολο</th> 
-				<td ><strong>{{adeia.total}}</strong></td> 
-				<td style="background-color: white;">&nbsp;</td> 
-				<td style="background-color: white;">&nbsp;</td> 
-			</tr> 
-			{%endif%}
-		{% endfor %}
-		</tfoot>
+		
 	</table>
 	<script>
 		$(document).ready( function () {
