@@ -68,11 +68,20 @@
               {{ filter.form.is_approved.label_tag }} 
               {% render_field filter.form.is_approved class="form-control" %}
             </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.date_send_exact.label_tag }} 
+              {% render_field filter.form.date_send_exact class="form-control" %}
+            </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.date_send.label_tag }} 
+              {% render_field filter.form.date_send class="form-control" %}
+            </div>
             
           </div>
           <button type="submit" class="btn btn-warning btn-sm">
             <span class="fa fa-search"></span>&nbspΑναζήτηση
           </button>
+          <button type="reset" class="btn btn-danger btn-sm">Ακύρωση</button>
         </div>
       </form>
     </fieldset>
