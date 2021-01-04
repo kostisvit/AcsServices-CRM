@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'acs-services/main/training', views.training, name='training'),
     #search
     url(r'acs-services/search/eragsies-search',views.search, name='ergasia_search'),
+    url(r'acs-services/search/polisi-search',views.search_sales, name='polisi_search'),
     url(r'acs-services/update-records/training/(?P<pk>\d+)/',views.training_update, name='training_update'),
     #add new records
     url(r'acs-services/add-records/pelatis-new',views.dhmospost_new, name='pelatis_new'),

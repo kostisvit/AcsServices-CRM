@@ -112,15 +112,18 @@ def hardware(request):
 
 
 @login_required
-def ergasia_search(request):
-    return render(request, 'search/ergasia_search.html')
-
-
-@login_required
 def search(request):
     ergasies_list = Ergasies.objects.all()
     ergasies_filter = ErgasiaFilterAll(request.GET, queryset=ergasies_list)
     return render(request, 'search/ergasia_search.html', {'filter': ergasies_filter})
+
+
+
+@login_required
+def search_sales(request):
+    polisi_list = Polisi.objects.all()
+    polisi_filter = PolisiFilterAll(request.GET, queryset=polisi_list)
+    return render(request, 'search/polisi_search.html', {'filter': polisi_filter})
 
 
 # chained selection view

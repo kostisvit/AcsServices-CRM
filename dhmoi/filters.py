@@ -102,8 +102,7 @@ polisi_choice = (
 
 
 class PolisiFilter(django_filters.FilterSet):
-    status = django_filters.ChoiceFilter(
-        choices=polisi_choice, label='Κατάσταση')
+    status = django_filters.ChoiceFilter(choices=polisi_choice, label='Κατάσταση')
 
     class Meta:
         model = Polisi
@@ -111,6 +110,20 @@ class PolisiFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super(PolisiFilter, self).__init__(*args, **kwargs)
+        if self.data == {}:
+            self.queryset = self.queryset.none()
+
+
+class PolisiFilterAll(django_filters.FilterSet):
+    dhmos = django_filters.ModelChoiceFilter(queryset=Dhmos.objects.filter(is_visible=True),label='Φορέας')
+    status = django_filters.ChoiceFilter(choices=polisi_choice, label='Κατάσταση')
+
+    class Meta:
+        model = Polisi
+        fields = ['dhmos', 'etos', 'status']
+
+    def __init__(self, *args, **kwargs):
+        super(PolisiFilterAll, self).__init__(*args, **kwargs)
         if self.data == {}:
             self.queryset = self.queryset.none()
 
