@@ -104,11 +104,6 @@ def service(request):
 
 
 @login_required
-def tameiaki(request):
-    return render(request, 'main/tameiaki.html' )
-
-
-@login_required
 def hardware(request):
     allhardware = Hardware.objects.all()
     hardware_filter = HardwareFilter(request.GET, queryset=allhardware)
