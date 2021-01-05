@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Adeia, Polisi, Ergasies
-from django.db.models import Sum, ExpressionWrapper, F, DecimalField, FloatField
+from django.db.models import Sum, ExpressionWrapper, F, DecimalField, FloatField, Q
 from django.db.models.functions import Cast
 from django.views.generic import TemplateView
 import datetime
@@ -13,7 +13,8 @@ class AdeiaChartView(TemplateView):
     def get_context_data(self, **kwargs):
         today = datetime.date.today()
         context = super().get_context_data(**kwargs)
-        context["qs"] = Adeia.objects.values('employee__first_name','employee__last_name').filter(createddate__year=today.year).exclude(adeiatype='2').annotate(days=Sum('days'))
+        query = self.request.GET.get('q')
+        context["qs"] = Adeia.objects.values('employee__first_name','employee__last_name').filter(Q(createddate__year=query)).exclude(adeiatype='2').annotate(days=Sum('days'))
         return context
 
 
