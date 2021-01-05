@@ -14,7 +14,7 @@ class AdeiaChartView(TemplateView):
         today = datetime.date.today()
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('q')
-        context["qs"] = Adeia.objects.values('employee__first_name','employee__last_name').filter(Q(createddate__year=query)).exclude(adeiatype='2').annotate(days=Sum('days'))
+        context["qs"] = Adeia.objects.values('employee__first_name','employee__last_name','adeiatype').filter(Q(createddate__year=query)).exclude(adeiatype='2').annotate(days=Sum('days'))
         return context
 
 
