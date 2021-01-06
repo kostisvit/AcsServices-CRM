@@ -1,18 +1,47 @@
 {% extends 'base_charts.html' %}
 
-{% block title %}Σύνολο Πωλήσεων έτους {% now "Y"%}{% endblock title %}
+{% block title %}Σύνολο Πωλήσεων έτους {{request.GET.q}}{% endblock title %}
 
+{% block content %}
+<style>
+.input_field {
+    border-radius: 8px;
+    border: 3px solid #BADA55;
+    outline: none;
+    height: 35px;
+    text-align:center;
+    
+}
+.box {
+   margin: 0 auto;
+   text-align: center;
+}
+</style>
+
+
+<div class="box">
+<form action="{% url 'polisi_chart' %}" method="get"><br/>
+  <input name="q" type="text" placeholder=" Έτος..." class="input_field" autocomplete="off">
+</form>
+
+
+</div>
+
+
+<canvas id="polChart" width="1800" height="500"></canvas>
+
+{% endblock content %}
 
 {% block scripts %}
 <script>
     $(document).ready(function(){
         var ctx = document.getElementById('polChart');
         var myChart = new Chart(ctx, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: [{% for item in qs %}'{{item.dhmos__name}}',{% endfor %}],
                 datasets: [{
-                    label: '# Ημέρες άδειας {% now "Y" %}',
+                    label: '',
                     data: [{% for item in qs %}{{item.total}},{% endfor %}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -42,10 +71,18 @@
                 scales: {
                     yAxes: [{
                         ticks: {
+                             stepSize: 1,
                             beginAtZero: true,
                             
-                        }
-                    }]
+                        },
+                        scaleLabel: {
+                        display: true,
+                        labelString: "Πωλήσεις έτους {{ request.GET.q }}",
+                        fontFamily: "Montserrat",
+                        fontColor: "black",
+                        fontSize: 25,
+                    },
+                }],
                 },
                 layout: {
                     padding:{
@@ -59,17 +96,17 @@
                 },
                 title: {
                 display: true,
-                text: "Σύνολο πωλήσεων έτους {% now "Y" %}",
+                text: "Σύνολο πωλήσεων έτους {{request.GET.q}}",
                 position: "top",
                 fontSize: 25,
                 padding: 15,
                 linegeight: 5,
                 },
                 animation: {
-                    duration: 5000,
+                    duration: 3000,
                     easing: "easeInOutBounce",
                 }
-            }
+                }
         });
             })
 
@@ -77,7 +114,3 @@
 {% endblock scripts %}
 
 
-{% block content %}
-<canvas id="polChart" width="1800" height="500"></canvas>
-
-{% endblock content %}
