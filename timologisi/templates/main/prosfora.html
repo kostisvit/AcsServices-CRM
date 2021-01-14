@@ -127,7 +127,7 @@
         {% endif %}
         <a href="{% url 'prosfora_update' pk=prosfora.pk %}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
         <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
-        <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{contract.pelatis}} - {{contract.invoice_date}} - {{contract.amount}}');" href="{% url 'delete_prosfora' pk=prosfora.pk %}" title="Διαγραφή">
+        <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{prosfora.pelatis}} - {{prosfora.date_send}} - {{prosfora.app}}');" href="{% url 'delete_prosfora' pk=prosfora.pk %}" title="Διαγραφή">
         <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
     </tr>
     {% endfor %}

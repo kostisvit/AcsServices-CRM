@@ -52,6 +52,7 @@ class ContractForm(ModelForm):
 
 class InvoiceForm(ModelForm):
     pelatis = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
+    slug = forms.CharField(required=False,label='Κωδικός Συμβ.',widget=forms.TextInput(attrs={'readonly':'readonly'}))
     class Meta:
         model = Invoice
         fields = '__all__'
@@ -59,3 +60,4 @@ class InvoiceForm(ModelForm):
             'invoice_date': DatePickerInput(format='%d/%m/%Y'),
             'payment_date': DatePickerInput(format='%d/%m/%Y')
         }
+        

@@ -73,6 +73,7 @@ urlpatterns = [
     url(r'acs-services/timologisi-main/timologisi/', timologisi.views.timologio, name='timologio'),
     url(r'acs-services/timologisi/update/(?P<pk>\d+)/', timologisi.update_records.prosfora_update, name='prosfora_update'),
     url(r'acs-services/symbasi/update/(?P<pk>\d+)/', timologisi.update_records.symbasi_update, name='symbasi_update'),
+    url(r'acs-services/timologisi-main/dosi/(?P<pk>\d+)/', timologisi.views.dosi, name='dosi'),
     url(r'delete_prosfora/(?P<pk>\d+)/',timologisi.delete_records.delete_prosfora, name='delete_prosfora'),
     url(r'delete_contract/(?P<pk>\d+)/',timologisi.delete_records.delete_contract, name='delete_contract'),
     # chained selection ergasia_new

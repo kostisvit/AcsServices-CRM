@@ -78,6 +78,31 @@ def timologio(request,pk=-1):
 
 
 
+def dosi(request,pk=-1):
+    today = datetime.date.today()
+    
+    if pk!= -1:
+        post = get_object_or_404(Invoice, pk=pk)
+        post.save()
+    form = InvoiceForm()
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = InvoiceForm()
+    else:
+        if pk!= -1:
+            form = InvoiceForm(instance=post)
+        else:
+            form = InvoiceForm()
+    allinvoices = Invoice.objects.filter(invoice_date__year=today.year)
+    invoice_filter = InvoiceFilter(request.GET, queryset=allinvoices)
+    context = {'invoiceform': form ,'allinvoices': allinvoices,'filter': invoice_filter}
+    return render(request,'main/timologisi.html', context)
+
+
+
+
 
 
 ###chained dropdownlist views

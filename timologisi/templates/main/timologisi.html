@@ -7,8 +7,10 @@
   .modal-xl {
     width: 100%;
    max-width:1800px;
+   
   }
-
+  .dosi-btn-background {background-color:#800080;}
+  
 </style>
 <button  class="btn btn-primary btn-sm" onclick="addRecord()">Νέα Εγγραφή</button>
 <button  class="btn btn-success btn-sm" onclick="searchRecord()">Αναζήτηση</button>
@@ -24,7 +26,7 @@
         {{invoiceform.pelatis|as_crispy_field}}
       </div>
       <div class="col-md-2">
-        {{invoiceform.contract_code|as_crispy_field}}
+        {{invoiceform.slug|as_crispy_field}}
       </div>
       <div class="col-2">
         {{invoiceform.invoice_date|as_crispy_field}}
@@ -52,9 +54,9 @@
        </div>
     </div>
     <div class="modal-footer">
-        <button type="reset" class="btn btn-danger" data-dismiss="modal">Ακύρωση</button>
-        <button type="submit" class="btn btn-primary">Αποθήκευση</button>
-      </div>
+    <a href="{% url 'timologio' %}" class="btn btn-danger">Ακύρωση</a>
+    <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+    </div>
 </form>
 </div>
 <div id="myDIV2" style="display: none;">
@@ -112,7 +114,7 @@
         <th colspan="10" class="tbhead" style="color: #333399;">Προσφορές</th>
         </tr>
         <tr style="color: #333399; font-size:14px; text-align:center;">
-        <th>Πελάτης</th>
+        <th>Φορέας</th>
         <th>Κωδ.Σύμβ.</th>
         <th>Ημ.Τιμολόγ.</th>
         <th>Αρ.Τιμολογ.</th>
@@ -128,7 +130,7 @@
  {% for invoice in filter.qs%}
     <tr style="text-align:center;">
         <td>{{invoice.pelatis}}</td>
-        <td>{{invoice.contract_code}}</td>
+        <td>{{invoice.slug|upper}}</td>
         <td>{{invoice.invoice_date|date:"d/m/Y"}}</td>
         <td>{{invoice.invoice_code}}</td>
         <td><em>€</em>&nbsp{{invoice.poso}}</td>
@@ -136,12 +138,12 @@
         <td>{{invoice.payment_type}}</td>
         <td>{{invoice.payment_date|date:"d/m/Y"}}</td>
         <td>{{invoice.is_paid|yesno}}</td>
-        <td><a href="#"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
-        <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
+        <td><a href="{% url 'dosi' pk=invoice.pk %}" class="btn  dosi-btn-background btn-sm mr-1"><i class="fas fa-plus" style="color: white;"></i></a>
         <a href="#" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
         <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
         <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{prosfora.pelatis}} - {{prosfora.app}}');" href="#" title="Διαγραφή">
-        <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
+        <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a>
+        </td>
     </tr>
     {% endfor %}
     </tbody>

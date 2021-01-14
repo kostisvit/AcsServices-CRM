@@ -2,7 +2,7 @@ from django.db import models
 from dhmoi.model_choices import *
 import datetime
 import os
-
+from django.utils.text import slugify
 
 def current_year():
     return datetime.date.today().year
@@ -53,21 +53,23 @@ class Contract(models.Model):
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό Σύμβασης')
     file = models.FileField(upload_to=user_directory_path, default='-', blank=True, null=True)
     contract_desc = models.TextField(verbose_name='Περιγραφή Σύμβασης', null=True, blank=True)
+    slug = models.SlugField(unique=True, allow_unicode=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         verbose_name = 'Σύμβαση'
         verbose_name_plural = 'Σύμβαση'
         ordering = ['id']
-    
-    def combined(obj):
-        return "%s %s" % (obj.contract_code, obj.id)
-
-    def __str__(self):
-        return (self.contract_code) + ' ' + str(self.id)
+        
     
     def filename(self):
         return os.path.basename(self.file.name) 
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        value = self.contract_code
+        self.slug = slugify(value, allow_unicode=False) + '' + str(self.id)
+        super().save(*args, **kwargs)
     
     def delete(self, *args, **kwargs): #delete also the file
         self.file.delete()
@@ -94,7 +96,7 @@ class Invoice(models.Model):
     )
 
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
-    contract_code = models.CharField(max_length=150, choices=contract_choice, verbose_name='Κωδικός Σύμβ.', null=False, blank=False)
+    slug = models.SlugField(blank=True)
     invoice_date = models.DateField(verbose_name=' Ημ.Τιμολόγησης', null=False, blank=False)
     invoice_code = models.IntegerField(verbose_name='Κωδ.Τιμ', null=False, blank=True, default=0)
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Ποσό')
@@ -110,5 +112,6 @@ class Invoice(models.Model):
         verbose_name = 'Τιμολόγηση'
         verbose_name_plural = 'Τιμολόγηση'
         ordering = ['id']
+   
     
     
