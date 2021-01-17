@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'admin_honeypot',
     'timologisi',
     'bootstrap_datepicker_plus',
+    'report_builder',
 
 
 
@@ -80,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
                 'tasks.context_processor.task_count',
                 'dhmoi.context_processor.ergasies_count',
                 'dhmoi.context_processor.training_count',

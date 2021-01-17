@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.urls import path, include
 from . import views
 from django.conf import settings
 import tasks
@@ -84,8 +85,9 @@ urlpatterns = [
     # charts
     url(r'acs-services/adeia-charts', AdeiaChartView.as_view(), name='adeia_chart'),
     url(r'acs-services/polisi-chart', PolisiChartView.as_view(), name='polisi_chart'),
-    url(r'acs-services/ergasia-chart', ErgasiaChartView.as_view(), name='ergasia_chart')
-    #timologis-test
+    url(r'acs-services/ergasia-chart', ErgasiaChartView.as_view(), name='ergasia_chart'),
+    #treport-builder
+    url(r'^acs-services/report_builder/', include('report_builder.urls'), name='report_builder')
     
 
 
