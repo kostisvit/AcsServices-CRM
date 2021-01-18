@@ -1,8 +1,34 @@
 {% extends 'base_charts.html' %}
 
-{% block title %}Σύνολο Άδειας έτους {% now "Y"%}{% endblock title %}
+{% block title %}Σύνολο Άδειας έτους {{ request.GET.q }}{% endblock title %}
+
+{% block content %}
+<style>
+.input_field {
+    border-radius: 8px;
+    border: 3px solid #BADA55;
+    outline: none;
+    height: 35px;
+    text-align:center;
+    
+}
+.box {
+   margin: 0 auto;
+   text-align: center;
+}
+</style>
 
 
+<div class="box">
+<form action="{% url 'adeia_chart' %}" method="get"><br/>
+  <input name="q" type="text" placeholder=" Έτος..." class="input_field" autocomplete="off">
+</form>
+
+
+</div>
+<canvas id="AdeiaChart" width="1800" height="500" role="img"></canvas>
+
+{% endblock content %}
 {% block scripts %}
 <script>
     $(document).ready(function(){
@@ -12,7 +38,7 @@
             data: {
                 labels: [{% for item in qs %}'{{item.employee__first_name}} {{item.employee__last_name}}',{% endfor %}],
                 datasets: [{
-                    label: '# Ημέρες άδειας {% now "Y" %}',
+                    label: '# Ημέρες κανονικής άδειας {{ request.GET.q }}',
                     data: [{% for item in qs %}{{item.days}},{% endfor %}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -43,8 +69,16 @@
                 scales: {
                     yAxes: [{
                         ticks: {
+                            stepSize: 1,
                             beginAtZero: true
-                        }
+                        },
+                        scaleLabel: {
+                        display: true,
+                        labelString: "Ημέρες Άδειας {{ request.GET.q }}",
+                        fontFamily: "Montserrat",
+                        fontColor: "black",
+                        fontSize: 25,
+                    },
                     }],
                     xAxes: [{
                             barPercentage: 0.4
@@ -62,7 +96,7 @@
                 },
                 title: {
                 display: true,
-                text: "Ημέρες άδειας ανα υπάλληλο έτους {% now "Y" %}",
+                text: "Ημέρες άδειας ανα υπάλληλο έτους {{ request.GET.q }}",
                 position: "top",
                 fontSize: 25,
                 padding: 15,
@@ -71,9 +105,9 @@
                 animation: {
                     duration: 5000,
                     easing: "easeInOutBounce",
-                },
+                }
                 
-            },
+            }
             
             
         });
@@ -83,7 +117,3 @@
 {% endblock scripts %}
 
 
-{% block content %}
-<canvas id="AdeiaChart" width="1800" height="500" role="img"></canvas>
-
-{% endblock content %}

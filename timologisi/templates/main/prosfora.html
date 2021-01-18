@@ -1,0 +1,238 @@
+{% extends 'base.html'%}
+{% load l10n %}
+
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+  .modal-xl {
+    width: 100%;
+   max-width:1800px;
+  }
+
+</style>
+<button  class="btn btn-primary btn-sm" onclick="addRecord()">Νέα Εγγραφή</button>
+<button  class="btn btn-success btn-sm" onclick="searchRecord()">Αναζήτηση</button>
+<a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
+  <span class="fas fa-chart-line mr-2"></span>Stats</a>
+<br/>
+<br/>
+<div id="myDIV" style="display:none">
+  <form action="" method="POST" enctype = "multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-5">
+        {{prosforaform.pelatis|as_crispy_field}}
+      </div>
+      <div class="col-md-4">
+        {{prosforaform.contact|as_crispy_field}}
+      </div>
+      <div class="col-4">
+        {{prosforaform.app|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{prosforaform.poso|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{prosforaform.date_send|as_crispy_field}}
+        {{ prosforaform.media }}
+        </div>
+         <div class="col-2">
+        {{prosforaform.document|as_crispy_field}}
+       
+        </div>
+        <div class="form-row">
+      <div class="col-2">
+        {{prosforaform.prosfora_des|as_crispy_field}}
+      </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="reset" class="btn btn-danger" data-dismiss="modal">Ακύρωση</button>
+        <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+      </div>
+</form>
+</div>
+<div id="myDIV2" style="display: none;">
+<fieldset class="border p-1">
+      <legend class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
+      <form method="get">
+        {% csrf_token %}
+        <div class="well">
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.pelatis.label_tag }} 
+              {% render_field filter.form.pelatis class="form-control" %}
+            </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.is_approved.label_tag }} 
+              {% render_field filter.form.is_approved class="form-control" %}
+            </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.date_send_exact.label_tag }} 
+              {% render_field filter.form.date_send_exact class="form-control" %}
+            </div>
+             <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.date_send.label_tag }} 
+              {% render_field filter.form.date_send class="form-control" %}
+            </div>
+            
+          </div>
+          <button type="submit" class="btn btn-warning btn-sm">
+            <span class="fa fa-search"></span>&nbspΑναζήτηση
+          </button>
+          <button type="reset" class="btn btn-danger btn-sm">Ακύρωση</button>
+        </div>
+      </form>
+    </fieldset>
+</div>
+<br/>
+<br/>
+<table id="prosfora-table" class="display compact" style="width:100%">
+    <thead>
+        <tr>
+        <th colspan="9" class="tbhead" style="color: #333399;">Προσφορές</th>
+        </tr>
+        <tr style="color: #333399; font-size:14px; text-align:center;">
+        <th>Πελάτης</th>
+        <th>Εφαρμογή</th>
+        <th>Επαφή</th>
+        <th>Ποσό</th>
+        <th>Αποστ.</th>
+        <th>Αρχείο</th>
+        <th>Περιγραφή</th>
+        <th>Αποδοχή</th>
+        <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for prosfora in filter.qs %}
+    <tr style="text-align:center;">
+        <td>{{prosfora.pelatis}}</td>
+        <td>{{prosfora.app}}</td>
+        <td>{{prosfora.contact}}</td>
+        <td><em>€</em>&nbsp{{prosfora.poso|localize}}</td>
+        <td>{{prosfora.date_send|date:"d/m/Y"}}</td>
+        <td>{{prosfora.filename}}</td>
+        <td>{{prosfora.prosfora_des|truncatewords:5}}</td>
+        <td>{{prosfora.is_approved|yesno}}</td>
+        <td>{% if prosfora.is_approved == False %}
+        <a href="{% url 'symbasi' pk=prosfora.pk %}"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
+        <span><i class="fa fa-handshake " aria-hidden="true"></i></span></a>
+        {% else %}
+        <a href="#" class="btn btn-success btn-sm mr-1" title="Αποδοχή προσφοράς">
+        <span><i class="fas fa-check-circle " aria-hidden="true"></i></span></a>
+        {% endif %}
+        <a href="{% url 'prosfora_update' pk=prosfora.pk %}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
+        <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
+        <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{prosfora.pelatis}} - {{prosfora.date_send}} - {{prosfora.app}}');" href="{% url 'delete_prosfora' pk=prosfora.pk %}" title="Διαγραφή">
+        <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+$(document).ready( function () {
+    $('#prosfora-table').DataTable({
+      
+      "pagingType": "full_numbers",
+      "language": {
+            "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Σελίδα _PAGE_ από _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Αναζήτηση:",
+            "paginate": {
+            "previous": " < ",
+            "next": " > ",
+            "first": " << ",
+            "last": " >> "
+          }
+        },
+        dom: 'Bfrtip',
+             buttons: [{
+               extend: 'excelHtml5',
+               autoFilter: true,
+               sheetName: 'Εργασίες',
+               className: 'btn-export-xlx'
+             },
+             {
+               extend: 'pdfHtml5',
+               download: 'open',
+               className: 'btn-export-pdf'
+             },
+             {
+               extend: 'csv',
+               className: 'btn-export-csv',
+             }
+             
+            
+        ],
+    });
+} );
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded',init);
+
+  function init(){
+    var dhmos_input = document.getElementById('id_pelatis')
+    
+    dhmos_input.addEventListener('change', search_epafi)
+  }
+
+  function search_epafi(){
+    
+    var value = this[this.selectedIndex].value;
+    
+    $.ajax({
+      url:'/api/prosfora/dhmoi-epafes/'+value,
+      success:function(data){
+        
+        populateEpafes(data)
+      },
+      error:function(error){
+        console.log(error)
+      }
+      })
+  }
+  // <option value="134">Αγγελοπούλου Γεωργία</option>
+  function populateEpafes(epafes) {
+
+    var allOptions = '<option value="">---------</option>';
+    epafes.forEach( function(epafi) {
+      var fname = epafi.fields.firstname;
+      var lname = epafi.fields.lastname;
+      var fullName = lname + ' ' + fname;
+
+      allOptions += '<option value="'+epafi.pk+'">'+fullName+'</option>';
+    })
+
+    $('#id_contact').html(allOptions)
+  }
+</script>
+<script>
+function addRecord() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+<script>
+function searchRecord() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+{% endblock %}
+
+   

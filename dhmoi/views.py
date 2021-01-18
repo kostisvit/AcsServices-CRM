@@ -18,7 +18,7 @@ from django.core import serializers
 from django.http import JsonResponse
 import json
 from django.contrib.auth import logout
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView
 from django.db.models import Q
 from django.db.models import Sum
 
@@ -104,11 +104,6 @@ def service(request):
 
 
 @login_required
-def tameiaki(request):
-    return render(request, 'main/tameiaki.html' )
-
-
-@login_required
 def hardware(request):
     allhardware = Hardware.objects.all()
     hardware_filter = HardwareFilter(request.GET, queryset=allhardware)
@@ -117,20 +112,19 @@ def hardware(request):
 
 
 @login_required
-def ergasia_search(request):
-    return render(request, 'search/ergasia_search.html')
+def search(request):
+    ergasies_list = Ergasies.objects.all()
+    ergasies_filter = ErgasiaFilterAll(request.GET, queryset=ergasies_list)
+    return render(request, 'search/ergasia_search.html', {'filter': ergasies_filter})
 
 
 
 @login_required
-def adeia_search(request):
-    return render(request, 'search/adeia_search.html')
+def search_sales(request):
+    polisi_list = Polisi.objects.all()
+    polisi_filter = PolisiFilterAll(request.GET, queryset=polisi_list)
+    return render(request, 'search/polisi_search.html', {'filter': polisi_filter})
 
-
-
-@login_required
-def polisi_search(request):
-    return render(request, 'search/polisi_search.html')
 
 # chained selection view
 
@@ -165,20 +159,6 @@ def api_aithma(request,pk):
 
 
 
-class SearchResultsView(ListView):
-    model = Ergasies
-    template_name = 'search/ergasia_search.html'
-
-    def get_queryset(self): # new
-        
-        query = self.request.GET.get('q')
-        if query:
-            object_list = Ergasies.objects.filter(
-             Q(info__icontains=query) | Q(dhmos__name__icontains=query) | Q(name__icontains=query)
-        )
-        else:
-           object_list = None
-        return object_list
 
 
 

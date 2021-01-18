@@ -5,16 +5,11 @@
 {% load static %}
 {% block content %}
 <div>
-  {% if request.user|has_group:"test" %} 
+  
   <a href="{% url 'service_new' %}" class="btn btn-primary btn-sm" title="Προσθήκη πελάτη">
       <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>
   </a>
-  {% else %}
-  <a href="#" class="btn btn-primary btn-sm" title="Προσθήκη πελάτη" onclick="return alert('Περιορισμένα διακαιώματα {{user.first_name}}')">
-    <span class="fa fa-plus"></span>&nbsp<strong>Νέα εγγραφή</strong>
-</a>
-  {% endif %}
-  <a href="#" class="btn btn-success btn-sm">
+    <a href="#" class="btn btn-success btn-sm">
       <span class="fa fa-download"></span>&nbsp<strong>Export</strong>
   </a><p></p>
 <fieldset class="border p-1">

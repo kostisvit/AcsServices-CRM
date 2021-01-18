@@ -34,6 +34,7 @@
           <button type="submit" class="btn btn-warning btn-sm">
             <span class="fa fa-search"></span>&nbspΑναζήτηση
           </button>
+          <button type="reset" class="btn btn-danger btn-sm">Ακύρωση</button>
         </div>
       </form>
     </fieldset>
@@ -48,7 +49,7 @@
       <th class="tableHead">Κατ.<i class="fas fa-sort fa-fw"></i></th>
       <th class="tableHead">Φορέας<i class="fas fa-sort fa-fw"></i></th>
       <th class="tableHead">Εφαρμογή<i class="fas fa-sort fa-fw"></i></th>
-      <th class="tableHead">Υπ.Επικοιν.<i class="fas fa-sort fa-fw"></i></th>
+      <th class="tableHead">Επαφή<i class="fas fa-sort fa-fw"></i></th>
       <th class="tableHead">Εργασία<i class="fas fa-sort fa-fw"></i></th>
       <th class="tableHead">Περιγραφή<i class="fas fa-sort fa-fw"></i></th>
       <th class="tableHead">ACS<i class="fas fa-sort fa-fw"></i></th>
@@ -110,7 +111,16 @@
                extend: 'excelHtml5',
                autoFilter: true,
                sheetName: 'Εργασίες',
-               className: 'btn-export-xlx'
+               className: 'btn-export-xlx',
+               exportOptions: {
+              columns: ':visible',
+              format: {
+              body: function(data, row, column, node) {
+                  data = $('<p>' + data + '</p>').text();
+                  return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+              }
+          }
+      }
              },
              {
                extend: 'pdfHtml5',
@@ -120,7 +130,8 @@
              {
                extend: 'csv',
                className: 'btn-export-csv',
-             }
+             },
+  
              
             
         ],

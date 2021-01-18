@@ -14,3 +14,8 @@
 /timologisi/migrations/__pycache__/
 /timologisi/migrations/0004_merge_20201001_1852.py
 /.vscode
+Dockerfile
+docker-compose.yml
+Pipfile
+Pipfile.lock
+/media/

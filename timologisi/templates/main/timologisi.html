@@ -1,0 +1,212 @@
+{% extends 'base.html'%}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+  .modal-xl {
+    width: 100%;
+   max-width:1800px;
+   
+  }
+  .dosi-btn-background {background-color:#800080;}
+  
+</style>
+<button  class="btn btn-primary btn-sm" onclick="addRecord()">Νέα Εγγραφή</button>
+<button  class="btn btn-success btn-sm" onclick="searchRecord()">Αναζήτηση</button>
+<a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
+  <span class="fas fa-chart-line mr-2"></span>Stats</a>
+<br/>
+<br/>
+<div id="myDIV" >
+  <form action="" method="POST" enctype = "multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-4">
+        {{invoiceform.pelatis|as_crispy_field}}
+      </div>
+      <div class="col-md-2">
+        {{invoiceform.slug|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{invoiceform.invoice_date|as_crispy_field}}
+        {{ invoiceform.media }}
+      </div>
+      <div class="col-2 ">
+        {{invoiceform.invoice_code|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{invoiceform.poso|as_crispy_field}}
+        </div>
+         <div class="col-2">
+        {{invoiceform.bank|as_crispy_field}}
+       </div>
+       <div class="col-2">
+        {{invoiceform.payment_type|as_crispy_field}}
+       </div>
+       <div class="col-2">
+        {{invoiceform.payment_date|as_crispy_field}}
+        {{ invoiceform.media }}
+       </div>
+       <div class="col-2" style="margin-top: 30px;">
+        {{invoiceform.is_paid|as_crispy_field}}
+       
+       </div>
+    </div>
+    <div class="modal-footer">
+    <a href="{% url 'timologio' %}" class="btn btn-danger">Ακύρωση</a>
+    <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+    </div>
+</form>
+</div>
+<div id="myDIV2" style="display: none;">
+<fieldset class="border p-1">
+      <legend class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
+      <form method="get">
+        {% csrf_token %}
+        <div class="well">
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.pelatis.label_tag }} 
+              {% render_field filter.form.pelatis class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.bank.label_tag }} 
+              {% render_field filter.form.bank class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.invoice_date.label_tag }} 
+              {% render_field filter.form.invoice_date class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-2">
+              {{ filter.form.invoice_code.label_tag }} 
+              {% render_field filter.form.invoice_code class="form-control" %}
+            </div>
+            
+          </div>
+          <div class="row">
+           <div class="form-group col-sm-4 col-md-2">
+              {{ filter.form.payment_type.label_tag }} 
+              {% render_field filter.form.payment_type class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-2">
+              {{ filter.form.payment_date.label_tag }} 
+              {% render_field filter.form.payment_date class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-2">
+              {{ filter.form.is_paid.label_tag }} 
+              {% render_field filter.form.is_paid class="form-control" %}
+            </div>
+          </div>
+          <button type="submit" class="btn btn-warning btn-sm">
+            <span class="fa fa-search"></span>&nbspΑναζήτηση
+          </button>
+          <button type="reset" class="btn btn-danger btn-sm">Ακύρωση</button>
+        </div>
+      </form>
+    </fieldset>
+</div>
+<br/>
+<br/>
+ <table id="symbasi-table" class="display compact" style="width:100%">
+    <thead>
+        <tr>
+        <th colspan="10" class="tbhead" style="color: #333399;">Προσφορές</th>
+        </tr>
+        <tr style="color: #333399; font-size:14px; text-align:center;">
+        <th>Φορέας</th>
+        <th>Κωδ.Σύμβ.</th>
+        <th>Ημ.Τιμολόγ.</th>
+        <th>Αρ.Τιμολογ.</th>
+        <th>Ποσό</th>
+        <th>Τράπεζα</th>
+        <th>ΠΛηρωμή</th>
+        <th>Ημ.Πληρ.</th>
+        <th>Πληρώθηκε</th>
+        <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+ {% for invoice in filter.qs%}
+    <tr style="text-align:center;">
+        <td>{{invoice.pelatis}}</td>
+        <td>{{invoice.slug|upper}}</td>
+        <td>{{invoice.invoice_date|date:"d/m/Y"}}</td>
+        <td>{{invoice.invoice_code}}</td>
+        <td><em>€</em>&nbsp{{invoice.poso}}</td>
+        <td>{{invoice.bank}}</td>
+        <td>{{invoice.payment_type}}</td>
+        <td>{{invoice.payment_date|date:"d/m/Y"}}</td>
+        <td>{{invoice.is_paid|yesno}}</td>
+        <td><a href="{% url 'dosi' pk=invoice.pk %}" class="btn  dosi-btn-background btn-sm mr-1"><i class="fas fa-plus" style="color: white;"></i></a>
+        <a href="#" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
+        <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
+        <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{prosfora.pelatis}} - {{prosfora.app}}');" href="#" title="Διαγραφή">
+        <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+$(document).ready( function () {
+    $('#symbasi-table').DataTable({
+      "pagingType": "full_numbers",
+      "language": {
+            "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Σελίδα _PAGE_ από _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Αναζήτηση:",
+            "paginate": {
+            "previous": " < ",
+            "next": " > ",
+            "first": " << ",
+            "last": " >> "
+          }
+        },
+        dom: 'Bfrtip',
+             buttons: [{
+               extend: 'excelHtml5',
+               autoFilter: true,
+               sheetName: 'Εργασίες',
+               className: 'btn-export-xlx'
+             },
+             {
+               extend: 'pdfHtml5',
+               download: 'open',
+               className: 'btn-export-pdf'
+             },
+             {
+               extend: 'csv',
+               className: 'btn-export-csv',
+             }
+             
+            
+        ],
+    });
+} );
+</script>
+<script>
+function addRecord() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+<script>
+function searchRecord() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+{% endblock %}

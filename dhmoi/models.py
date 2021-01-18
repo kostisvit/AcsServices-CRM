@@ -87,7 +87,7 @@ class Ergasies(models.Model):
     info = models.TextField(max_length=1000, verbose_name='Περιγραφή')
     text = models.TextField(max_length=1000, verbose_name='Σημειώσεις', blank=True)
     employee = models.ForeignKey('auth.User', max_length=100, verbose_name='Υπάλληλος',on_delete=models.CASCADE, default='-')  # delete kai
-    time = models.CharField(max_length=20, verbose_name='Διάρκεια', default=0)
+    time = models.FloatField(verbose_name='Διάρκεια')
     name = models.CharField(max_length=100, verbose_name='Υπάλληλος Επικοιν.',null=True, help_text='Επώνυμο-Όνομα', blank=True)
     ticketid = models.CharField(max_length=50, verbose_name='Αίτημα OTS', blank=True)
 
@@ -128,9 +128,20 @@ class Adeia(models.Model):
 
     def total(self):  # Προσθέτει τις μέρες άδειας του τρέχοντος έτους
         today = datetime.date.today()
-        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee).aggregate(
+        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee).exclude(adeiatype='2').aggregate(
             sum_all=Sum('days')).get('sum_all')
 
+
+    def anarotiki_total(self): 
+        today = datetime.date.today()
+        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee, adeiatype='2').aggregate(
+            sum_all=Sum('days')).get('sum_all')
+
+
+    def kanoniki_total(self): 
+        today = datetime.date.today()
+        return self.__class__.objects.all().filter(createddate__year=today.year, employee=self.employee, adeiatype='1').aggregate(
+            sum_all=Sum('days')).get('sum_all')
 
 class Hardware(models.Model):
     employee = models.ForeignKey('auth.User', max_length=100, verbose_name='Υπάλληλος', on_delete=models.CASCADE)

@@ -8,10 +8,10 @@ from import_export import fields, resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import ForeignKeyWidget, CharWidget
 from tasks.models import Task
+from timologisi.models import *
 
 
-
-
+from django.utils.safestring import mark_safe
 
 
 class DhmosinfoResource(resources.ModelResource):
@@ -121,8 +121,11 @@ class AdeiesAdmin(ImportExportModelAdmin):
 
 class PolisiAdmin(ImportExportModelAdmin):
     list_display = ('dhmos', 'eidos', 'posothta',
-                    'sinoltimi', 'katagrafi', 'etos')
-
+                    'sinoltimi', 'katagrafi', 'etos','enter_etos_safe')
+    
+    def enter_etos_safe(self, obj):
+        return mark_safe(obj.etos)
+    enter_etos_safe.etos = 'etos'
 
 class TrainingAdmin(ImportExportModelAdmin):
     list_display = ('foreas', 'importdate', 'place', 'training_type',
@@ -137,14 +140,7 @@ class TaskAdmin(ImportExportModelAdmin):
     list_display = ('employee', 'title', 'complete', 'created')
 
 
-#class ProsforaAdmin(ImportExportModelAdmin):
- #   list_display = ('pelatis', 'app', 'contact', 'poso','is_approved','prosfora_des','created_at','updated_at')
 
-#class ContractAdmin(ImportExportModelAdmin):
-#    list_display = ('pelatis','contract_end','contract_sign','contract_code','contact','contract_ammount','contract_desc','combined')
-
-#class InvoiceAdmin(ImportExportModelAdmin):
-#    list_display = ('pelatis','contract_code','invoice_date','amount','bank','is_paid')
 
 admin.site.register(Dhmos, DhmosAdmin)
 admin.site.register(Employee, EmployeeAdmin)
@@ -158,9 +154,7 @@ admin.site.register(Profile)
 admin.site.register(Training, TrainingAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Tameiaki)
-#admin.site.register(Prosfora,ProsforaAdmin)
-#admin.site.register(Contract, ContractAdmin)
-#admin.site.register(Invoice, InvoiceAdmin)
+
 
 
 

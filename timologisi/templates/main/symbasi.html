@@ -1,0 +1,235 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<style>
+#myDIV {
+  width: 100%;
+  padding: 50px 0;
+  text-align: left;
+  
+  margin-top: 20px;
+}
+</style>
+
+<button  class="btn btn-primary btn-sm" onclick="addRecord()">Νέα Εγγραφή</button>
+<button  class="btn btn-success btn-sm" onclick="searchRecord()">Αναζήτηση</button>
+<a href="#" target='_blank' class="btn btn-info btn-sm " title="Στατιστικά">
+<span class="fas fa-chart-line mr-2"></span>Stats</a>
+<br/>
+<br/>
+<div id="myDIV">
+     <form action="" method="POST" >
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col-5">
+        {{contractform.pelatis|as_crispy_field}}
+      </div>
+    <div class="col-md-4">
+        {{contractform.contact|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{contractform.contract_code|as_crispy_field}}
+      </div>
+      <div class="col-2">
+        {{contractform.contract_sign|as_crispy_field}}
+        {{ contractform.media }}
+      </div>
+      <div class="col-2">
+        {{contractform.contract_end|as_crispy_field}}
+        {{ contractform.media }}
+        </div>
+         <div class="col-2">
+        {{contractform.poso|as_crispy_field}}
+        </div>
+         <div class="col-2">
+        {{contractform.file|as_crispy_field}}
+        </div>
+        <div class="col-2">
+        {{contractform.contract_desc|as_crispy_field}}
+      </div>  
+        <div class="form-row">
+      </div>
+     
+    </div>
+    <div class="modal-footer">
+        <button type="reset" class="btn btn-danger" data-dismiss="modal">Ακύρωση</button>
+        <button type="submit" class="btn btn-primary">Αποθήκευση</button>
+      </div>
+</form>
+</div>
+
+
+<div id="myDIV2" style="display: none;">
+<fieldset class="border p-1">
+      <legend class="w-auto" style="color: #333399;">&nbspΑναζήτηση</legend>
+      <form method="get">
+        {% csrf_token %}
+        <div class="well">
+          <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.pelatis.label_tag }} 
+              {% render_field filter.form.pelatis class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.contract_sign.label_tag }} 
+              {% render_field filter.form.contract_sign class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+              {{ filter.form.contract_end.label_tag }} 
+              {% render_field filter.form.contract_end class="form-control" %}
+            </div>
+            
+          </div>
+          <button type="submit" class="btn btn-warning btn-sm">
+            <span class="fa fa-search"></span>&nbspΑναζήτηση
+          </button>
+          <button type="reset" class="btn btn-danger btn-sm">Ακύρωση</button>
+        </div>
+      </form>
+    </fieldset>
+</div>
+<br/>
+<br/>
+ <table id="symbasi-table" class="display compact" style="width:100%">
+    <thead>
+        <tr>
+        <th colspan="8" class="tbhead" style="color: #333399;">Προσφορές</th>
+        </tr>
+        <tr style="color: #333399; font-size:14px; text-align:center;">
+        <th>Πελάτης</th>
+        <th>Επαφή</th>
+        <th>Κωδ.Σύμβ.</th>
+        <th>Ημ.Έναρ.</th>
+        <th>Ημ.Λήξ.</th>
+        <th>Ποσό</th>
+        <th>Αρχείο</th>
+        <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+ {% for contract in filter.qs%}
+    <tr style="text-align:center;">
+        <td>{{contract.pelatis}}</td>
+        <td>{{contract.contact}}</td>
+        <td>{{contract.slug|upper}}</td>
+        <td>{{contract.contract_sign|date:"d/m/Y"}}</td>
+        <td>{{contract.contract_end|date:"d/m/Y"}}</td>
+        <td><em>€</em>&nbsp{{contract.poso}}</td>
+        <td>{{contract.file}}</td>
+        <td><a href="{% url 'timologio' pk=contract.pk %}"   class="btn btn-warning btn-sm mr-1" title="Αποδοχή προσφοράς">
+        <span><i class="fa fa-euro-sign " aria-hidden="true"></i></span></a>
+        <a href="{% url 'symbasi_update' pk=contract.pk%}" class="btn btn-info btn-sm mr-1" title="Επεξεργασία">
+        <span><i class="fa fa-edit" aria-hidden="true"></i></span></a>
+        <a class="btn btn-danger btn-sm" onclick="return confirm('Είστε σίγουρος/η για την διαγραφή; {{prosfora.pelatis}} - {{prosfora.app}}');" href="{% url 'delete_contract' pk=contract.pk %}" title="Διαγραφή">
+        <span><i class="fa fa-trash" aria-hidden="true"></i></span> </a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+$(document).ready( function () {
+    $('#symbasi-table').DataTable({
+      "pagingType": "full_numbers",
+      "language": {
+            "lengthMenu": "Εμφάνιση _MENU_ εγγραφών ανά σελίδα",
+            "zeroRecords": "Nothing found - sorry",
+            "info": "Σελίδα _PAGE_ από _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Αναζήτηση:",
+            "paginate": {
+            "previous": " < ",
+            "next": " > ",
+            "first": " << ",
+            "last": " >> "
+          }
+        },
+        dom: 'Bfrtip',
+             buttons: [{
+               extend: 'excelHtml5',
+               autoFilter: true,
+               sheetName: 'Εργασίες',
+               className: 'btn-export-xlx'
+             },
+             {
+               extend: 'pdfHtml5',
+               download: 'open',
+               className: 'btn-export-pdf'
+             },
+             {
+               extend: 'csv',
+               className: 'btn-export-csv',
+             }
+             
+            
+        ],
+    });
+} );
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded',init);
+
+  function init(){
+    var dhmos_input = document.getElementById('id_pelatis')
+    
+    dhmos_input.addEventListener('change', search_epafi)
+  }
+
+  function search_epafi(){
+    
+    var value = this[this.selectedIndex].value;
+    
+    $.ajax({
+      url:'/api/prosfora/dhmoi-epafes/'+value,
+      success:function(data){
+        
+        populateEpafes(data)
+      },
+      error:function(error){
+        console.log(error)
+      }
+      })
+  }
+  // <option value="134">Αγγελοπούλου Γεωργία</option>
+  function populateEpafes(epafes) {
+
+    var allOptions = '<option value="">---------</option>';
+    epafes.forEach( function(epafi) {
+      var fname = epafi.fields.firstname;
+      var lname = epafi.fields.lastname;
+      var fullName = lname + ' ' + fname;
+
+      allOptions += '<option value="'+epafi.pk+'">'+fullName+'</option>';
+    })
+
+    $('#id_contact').html(allOptions)
+  }
+</script>
+<script>
+function addRecord() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+<script>
+function searchRecord() {
+  var x = document.getElementById("myDIV2");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
+{% endblock %}
+
+   

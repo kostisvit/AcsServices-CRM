@@ -25,7 +25,7 @@ SECRET_KEY = 'y318ewbu1(4cc2ndo9o5+$aays*@+0$ob6dd#231-3w^^m&!@4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['acsmaz.ddns.net','127.0.0.1']
+ALLOWED_HOSTS = ['acsmaz.ddns.net','127.0.0.1','*']
 
 
 # Application definition
@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tasks',
     'admin_honeypot',
+    'timologisi',
+    'bootstrap_datepicker_plus',
+    'report_builder',
 
 
 
@@ -78,6 +81,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
+                'django.template.context_processors.media',
                 'tasks.context_processor.task_count',
                 'dhmoi.context_processor.ergasies_count',
                 'dhmoi.context_processor.training_count',
@@ -93,6 +98,20 @@ WSGI_APPLICATION = 'maziotis.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
+#Develop
+""" DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'acsservices',
+        'USER': 'admin',
+        'PASSWORD': 'secret',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
+} """
+
+#Production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -100,7 +119,7 @@ DATABASES = {
         'USER': 'kostasvit',
         'PASSWORD': '@c$2019',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -134,9 +153,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-GB'
 
-TIME_ZONE = 'EUrope/Athens'
+TIME_ZONE = 'Europe/Athens'
 
 USE_I18N = True
 
@@ -144,11 +163,16 @@ USE_L10N = True
 
 USE_TZ = True
 
+#USE_THOUSAND_SEPARATOR = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_ROOT = (os.path.join(BASE_DIR, "static"),)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -164,3 +188,10 @@ LOGOUT_REDIRECT_URL = "/accounts/login/"
 #        'LOCATION': 'unique-snowflake',
 #    }
 # }
+
+
+
+# Use BOOTSTRAP3 if you are using Bootstrap 3
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}

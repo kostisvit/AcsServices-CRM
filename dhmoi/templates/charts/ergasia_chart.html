@@ -1,0 +1,157 @@
+{% extends 'base_charts.html' %}
+
+{% block title %}Σύνολο Άδειας έτους {{request.GET.q}}{% endblock title %}
+
+
+{% block content %}
+
+<style>
+.input_field {
+    border-radius: 8px;
+    border: 3px solid #BADA55;
+    outline: none;
+    height: 35px;
+    text-align:center;
+    
+}
+.box {
+   margin: 0 auto;
+   text-align: center;
+}
+</style>
+
+
+<div class="box">
+<form action="{% url 'ergasia_chart' %}" method="get"><br/>
+  <input name="q" type="text" placeholder=" Έτος..." class="input_field" autocomplete="off">
+</form>
+</div>
+<canvas id="ErgasiaChart" width="1800" height="900" role="img"></canvas>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        var ctx = document.getElementById('ErgasiaChart');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [{% for item in qs %}'{{item.dhmos__name}}',{% endfor %}],
+                datasets: [{
+                    label: '# Σύνολικός χρόνος εργασιών ανα Φορέα {{request.GET.q}}',
+                    data: [{% for item in qs %}{{item.total_time}},{% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(145, 100, 33, 0.2)',
+                        'rgba(233, 148, 200, 0.2)',
+
+                        'rgba(278, 106, 210, 0.2)',
+                        'rgba(132, 166, 255, 0.2)',
+                        'rgba(144, 111, 200, 0.2)',
+                        'rgba(144, 157, 20, 0.2)',
+                        'rgba(222, 190, 232, 0.2)',
+                        'rgba(112, 30, 234, 0.2)',
+                        'rgba(198, 169, 86, 0.2)',
+                        'rgba(156, 256, 45, 0.2)',
+                        'rgba(256, 50, 123, 0.2)',
+                        'rgba(87, 111, 123, 0.2)',
+                        'rgba(167, 222, 87, 0.2)',
+                        'rgba(177, 56, 20, 0.2)',
+                        'rgba(288, 66, 177, 0.2)',
+                        'rgba(245, 100, 55, 0.2)',
+                        'rgba(145, 44, 20, 0.2)',
+                        'rgba(155, 100, 234, 0.2)',
+                        'rgba(99, 178, 190, 0.2)',
+                        'rgba(222, 99, 156, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(145, 100, 33, 1)',
+                        'rgba(233, 148, 200, 1)',
+                        'rgba(278, 106, 210, 1)',
+                        'rgba(132, 166, 255, 1)',
+                        'rgba(144, 111, 200, 1)',
+                        'rgba(144, 157, 20, 1)',
+                        'rgba(222, 190, 232, 1)',
+                        'rgba(112, 30, 234, 1)',
+                        'rgba(198, 169, 86, 1)',
+                        'rgba(156, 256, 45, 1)',
+                        'rgba(256, 50, 123, 1)',
+                        'rgba(87, 111, 123, 1)',
+                        'rgba(167, 222, 87, 1)',
+                        'rgba(177, 56, 20, 1)',
+                        'rgba(288, 66, 177, 1)',
+                        'rgba(245, 100, 55, 1)',
+                        'rgba(145, 44, 20, 1)',
+                        'rgba(155, 100, 234, 1)',
+                        'rgba(99, 178, 190, 1)',
+                        'rgba(222, 99, 156, 1)',
+
+                    ],
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        },
+                        scaleLabel: {
+                        display: true,
+                        labelString: "Ώρες εργασιών",
+                        fontFamily: "Montserrat",
+                        fontColor: "black",
+                        fontSize: 14,
+                    },
+                    }],
+                    xAxes: [{
+                            barPercentage: 0.4
+                    }]
+                },
+                layout: {
+                    padding:{
+                        
+                        left:50,
+                        right:50,
+                        top:50,
+                        bottom:0
+                    }
+                    
+                },
+                title: {
+                display: true,
+                text: "Σύνολικός χρόνος εργασιών ανα Φορέα {{request.GET.q}}",
+                position: "top",
+                fontSize: 25,
+                padding: 15,
+                linegeight: 5,
+                },
+                animation: {
+                    duration: 5000,
+                    easing: "easeInOutBounce",
+                }
+                
+            }
+            
+            
+        });
+            })
+
+</script>
+{% endblock scripts %}
+
+
