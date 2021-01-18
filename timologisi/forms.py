@@ -39,7 +39,7 @@ class ContractForm(ModelForm):
     pelatis = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
     contact = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
     contract_desc = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:500px; height: 80px;'}))
-    file = forms.FileField(label='Αρχείο', required=False)
+    file = forms.FileField(label='Μεταφόρτωση', required=False)
     
     class Meta:
         model = Contract
