@@ -45,7 +45,7 @@
       <tr>
         <th colspan="10" class="tbhead" style="color: #333399;">Εργασίες</th>
       </tr>
-      <tr style="color: #333399;">
+      <tr style="color: #333399; text-align:center; font-family: times">
       <th class="tableHead">Κατ.<i class="fas fa-sort fa-fw"></i></th>
       <th class="tableHead">Φορέας<i class="fas fa-sort fa-fw"></i></th>
       <th class="tableHead">Εφαρμογή<i class="fas fa-sort fa-fw"></i></th>
@@ -60,7 +60,7 @@
   <tbody>
     {% for ergasies in filter.qs %}
 
-    <tr>
+    <tr style="text-align:center; font-family: times">
       <td>{{ergasies.importdate|date:"d/m/Y"|default_if_none:""}}</td>
       <td>{{ergasies.dhmos|default_if_none:""}}</td>
       <td>{{ergasies.get_app_display|default_if_none:""}}</td>

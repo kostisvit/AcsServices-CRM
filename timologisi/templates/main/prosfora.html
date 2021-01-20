@@ -93,13 +93,15 @@
 <table id="prosfora-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="9" class="tbhead" style="color: #333399;">Προσφορές</th>
+        <th colspan="11" class="tbhead" style="color: #333399;">Προσφορές</th>
         </tr>
-        <tr style="color: #333399; font-size:14px; text-align:center;">
-        <th>Πελάτης</th>
+        <tr style="color: #333399; font-size:14px; text-align:center; font-family: times">
+        <th>Φορέας</th>
         <th>Εφαρμογή</th>
         <th>Επαφή</th>
         <th>Ποσό</th>
+        <th>ΦΠΑ 24%</th>
+        <th>Τελικό</th>
         <th>Αποστ.</th>
         <th>Αρχείο</th>
         <th>Περιγραφή</th>
@@ -109,11 +111,13 @@
     </thead>
     <tbody>
     {% for prosfora in filter.qs %}
-    <tr style="text-align:center;">
+    <tr style="text-align:center; font-family: times">
         <td>{{prosfora.pelatis}}</td>
         <td>{{prosfora.app}}</td>
         <td>{{prosfora.contact}}</td>
         <td><em>€</em>&nbsp{{prosfora.poso|localize}}</td>
+        <td><em>€</em>&nbsp{{prosfora.sub_tax_poso|localize}}</td>
+        <td><em>€</em>&nbsp{{prosfora.tax_poso|localize}}</td>
         <td>{{prosfora.date_send|date:"d/m/Y"}}</td>
         <td>{{prosfora.filename}}</td>
         <td>{{prosfora.prosfora_des|truncatewords:5}}</td>

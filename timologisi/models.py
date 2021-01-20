@@ -10,13 +10,13 @@ def current_year():
 
 class Prosfora(models.Model):
     def user_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
         return 'pel_prosf__{0}/{1}'.format(instance.pelatis, filename)
 
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)
     app = models.CharField(max_length=150, null=True, blank=True)
     contact = models.ForeignKey('dhmoi.Employee', on_delete=models.CASCADE, null=False, blank=False)
     poso = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False)
+    tax_poso = models.DecimalField(max_digits=8, decimal_places=2, null=False, blank=False, default='0.00')
     date_send = models.DateField(verbose_name=' Ημ.Αποστολής', null=False, blank=False)
     document = models.FileField(upload_to=user_directory_path, default='-', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
@@ -28,6 +28,17 @@ class Prosfora(models.Model):
         verbose_name_plural = 'Προσφορά'
         ordering = ['id']
     
+    def tax_calculate(instance): #υπολογισμός ΦΠΑ
+        result = float(instance.poso) * 1.24
+        return result
+
+    def save(self,*args, **kwargs):
+        self.tax_poso = self.tax_calculate()
+        super(Prosfora,self).save(*args,**kwargs)
+    
+    def sub_tax_poso(self): #Αφαίρεση ΦΠΑ απο το τελικό ποσό
+        return self.tax_poso - self.poso
+
     def filename(self):
         return os.path.basename(self.document.name) #return only the file not the full path
     
