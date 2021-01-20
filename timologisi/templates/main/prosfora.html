@@ -93,9 +93,9 @@
 <table id="prosfora-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="11" class="tbhead" style="color: #333399;">Προσφορές</th>
+        <th colspan="11" class="tbhead">Προσφορές</th>
         </tr>
-        <tr style="color: #333399; font-size:14px; text-align:center; font-family: times">
+        <tr class="tbhead">
         <th>Φορέας</th>
         <th>Εφαρμογή</th>
         <th>Επαφή</th>
@@ -111,7 +111,7 @@
     </thead>
     <tbody>
     {% for prosfora in filter.qs %}
-    <tr style="text-align:center; font-family: times">
+    <tr class="tbrows">
         <td>{{prosfora.pelatis}}</td>
         <td>{{prosfora.app}}</td>
         <td>{{prosfora.contact}}</td>

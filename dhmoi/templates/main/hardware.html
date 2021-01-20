@@ -33,9 +33,9 @@
 <table id="hardware-table" class="display compact" style="width:100%">
 <thead>
   <tr>
-    <th colspan="10" class="tbhead" style="color: #333399;">Αιτήματα</th>
+    <th colspan="10" class="tbhead">Αιτήματα</th>
   </tr>
-   <tr style="color: #333399;">
+   <tr class="tbhead">
   	<th class="tableHead">Υπάλληλος<i class="fas fa-sort fa-fw"></i></th>
 		<th class="tableHead">Η/Υ</th>
 		<th class="tableHead">CPU</th>
@@ -50,7 +50,7 @@
 </thead>
 <tbody>
   {% for hardware in filter.qs %}
-  <tr>
+  <tr class="tbrows">
     <td><b>{{hardware.employee.get_full_name}}</b></td>
 		<td>{{hardware.pcbrand}}</td>
 		<td>{{hardware.cpu}}</td>

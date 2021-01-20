@@ -37,9 +37,9 @@
 <table class="table table-sm" id="training-table">
 <thead>
   <tr>
-    <th colspan="10" class="tbhead" style="color: #333399;">Εκπαιδεύσεις</th>
+    <th colspan="10" class="tbhead">Εκπαιδεύσεις</th>
   </tr>
-  <tr style="color: #333399;">
+  <tr class="tbhead">
     <th claas="tableHead">Φορέας<i class="fas fa-sort fa-fw"></i></th>
 		<th claas="tableHead">Καταχ.<i class="fas fa-sort fa-fw"></i></th>
 		<th claas="tableHead">Εργασία<i class="fas fa-sort fa-fw"></i></th>
@@ -52,7 +52,7 @@
 </thead>
 <tbody>
   {% for training in filter.qs %}
-  <tr>
+  <tr class="tbrows">
     <td>{{training.foreas}}</td>
     <td>{{training.importdate|date:"d/m/Y"}}</td>
     <td>{{training.training_type}}</td>

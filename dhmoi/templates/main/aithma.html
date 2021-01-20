@@ -43,9 +43,9 @@
 <table class="table table-sm" id="aithma-table">
 <thead>
   <tr>
-    <th colspan="10" class="tbhead" style="color: #333399;">Αιτήματα</th>
+    <th colspan="10" class="tbhead">Αιτήματα</th>
   </tr>
-  <tr style="color: #333399;">
+  <tr class="tbhead">
   	<th>Ημ. Καταχ.<i class="fas fa-sort fa-fw"></i></th>
 		<th>Φορέας<i class="fas fa-sort fa-fw"></i></th>
 		<th>Περιγραφή<i class="fas fa-sort fa-fw"></i></th>
@@ -58,7 +58,7 @@
 </thead>
 <tbody>
   {% for aithmata in filter.qs %}
-  <tr>
+  <tr class="tbrows">
     <td>{{aithmata.importdate|date:"d/m/Y"}}</td>
 		<td>{{aithmata.dhmos}}</td>
 		<td title="{{aithmata.info}}">{{aithmata.info|truncatewords:5}}</td>

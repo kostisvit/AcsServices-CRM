@@ -238,3 +238,16 @@ a.article:hover {
     font-size: small;
     font-weight: bold;
 }
+
+
+.tbhead {
+    font-family: times;
+    font-size: 16px;
+    color: #333399;
+}
+
+.tbrows {
+    font-family: times;
+    font-size: 16px;
+    text-align: center;
+}
