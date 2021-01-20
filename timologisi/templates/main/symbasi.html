@@ -97,9 +97,9 @@
  <table id="symbasi-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="8" class="tbhead" style="color: #333399;">Προσφορές</th>
+        <th colspan="8" class="tbhead">Προσφορές</th>
         </tr>
-        <tr style="color: #333399; font-size:14px; text-align:center;">
+        <tr class="tbhead">
         <th>Πελάτης</th>
         <th>Επαφή</th>
         <th>Κωδ.Σύμβ.</th>
@@ -112,7 +112,7 @@
     </thead>
     <tbody>
  {% for contract in filter.qs%}
-    <tr style="text-align:center;">
+    <tr class="tbrows">
         <td>{{contract.pelatis}}</td>
         <td>{{contract.contact}}</td>
         <td>{{contract.slug|upper}}</td>

@@ -34,9 +34,9 @@
 <table id="service-table" class="display compact" style="width:100%">
 <thead>
   <tr>
-    <th colspan="10" class="tbhead" style="color: #333399;">Service</th>
+    <th colspan="10" class="tbhead">Service</th>
   </tr>
-  <tr style="color: #333399;">
+  <tr class="tbhead">
   	<th class="tableHead">Πελάτης<i class="fas fa-sort fa-fw"></i></th>
 		<th class="tableHead">Τηλέφωνο</th>
 		<th class="tableHead">Κινητό</th>
@@ -51,7 +51,7 @@
 </thead>
 <tbody>
   {% for service in filter.qs %}
-	<tr>
+	<tr class="tbrows">
 		<td>{{service.customername}}</td>
 		<td>{{service.phone}}</td>
 		<td>{{service.cellphone}}</td>

@@ -29,9 +29,9 @@
 <table id="epafi-table" class="display compact">
 <thead>
     <tr>
-        <th colspan="8" class="tbhead" style="color: #333399;">Επαφές</th>
+        <th colspan="8"  class="tbhead">Επαφές</th>
     </tr>
-    <tr style="color:#333399;">
+    <tr class="tbhead">
 		<th class="tableHead">Φορέας<i class="fas fa-sort fa-fw"></i></th>
 		<th class="tableHead">Επώνυμο<i class="fas fa-sort fa-fw"></i></th>
 		<th class="tableHead">Όνομα<i class="fas fa-sort fa-fw"></i></th>
@@ -44,7 +44,7 @@
 </thead>
 <tbody>
 {% for employee in filter.qs %}
-	<tr>
+	<tr class="tbrows">
 		<td>{{employee.dhmos}}</td>
 		<td>{{employee.lastname|title}}</td>
 		<td>{{employee.firstname|title}}</td>

@@ -78,7 +78,7 @@
 			<tr>
 				<th colspan="8" class="tbhead">Άδεια</th>
 			</tr>
-	<tr style="color:#333399; text-align: center;">
+	<tr class="tbhead">
 			<th class="tableHead">Υπάλληλος</th>
 			<th class="tableHead">Τύπος Άδειας<i class="fas fa-sort fa-fw"></i></th>
 			<th class="tableHead">Από<i class="fas fa-sort fa-fw"></i></th>
@@ -90,7 +90,7 @@
 	</thead>
 	<tbody>
 		{% for adeia in alladeies %}
-		<tr style="text-align: center;">
+		<tr class="tbrows">
 			<td>{{adeia.employee.get_full_name}}</td>
 			<td>{{adeia.get_adeiatype_display}}</td>
 			<td>{{adeia.startdate|date:"d/m/Y"}}</td>

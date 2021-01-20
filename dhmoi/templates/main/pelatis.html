@@ -13,9 +13,9 @@
 <table id="pelatis-table" class="display compact" style="width:100%">
 <thead>
   <tr>
-    <th colspan="10" class="tbhead" style="color: #333399;">Πελάτες</th>
+    <th colspan="10" class="tbhead">Πελάτες</th>
   </tr> 
-  <tr style="color: #333399; font-size:14px;">
+  <tr class="tbhead">
     <th class="tableHead">Φορέας<i class="fas fa-sort fa-fw"></i></th>
     <th class="tableHead">Διέυθυνση<i class="fas fa-sort fa-fw"></i></th>
     <th class="tableHead">Πόλη<i class="fas fa-sort fa-fw"></i></th>
@@ -28,7 +28,7 @@
 </thead>
 <tbody>
 {% for dhmos in filter.qs %}
-<tr>
+<tr class="tbrows">
     <td >{{dhmos.name|title|default_if_none:""}}</td>
     <td >{{dhmos.address|title|default_if_none:""}}</td>
     <td >{{dhmos.city|title|default_if_none:""}}</td>

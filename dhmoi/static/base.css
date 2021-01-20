@@ -9,7 +9,7 @@ body {
 }
 
 p {
-    font-family: 'Poppins', sans-serif;
+    font-family: times;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
@@ -31,6 +31,7 @@ a:focus {
     border-radius: 0;
     margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: times;
 }
 
 .navbar-btn {
@@ -57,6 +58,7 @@ a:focus {
     background: #333399;
     color: #fff; /* menu text color*/
     transition: all 0.3s;
+    font-family: times;
 }
 
 #sidebar.active {
@@ -237,4 +239,17 @@ a.article:hover {
     height: 40px;
     font-size: small;
     font-weight: bold;
+}
+
+
+.tbhead {
+    font-family: times;
+    font-size: 16px;
+    color: #333399;
+}
+
+.tbrows {
+    font-family: times;
+    font-size: 16px;
+    text-align: center;
 }

@@ -81,7 +81,7 @@ class Service(models.Model):
 
 class Ergasies(models.Model):
     dhmos = models.ForeignKey('Dhmos', on_delete=models.CASCADE, verbose_name='Πελάτης', default='-')
-    importdate = models.DateField(default=datetime.date.today, verbose_name='Ημ. Κατ.')
+    importdate = models.DateField(default=datetime.date.today, verbose_name='Ημ. Κατ.',db_index=True)
     app = models.CharField(max_length=100, choices=app_choice,verbose_name='Εφαρμογή', blank=True)
     jobtype = models.CharField(max_length=100, choices=job_choice,verbose_name='Τύπος Εργασίας', default='TeamViewer')
     info = models.TextField(max_length=1000, verbose_name='Περιγραφή')

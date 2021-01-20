@@ -32,9 +32,9 @@
 <table class="display compact" style="width:100%" id="polisi-table">
 <thead>
   <tr>
-    <th colspan="10" class="tbhead" style="color: #333399;">Πωλήσεις</th>
+    <th colspan="10" class="tbhead">Πωλήσεις</th>
   </tr>
-  <tr style="color: #333399;">
+  <tr class="tbhead">
 		<th class="tableHead">Φορέας<i class="fas fa-sort fa-fw"></i></th>
 		<th class="tableHead">Είδος<i class="fas fa-sort fa-fw"></i></th>
 		<th class="tableHead">Ποσότητα<i class="fas fa-sort fa-fw"></i></th>
@@ -47,7 +47,7 @@
 </thead>
 <tbody>
   {% for polisi in filter.qs %}
-	<tr>
+	<tr class="tbrows">
 		<td>{{polisi.dhmos}}</td>
 		<td>{{polisi.eidos}}</td>
 		<td>{{polisi.posothta}}</td>

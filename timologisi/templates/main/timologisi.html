@@ -111,9 +111,9 @@
  <table id="symbasi-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="10" class="tbhead" style="color: #333399;">Προσφορές</th>
+        <th colspan="10" class="tbhead">Προσφορές</th>
         </tr>
-        <tr style="color: #333399; font-size:14px; text-align:center;">
+        <tr class="tbhead">
         <th>Φορέας</th>
         <th>Κωδ.Σύμβ.</th>
         <th>Ημ.Τιμολόγ.</th>
@@ -128,7 +128,7 @@
     </thead>
     <tbody>
  {% for invoice in filter.qs%}
-    <tr style="text-align:center;">
+    <tr class="tbrows">
         <td>{{invoice.pelatis}}</td>
         <td>{{invoice.slug|upper}}</td>
         <td>{{invoice.invoice_date|date:"d/m/Y"}}</td>
