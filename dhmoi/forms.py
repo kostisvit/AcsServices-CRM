@@ -2,6 +2,7 @@ from django import forms
 from .models import Dhmos, Employee, Ergasies, Adeia, Aithmata, Polisi, Service, Training, Hardware
 from django.forms import ModelChoiceField
 from django.contrib.auth.models import User
+from bootstrap_datepicker_plus import DatePickerInput
 
 
 class DateInput(forms.DateInput):
@@ -46,15 +47,14 @@ class ErgasiaForm(forms.ModelForm):
     dhmos = ModelChoiceField(queryset=Dhmos.objects.order_by('name'), label='Πελάτης', required=True)
     name = NameChoiceField(queryset=Employee.objects.order_by('lastname'), label='Υπάλληλος Επικοιν.', required=False)
     employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),label='Υπάλληλος ACS')
+    importdate = forms.DateField(required=True,label='Ημ. Καταχ.', widget=DatePickerInput(options={"format": "DD/MM/YYYY"}))
 
     class Meta:
         model = Ergasies
         fields = '__all__'
         fields = ['importdate', 'app', 'dhmos', 'name', 'jobtype',
                   'info', 'text', 'employee', 'time', 'ticketid']
-        widgets = {
-            'importdate': DateInput(),
-        }
+        
 
     def __init__(self, *args, **kwargs):
         super(ErgasiaForm, self).__init__(*args, **kwargs)
@@ -115,15 +115,13 @@ class PolisiForm(forms.ModelForm):
 
 class ServiceForm(forms.ModelForm):
     employee = UserModelChoiceField(queryset=User.objects.order_by('last_name').filter(is_active=True),label='Υπάλληλος ACS')
-    exportdate = forms.DateField(required=False,label='Ημ. Παράδοσης')
     cost = forms.DecimalField(required=False,label='Κόστος')
+    importdate = forms.DateField(required=True,label='Ημ. Εισαγ.', widget=DatePickerInput(options={"format": "DD/MM/YYYY"}))
+    exportdate = forms.DateField(required=False,label='Ημ. Εξαγ.', widget=DatePickerInput(options={"format": "DD/MM/YYYY"}))
     class Meta:
         model = Service
         fields = '__all__'
-        widgets = {
-            'importdate': DateInput(),
-            'exportdate': DateInput(),
-        }
+       
 
 
 
