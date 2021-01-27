@@ -20,6 +20,7 @@ class Prosfora(models.Model):
     date_send = models.DateField(verbose_name=' Ημ.Αποστολής', null=False, blank=False)
     document = models.FileField(upload_to=user_directory_path, default='-', blank=True, null=True)
     is_approved = models.BooleanField(default=False)
+    is_ongoing = models.BooleanField(default=False)
     prosfora_des = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -53,7 +54,8 @@ class Contract(models.Model):
 
     contract_choice = (
     ('HARD00','HARD00'),
-    ('SOFT00','SOFT00')
+    ('SOFT00','SOFT00'),
+    ('SERV00','SERV00')
     )
 
     pelatis = models.ForeignKey('dhmoi.Dhmos', db_index=True, on_delete=models.CASCADE, null=False, blank=False)

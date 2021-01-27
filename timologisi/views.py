@@ -8,6 +8,7 @@ from django.core import serializers
 from django.http import JsonResponse
 import datetime
 from .filters import *
+from django.db.models import Q
 
 def prosfora(request):
     
@@ -20,7 +21,7 @@ def prosfora(request):
             form.save()
             return redirect('prosfora')
     
-    allprosfores = Prosfora.objects.filter(date_send__year=today.year)
+    allprosfores = Prosfora.objects.filter(Q(date_send__year=today.year)|Q(is_ongoing=True))
     prosfora_filter = ProsforaFilter(request.GET, queryset=allprosfores)
     context = {'prosforaform': form , 'allprosfores': allprosfores, 'filter': prosfora_filter}
     return render(request,'main/prosfora.html', context)

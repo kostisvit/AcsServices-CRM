@@ -26,7 +26,7 @@
       <div class="col-5">
         {{prosforaform.pelatis|as_crispy_field}}
       </div>
-      <div class="col-md-4">
+      <div class="col-md-2">
         {{prosforaform.contact|as_crispy_field}}
       </div>
       <div class="col-4">
@@ -41,11 +41,14 @@
         </div>
          <div class="col-2">
         {{prosforaform.document|as_crispy_field}}
-       
-        </div>
+       </div>
+       <div class="col-2" style="margin-top: 30px;">
+        {{prosforaform.is_ongoing|as_crispy_field}}
+       </div>
         <div class="form-row">
       <div class="col-2">
         {{prosforaform.prosfora_des|as_crispy_field}}
+        
       </div>
       </div>
     </div>
@@ -93,7 +96,7 @@
 <table id="prosfora-table" class="display compact" style="width:100%">
     <thead>
         <tr>
-        <th colspan="11" class="tbhead">Προσφορές</th>
+        <th colspan="12" class="tbhead">Προσφορές</th>
         </tr>
         <tr class="tbhead">
         <th>Φορέας</th>
@@ -104,6 +107,7 @@
         <th>Τελικό</th>
         <th>Αποστ.</th>
         <th>Αρχείο</th>
+        <th>Συνεχιζόμενο</th>
         <th>Περιγραφή</th>
         <th>Αποδοχή</th>
         <th>#</th>
@@ -120,6 +124,7 @@
         <td><em>€</em>&nbsp{{prosfora.tax_poso|localize}}</td>
         <td>{{prosfora.date_send|date:"d/m/Y"}}</td>
         <td>{{prosfora.filename}}</td>
+        <td>{{prosfora.is_ongoing|yesno}}</td>
         <td>{{prosfora.prosfora_des|truncatewords:5}}</td>
         <td>{{prosfora.is_approved|yesno}}</td>
         <td>{% if prosfora.is_approved == False %}

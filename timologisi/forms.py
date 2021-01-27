@@ -23,10 +23,11 @@ class ProsforaForm(ModelForm):
     poso = forms.DecimalField(required=False,label='Ποσό')
     prosfora_des = forms.CharField(required=False, label='Περιγραφή',widget=forms.Textarea(attrs={'style': 'width:800px; height:150px;'}))
     document = forms.FileField(label='Μεταφόρτωση', required=False)
+    is_ongoing = forms.BooleanField(label='Συνεχιζόμενο', required=False)
     
     class Meta:
         model = Prosfora
-        fields = ['pelatis', 'app','contact','poso','date_send','document','prosfora_des']
+        fields = ['pelatis', 'app','contact','poso','date_send','document','prosfora_des','is_ongoing']
         widgets = {
             'date_send': DatePickerInput(format='%d/%m/%Y')
             
